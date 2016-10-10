@@ -66,4 +66,13 @@ export class ScoreViewPage {
     this.nav.push(InformationPage, {});
   }
 
+  getTabColor(type) {
+    if (type === 'single') {
+      return this.holeService.getResult().multiplayerTab === true ? 'light' : 'primary';
+    } else {
+      return this.holeService.getResult().multiplayerTab === true ? 'primary' : 'light';
+    }
+
+  }
+
 }

@@ -82,6 +82,7 @@ export class AchievementsPage implements OnInit {
 
   activeTab(tab) {
     this.tab = tab;
+    console.log('tab', this.tab);
   }
 
   getLevel() {
@@ -90,6 +91,10 @@ export class AchievementsPage implements OnInit {
 
   getColor(type) {
     return this.tab === type ? 'primary' : 'light';
+  }
+
+  onSlideChanged() {
+    console.log('slide changed', this.slider);
   }
 
 

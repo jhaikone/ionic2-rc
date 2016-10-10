@@ -7,58 +7,75 @@
 
 <ion-content class="margin-top relative">
 
-  <section *ngIf="tab === 0">
+  <!-- <section *ngIf="tab === 0"> -->
 
-  <ion-card>
-    <ion-row center>
-      <ion-col width-33><ion-icon class="{{getLevel().icon}}" role="img"></ion-icon></ion-col>
-      <ion-col width-50>
-        <ion-row><h1>Level {{experience.level}}</h1>
-        </ion-row>
+  <ion-slides (ionDidChange)="onSlideChanged()">
+    <ion-slide>
+      <ion-card>
         <ion-row center>
-          <ion-col width-80>
-            <div class="progress-bar">
-              <div class="animate progress" [ngStyle]="{'width': width+'%'}"></div>
-            </div>
-          </ion-col>
-          <ion-col width-20>
-            <span color="primary">{{experience.level+1}}</span>
+          <ion-col width-33><ion-icon class="{{getLevel().icon}}" role="img"></ion-icon></ion-col>
+          <ion-col width-50>
+            <ion-row><h1>Level {{experience.level}}</h1>
+            </ion-row>
+            <ion-row center>
+              <ion-col width-80>
+                <div class="progress-bar">
+                  <div class="animate progress" [ngStyle]="{'width': width+'%'}"></div>
+                </div>
+              </ion-col>
+              <ion-col width-20>
+                <span color="primary">{{experience.level+1}}</span>
+              </ion-col>
+            </ion-row>
           </ion-col>
         </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+      </ion-card>
 
 
-  <ion-row class="user-experience margin-vertical">
-    <span class="info text-inset">Kyntäjä</span>
-  </ion-row>
-  <div class="green-background"></div>
+      <ion-row class="user-experience margin-vertical">
+        <span class="info text-inset">Kyntäjä</span>
+      </ion-row>
+      <div class="green-background"></div>
+    </ion-slide>
 
-</section>
+    <ion-slide>
+      <ion-card *ngFor="let ribbon of trophyService.getRibbons()">
+        <ion-row center [ngClass]="{'disabled': !isRibbonDiscovered(ribbon)}">
+          <ion-col width-30><ion-icon class="{{ribbon.icon}}" role="img"></ion-icon></ion-col>
+          <ion-col width-50> {{ribbon.label}}</ion-col>
+          <ion-col width-20 class="text-right"><span class="primary ribbon-count" [ngClass]="{'big':isBig(ribbon), 'avarage': (!isBig(ribbon))}">{{getRibbonCount(ribbon)}}</span></ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card *ngFor="let medal of trophyService.getMedals()">
+        <ion-row center [ngClass]="{'disabled': !isMedalDiscovered(medal)}">
+          <ion-col width-30><ion-icon class="{{medal.icon}}" role="img"></ion-icon></ion-col>
+          <ion-col width-50> {{medal.label}}</ion-col>
+          <ion-col width-20 class="text-right"><ion-icon class="font-big primary" name="{{hasMedal(medal)}}"></ion-icon></ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+
+  </ion-slides>
 
 
-  <section *ngIf="tab === 1">
 
-  <ion-card *ngFor="let ribbon of trophyService.getRibbons()">
-    <ion-row center [ngClass]="{'disabled': !isRibbonDiscovered(ribbon)}">
-      <ion-col width-30><ion-icon class="{{ribbon.icon}}" role="img"></ion-icon></ion-col>
-      <ion-col width-50> {{ribbon.label}}</ion-col>
-      <ion-col width-20 class="text-right"><span class="primary ribbon-count" [ngClass]="{'big':isBig(ribbon), 'avarage': (!isBig(ribbon))}">{{getRibbonCount(ribbon)}}</span></ion-col>
-    </ion-row>
-  </ion-card>
-</section>
 
-<section *ngIf="tab === 2">
+  <!-- </section> -->
 
-<ion-card *ngFor="let medal of trophyService.getMedals()">
-  <ion-row center [ngClass]="{'disabled': !isMedalDiscovered(medal)}">
-    <ion-col width-30><ion-icon class="{{medal.icon}}" role="img"></ion-icon></ion-col>
-    <ion-col width-50> {{medal.label}}</ion-col>
-    <ion-col width-20 class="text-right"><ion-icon class="font-big primary" name="{{hasMedal(medal)}}"></ion-icon></ion-col>
-  </ion-row>
-</ion-card>
-</section>
+  <!-- <section *ngIf="tab === 1"> -->
+
+
+
+  <!-- </section> -->
+
+  <!-- <section *ngIf="tab === 2"> -->
+
+
+
+  <!-- </section> -->
 
 </ion-content>
 
@@ -73,8 +90,8 @@
       <ion-icon color="{{getColor(tabs.Medal)}}" name="medal"> </ion-icon>
     </ion-col>
 
-    <ion-col width-33 (click)="activeTab(tabs.Person)">
-      <ion-icon color="{{getColor(tabs.Person)}}" name="person"> </ion-icon>
+    <ion-col width-33 (click)="activeTab(tabs.Trophy)">
+      <ion-icon color="{{getColor(tabs.Trophy)}}" name="person"> </ion-icon>
     </ion-col>
 
   </ion-row>

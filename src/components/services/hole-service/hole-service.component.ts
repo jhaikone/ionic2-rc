@@ -320,9 +320,9 @@ export class HoleService {
         singlePlayer: {
           strokes: random,
           putts: 2,
-          sands: 0
-          penalties: 0
-          drive: 1
+          sands: 0,
+          penalties: 0,
+          drive: 1,
           fairway: true,
           gir: false,
           sandSave: false,
