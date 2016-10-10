@@ -1,0 +1,28 @@
+.stroke-input {
+  .content {
+    text-align: left;
+    display: flex;
+    align-items: center;
+
+    .small-button {
+      width: 52px;
+      height: 52px;
+    }
+
+    .primary {
+      min-height: 57px;
+      color: color($colors, primary);
+      font-size: color($fonts, big);
+    }
+
+    .secondary {
+      font-size: color($fonts, avarage);
+      padding-right: 10px;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+  }
+
+}

@@ -1,0 +1,115 @@
+.margin-top {
+  margin-top: 16px;
+}
+
+.margin-bottom {
+  margin-top: 16px;
+}
+
+.margin-vertical {
+    margin: 16px 0;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.no-background {
+  background: none !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid color($colors, extra-light);
+}
+.border-top {
+  border-top: 1px solid color($colors, extra-light);;
+}
+.border-left {
+  border-left: 1px solid color($colors, extra-light);;
+}
+.border-right {
+  border-right: 1px solid color($colors, extra-light);;
+}
+
+.center-vertical {
+  display: flex;
+  align-items: center;
+}
+
+ion-footer, ion-header {
+  font-size: map-get($fonts, avarage);
+  height: map-get($sizes, menu-height);
+  background-color: color($colors, dark);
+
+  button[icon-only] {
+    background: inherit;
+  }
+
+  ion-row {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+ion-footer {
+  box-shadow: 0px 22px 64px 10px #656565;
+}
+ion-header {
+  box-shadow: 0px 10px 40px -10px #656565;
+  color: color($colors, primary);
+  padding-left: 5px;
+  padding-right: 5px;
+
+  ion-icon {
+    // font-size: map-get($fonts, 'big');
+  }
+}
+
+ion-row[light] {
+  ion-col {
+    color: color($colors, light);
+  }
+}
+
+ion-row[primary] {
+  ion-col {
+    color: color($colors, primary);
+  }
+}
+
+.custom-tabs {
+  position: relative;
+  width: 100%;
+  background-color: color($colors, tab);
+}
+
+
+.tab-active {
+  -webkit-transition : margin .3s ease;
+  transition : margin .3s ease;
+  height: 2px;
+  background: color($colors, primary);
+  width: 50% !important;
+  margin-top: -1px;
+
+  &.multiplayer {
+    margin-left: 50%;
+  }
+}

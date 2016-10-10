@@ -1,0 +1,108 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+$text-color:        #000;
+$background-color:  #fff;
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+// $colors: (
+//   primary:    #387ef5,
+//   secondary:  #32db64,
+//   danger:     #f53d3d,
+//   light:      #f4f4f4,
+//   dark:       #222,
+//   favorite:   #69BB7B
+// );
+//
+$colors: (
+  primary:    #94BB69,
+  secondary:  #b3b132,
+  danger:     #f53d3d,
+  light-danger: #ffb5a6,
+  light:      #a7a7a7,
+  dark:       #313131,
+  favorite:   #69BB7B,
+  background: #fff,
+  extra-light: #e2e2e2,
+  tab: #f3f3f3
+);
+
+
+$fonts: (
+  extra-big: 100px,
+  big: 40px,
+  moderate: 30px,
+  avarage: 22px,
+  small: 16px,
+  xsmall: 12px,
+);
+
+$sizes: (
+  menu-height: 55px,
+);
+
+$text-color: #656565 !default;
+$list-text-color: $text-color !default;
+$toolbar-text-color: $text-color !default;
+
+ion-card-title {
+  color: $text-color !important;
+}
+
+//Dark theme
+
+// $colors: (
+// primary: #aac98 ,
+// secondary: #b3b132,
+// danger: #f53d3d,
+// light: #dedede,
+// dark: #333,
+// ) !default;
+//
+// $text-color: #fff !default;
+// $background-color: #333 !default;
+// $list-text-color: $text-color !default;
+// $list-background-color: $background-color !default;
+// $list-border-color: #666 !default;
+// $link-color: map-get($colors, primary) !default;
+// $toolbar-background-color: #111 !default;
+// $toolbar-border-color: #000 !default;
+// $toolbar-text-color: $text-color !default;
+// $toolbar-active-color: $link-color !default;
+// $toolbar-inactive-color: #ffffff !default;
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+$ionicons-font-path: "../assets/fonts";
+@import "ionicons";

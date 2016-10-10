@@ -1,0 +1,6 @@
+.animate {
+  &.progress {
+    -webkit-transition : width .5s ease;
+    transition : width .5s ease;
+  }
+}

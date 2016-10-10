@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-row>
+    <ion-col width-50><span primary>Saavutukset!</span></ion-col>
+    <ion-col width-50 text-right><a (click)="close()"><ion-icon name="close"></ion-icon></a></ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="margin-top relative">
+
+  <section *ngIf="tab === 0">
+
+  <ion-card>
+    <ion-row center>
+      <ion-col width-33><ion-icon class="{{getLevel().icon}}" role="img"></ion-icon></ion-col>
+      <ion-col width-50>
+        <ion-row><h1>Level {{experience.level}}</h1>
+        </ion-row>
+        <ion-row center>
+          <ion-col width-80>
+            <div class="progress-bar">
+              <div class="animate progress" [ngStyle]="{'width': width+'%'}"></div>
+            </div>
+          </ion-col>
+          <ion-col width-20>
+            <span color="primary">{{experience.level+1}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+  <ion-row class="user-experience margin-vertical">
+    <span class="info text-inset">Kyntäjä</span>
+  </ion-row>
+  <div class="green-background"></div>
+
+</section>
+
+
+  <section *ngIf="tab === 1">
+
+  <ion-card *ngFor="let ribbon of trophyService.getRibbons()">
+    <ion-row center [ngClass]="{'disabled': !isRibbonDiscovered(ribbon)}">
+      <ion-col width-30><ion-icon class="{{ribbon.icon}}" role="img"></ion-icon></ion-col>
+      <ion-col width-50> {{ribbon.label}}</ion-col>
+      <ion-col width-20 class="text-right"><span class="primary ribbon-count" [ngClass]="{'big':isBig(ribbon), 'avarage': (!isBig(ribbon))}">{{getRibbonCount(ribbon)}}</span></ion-col>
+    </ion-row>
+  </ion-card>
+</section>
+
+<section *ngIf="tab === 2">
+
+<ion-card *ngFor="let medal of trophyService.getMedals()">
+  <ion-row center [ngClass]="{'disabled': !isMedalDiscovered(medal)}">
+    <ion-col width-30><ion-icon class="{{medal.icon}}" role="img"></ion-icon></ion-col>
+    <ion-col width-50> {{medal.label}}</ion-col>
+    <ion-col width-20 class="text-right"><ion-icon class="font-big primary" name="{{hasMedal(medal)}}"></ion-icon></ion-col>
+  </ion-row>
+</ion-card>
+</section>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row text-center>
+
+    <ion-col width-33 (click)="activeTab(tabs.Xp)">
+      <ion-icon color="{{getColor(tabs.Xp)}}" name="star-half"> </ion-icon>
+    </ion-col>
+
+      <ion-col width-33 (click)="activeTab(tabs.Medal)">
+      <ion-icon color="{{getColor(tabs.Medal)}}" name="medal"> </ion-icon>
+    </ion-col>
+
+    <ion-col width-33 (click)="activeTab(tabs.Person)">
+      <ion-icon color="{{getColor(tabs.Person)}}" name="person"> </ion-icon>
+    </ion-col>
+
+  </ion-row>
+</ion-footer>

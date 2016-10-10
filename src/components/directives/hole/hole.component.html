@@ -1,0 +1,128 @@
+<div>
+
+  <section *ngIf="!holeService.getResult().multiplayerTab">
+
+       <ion-item>
+         <ion-label>Pallo taskuun</ion-label>
+         <ion-toggle color="danger" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
+       </ion-item>
+
+
+       <section *ngIf="!holeService.getResult().singlePlayer.noResult">
+
+         <ion-item>
+           <ion-label>Avaus väylällä</ion-label>
+           <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
+         </ion-item>
+
+
+
+        <ion-row class="content">
+
+          <ion-col width-40>Lyönnit</ion-col>
+          <ion-col end width-10 class="text-right">
+            <span  color="primary">{{holeService.getResult().singlePlayer.strokes}}</span>
+          </ion-col>
+
+          <ion-col width-50>
+            <ion-buttons end>
+              <button ion-button round (click)="decreaseStrokes()"><ion-icon name="remove"></ion-icon></button>
+              <button ion-button round (click)="increaseStrokes()"><ion-icon name="add"></ion-icon></button>
+            </ion-buttons>
+          </ion-col>
+
+        </ion-row>
+
+
+         <ion-row class="content">
+
+           <ion-col width-40>Putit</ion-col>
+           <ion-col end width-10 class="text-right">
+             <span>{{holeService.getResult().singlePlayer.putts}}</span>
+           </ion-col>
+
+           <ion-col width-50>
+             <ion-buttons end>
+               <button ion-button round (click)="decrease('putts'); showInput = true"><ion-icon name="remove"></ion-icon></button>
+               <button ion-button round (click)="increase('putts')"><ion-icon name="add"></ion-icon></button>
+             </ion-buttons>
+           </ion-col>
+
+         </ion-row>
+
+
+
+
+         <ion-row class="content">
+
+           <ion-col width-40>Hiekkalyönnit</ion-col>
+           <ion-col end width-10 class="text-right">
+             <span>{{holeService.getResult().singlePlayer.sands}}</span>
+           </ion-col>
+
+           <ion-col width-50>
+             <ion-buttons end>
+               <button ion-button round (click)="decrease('sands')" type="button"><ion-icon name="remove"></ion-icon></button>
+               <button ion-button round (click)="increase('sands')"><ion-icon name="add"></ion-icon></button>
+             </ion-buttons>
+           </ion-col>
+
+         </ion-row>
+
+
+
+         <ion-row class="content">
+
+           <ion-col width-40>Rangaistukset</ion-col>
+           <ion-col end width-10 class="text-right">
+             <span>{{holeService.getResult().singlePlayer.penalties}}</span>
+           </ion-col>
+
+           <ion-col width-50>
+             <ion-buttons end>
+               <button ion-button round (click)="decrease('penalties')" type="button"><ion-icon name="remove"></ion-icon></button>
+               <button ion-button round (click)="increase('penalties')"><ion-icon name="add"></ion-icon></button>
+             </ion-buttons>
+           </ion-col>
+
+         </ion-row>
+
+
+
+         <ion-item>
+           <ion-label>GiR-osuma</ion-label>
+           <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.gir"></ion-toggle>
+         </ion-item>
+
+         <ion-item>
+           <ion-label>Hiekkapelastus</ion-label>
+           <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.sandSave"></ion-toggle>
+         </ion-item>
+
+       </section>
+
+  </section>
+
+    <section *ngIf="holeService.getResult().multiplayerTab">
+      <ion-grid *ngFor="let multiplayer of holeService.getResult().multiplayers">
+
+       <ion-row class="content">
+
+         <ion-col width-40>{{multiplayer.name}}</ion-col>
+         <ion-col end width-10 color="primary" class="text-right">
+           <span>{{multiplayer.strokes}}</span>
+         </ion-col>
+
+         <ion-col width-50>
+           <ion-buttons end>
+             <button ion-button round (click)="(multiplayer.strokes = multiplayer.strokes > 1 ? multiplayer.strokes-1 : multiplayer.strokes)" type="button"><ion-icon name="remove"></ion-icon></button>
+             <button ion-button round (click)="(multiplayer.strokes = multiplayer.strokes+1)"><ion-icon name="add"></ion-icon></button>
+           </ion-buttons>
+         </ion-col>
+
+       </ion-row>
+
+     </ion-grid>
+   </section>
+
+</div>

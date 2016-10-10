@@ -1,0 +1,85 @@
+page-score-view {
+  .tab-highlight {
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+
+    width: 50%;
+
+    transform:translate3d(0 ,0, 0);
+    &.multiplayer {
+      transform: translate3d(50vw,0, 0);
+    }
+  }
+
+  .margin-top-large {
+    margin-top: 70px;
+  }
+
+  #floating-content-0 {
+    position: absolute;
+    height: 100%;
+    left: -100%;
+    width: 100%;
+  }
+
+  #floating-content-1 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+
+  }
+
+  #floating-content-2 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 100%;
+  }
+
+  .carousel-wrap {
+    position:absolute;
+    background: white;
+    height: auto;
+    text-align: center;
+    width: 100%;
+  }
+
+  .slide-content {
+
+    position: absolute;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top:16px;
+    -webkit-overflow-scrolling: touch;
+
+    &.hide-scroll-y {
+      overflow-y: hidden !important;
+    }
+  }
+
+  .top {
+    align-items: inherit;
+  }
+
+  .item {
+    padding: 10px;
+  }
+
+  .multiplayers {
+    height: 75px;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+
+    ion-col {
+      position: relative;
+    }
+    .player {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 10px;
+    }
+  }
+}

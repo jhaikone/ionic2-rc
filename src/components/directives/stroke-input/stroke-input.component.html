@@ -1,0 +1,19 @@
+<ion-grid>
+  {{index}}
+  <ion-row class="content" [hidden]="index === -1">
+
+    <ion-col width-40>{{label}}</ion-col>
+    <ion-col end width-20 class="text-right" [ngClass]="{'primary': primary, 'secondary': !primary}">
+      <span *ngIf="showInput && total.value > 0">{{total.value}}</span>
+    </ion-col>
+
+    <ion-col width-40>
+      <ion-buttons end>
+        <button ion-button round (click)="decrease(); showInput = true"><ion-icon name="remove"></ion-icon></button>
+        <button ion-button round (click)="increase()"><ion-icon name="add"></ion-icon></button>
+      </ion-buttons>
+    </ion-col>
+
+  </ion-row>
+
+</ion-grid>

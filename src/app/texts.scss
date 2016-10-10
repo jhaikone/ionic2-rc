@@ -1,0 +1,44 @@
+.ribbon-count {
+    min-height: 57px;
+}
+
+.primary {
+  color: color($colors, primary);
+
+  &.big {
+    font-size: color($fonts, big);
+  }
+
+  &.avarage {
+    font-size: color($fonts, avarage);
+  }
+
+  &.small {
+    font-size: color($fonts, small);
+  }
+}
+
+.font-big {
+  font-size: map-get($fonts, 'big');
+}
+
+.font-extra-big {
+  font-size: map-get($fonts, 'extra-big');
+}
+
+.font-avarage {
+  font-size: map-get($fonts, 'avarage');
+}
+
+.font-small {
+  font-size: map-get($fonts, 'small');
+}
+
+.text-inset {
+  background-color: #565656;
+ color: transparent;
+ text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+ -webkit-background-clip: text;
+    -moz-background-clip: text;
+         background-clip: text;
+}

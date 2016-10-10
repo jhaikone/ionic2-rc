@@ -1,0 +1,37 @@
+
+<ion-header>
+  <ion-row>
+    <ion-col width-33><ion-icon class="flag" name="flag"><span>{{getHole()}}</span></ion-icon>  </ion-col>
+    <!-- <ion-col width-33><span>Väylä {{getHole()}}</span> </ion-col> -->
+    <ion-col text-center width-33><span >Par {{getPar()}}</span></ion-col>
+    <ion-col width-33 text-right><button ion-button color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button> </ion-col>
+  </ion-row>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-row text-center class="custom-tabs">
+    <ion-col class="border-right" width-50><button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = false"><ion-icon name="person"></ion-icon></button></ion-col>
+    <ion-col width-50><button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = true" ><ion-icon name="people"></ion-icon></button></ion-col>
+  </ion-row>
+
+  <div [ngClass]="{'multiplayer': holeService.getResult().multiplayerTab}" class="tab-active animate"></div>
+
+  <div class="carousel-wrap" pan>
+
+    <hole holeChange="holeChangeEvent" id="floating-content-0"></hole>
+    <hole holeChange="holeChangeEvent" id="floating-content-1"></hole>
+    <hole id="floating-content-2"></hole>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+      <ion-col col-33><button ion-button icon-only clear *ngIf="holeService.getIndex() > 0" (click)="previous()"> <ion-icon name="arrow-back"> </ion-icon> </button> </ion-col>
+      <ion-col col-33 text-center><button ion-button (click)="endRound()" *ngIf="holeService.getIndex() === holeService.getHoles().length-1">Näytä tulos</button></ion-col>
+      <ion-col col-33 class="text-right"><button ion-button icon-only clear *ngIf="holeService.getIndex() < holeService.getHoles().length-1" (click)="next()"><ion-icon name="arrow-forward"></ion-icon></button></ion-col>
+    </ion-row>
+</ion-footer>

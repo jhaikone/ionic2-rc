@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-row>
+    <ion-col text-center width-100><span>Tulokset</span></ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title><span></span></ion-card-title>
+
+          <section class="border-bottom">
+
+            <div text-center><span color="primary" class="score font-extra-big">{{player.score}}</span></div>
+
+          </section>
+
+          <ion-row>
+
+            <ion-col width-50 text-center class="border-right">
+              <div><span class="font-xsmall" light>Etuysi</span></div>
+              <div><span primary>{{player.frontNine}}</span></div>
+            </ion-col>
+
+            <ion-col width-50 text-center>
+              <div><span class="font-xsmall" light>Takaysi</span></div>
+              <div><span primary>{{player.backNine}}</span></div>
+            </ion-col>
+
+          </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-buttons text-center>
+    <button ion-button (click)="showScoreCard()" outline primary>Tuloskortti</button>
+  </ion-buttons>
+
+  <ion-card>
+    <ion-card-content class="font-small">
+      <ion-card-title text-center> <span light>Ennätykset</span> </ion-card-title>
+      <ion-row class="border-bottom">
+        <ion-col width-50><span light>Tulos</span></ion-col>
+        <ion-col width-50 text-right><span color="primary">72</span></ion-col>
+      </ion-row>
+
+      <ion-row class="border-bottom">
+        <ion-col width-50><span light>Etuysi</span></ion-col>
+        <ion-col width-50 text-right><span color="primary">35</span></ion-col>
+      </ion-row>
+
+      <ion-row class="border-bottom">
+        <ion-col width-50><span light>Takaysi</span></ion-col>
+        <ion-col width-50 text-right><span color="primary">37</span></ion-col>
+      </ion-row>
+
+  </ion-card-content>
+</ion-card>
+
+</ion-content>
+
+<ion-footer text-center>
+  <ion-row>
+    <ion-col> <button ion-button>Lopeta kierros</button></ion-col>
+  </ion-row>
+</ion-footer>
