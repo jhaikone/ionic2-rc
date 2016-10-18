@@ -7,9 +7,13 @@ hole {
     align-items: center;
 
     button {
-      width: 52px;
-      height: 52px;
+      width: map-get($sizes, roundLarge);
+      height: map-get($sizes, roundLarge);
     }
+  }
+
+  .strokes {
+    font-size: map-get($sizes, roundLarge);
   }
 
 }

@@ -52,6 +52,11 @@
   align-items: center;
 }
 
+.my-scroll {
+  -webkit-overflow-scrolling: touch;
+  // overflow-y: auto;
+}
+
 ion-footer, ion-header {
   font-size: map-get($fonts, avarage);
   height: map-get($sizes, menu-height);
@@ -79,6 +84,12 @@ ion-header {
 
   ion-icon {
     // font-size: map-get($fonts, 'big');
+  }
+}
+
+ion-row {
+  ion-col {
+    font-size: map-get($fonts, inputLabel);
   }
 }
 

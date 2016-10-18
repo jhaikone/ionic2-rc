@@ -1,6 +1,6 @@
-import  { Component, OnInit } from '@angular/core';
+import  { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ViewController } from 'ionic-angular';
+import { ViewController, Slides } from 'ionic-angular';
 
 import { TrophyService } from '../../components/services/trophy-service/trophy-service.component';
 import { StorageService } from '../../components/services/storage-service/storage-service.component';
@@ -24,6 +24,8 @@ const MOCK_EXPERIENCE = 124;
 
 export class AchievementsPage implements OnInit {
 
+  @ViewChild('achievementSlider') slider: Slides;
+
   tab: number = 0;
   tabs = Tabs;
   width: String = '0';
@@ -34,6 +36,7 @@ export class AchievementsPage implements OnInit {
   constructor (public viewCtrl: ViewController, public trophyService: TrophyService, public storageService: StorageService) {
     this.ribbons = this.trophyService.getRibbons();
     this.medals = this.trophyService.getRibbons();
+    console.log('this', this.slider);
   }
 
   ionViewDidEnter() {
@@ -82,7 +85,6 @@ export class AchievementsPage implements OnInit {
 
   activeTab(tab) {
     this.tab = tab;
-    console.log('tab', this.tab);
   }
 
   getLevel() {
@@ -94,7 +96,11 @@ export class AchievementsPage implements OnInit {
   }
 
   onSlideChanged() {
-    console.log('slide changed', this.slider);
+    this.activeTab(this.slider.getActiveIndex());
+  }
+
+  slideTo(tab) {
+    this.slider.slideTo(tab, 300);
   }
 
 

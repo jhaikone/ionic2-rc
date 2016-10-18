@@ -14,7 +14,7 @@ const TROPHY = {
     // { name: 'ten-rounds', label: 'Pelaa 100 kierrosta', icon: 'ion-medal-hundred-rounds', xp: 10000,ribbonId: 1 },
     // { name: 'eagle', label: 'Saavuta 25 eaglea', icon: 'ion-medal-eagle', xp: 15000,ribbonId: 1 },
     {
-      id: 1, key: 'noResults', name="Master tumpelo" label: 'Saavuta 25 Tumpelo-nauhaa', icon: 'ion-medal-no-results', xp: 15000, ribbon: { id: 1, cap: 25 }
+      id: 1, key: 'noResults', name:"Master tumpelo", label: 'Saavuta 25 Tumpelo-nauhaa', icon: 'ion-medal-no-results', xp: 15000, ribbon: { id: 1, cap: 25 }
     }
   ]
 }

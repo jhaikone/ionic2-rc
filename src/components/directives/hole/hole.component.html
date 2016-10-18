@@ -15,79 +15,21 @@
            <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
          </ion-item>
 
+         <ion-row class="content" *ngFor="let input of inputs; let i = index">
 
-
-        <ion-row class="content">
-
-          <ion-col width-40>Lyönnit</ion-col>
-          <ion-col end width-10 class="text-right">
-            <span  color="primary">{{holeService.getResult().singlePlayer.strokes}}</span>
-          </ion-col>
-
-          <ion-col width-50>
-            <ion-buttons end>
-              <button ion-button round (click)="decreaseStrokes()"><ion-icon name="remove"></ion-icon></button>
-              <button ion-button round (click)="increaseStrokes()"><ion-icon name="add"></ion-icon></button>
-            </ion-buttons>
-          </ion-col>
-
-        </ion-row>
-
-
-         <ion-row class="content">
-
-           <ion-col width-40>Putit</ion-col>
+           <ion-col width-40>{{input.label}}</ion-col>
            <ion-col end width-10 class="text-right">
-             <span>{{holeService.getResult().singlePlayer.putts}}</span>
+             <span color="{{input.color}}" [ngClass]="{strokes: input.color==='primary'}">{{holeService.getResult().singlePlayer[input.key]}}</span>
            </ion-col>
 
            <ion-col width-50>
              <ion-buttons end>
-               <button ion-button round (click)="decrease('putts'); showInput = true"><ion-icon name="remove"></ion-icon></button>
-               <button ion-button round (click)="increase('putts')"><ion-icon name="add"></ion-icon></button>
+               <button ion-button round (click)="decrease(input.key)"><ion-icon name="remove"></ion-icon></button>
+               <button ion-button round (click)="increase(input.key)"><ion-icon name="add"></ion-icon></button>
              </ion-buttons>
            </ion-col>
 
          </ion-row>
-
-
-
-
-         <ion-row class="content">
-
-           <ion-col width-40>Hiekkalyönnit</ion-col>
-           <ion-col end width-10 class="text-right">
-             <span>{{holeService.getResult().singlePlayer.sands}}</span>
-           </ion-col>
-
-           <ion-col width-50>
-             <ion-buttons end>
-               <button ion-button round (click)="decrease('sands')" type="button"><ion-icon name="remove"></ion-icon></button>
-               <button ion-button round (click)="increase('sands')"><ion-icon name="add"></ion-icon></button>
-             </ion-buttons>
-           </ion-col>
-
-         </ion-row>
-
-
-
-         <ion-row class="content">
-
-           <ion-col width-40>Rangaistukset</ion-col>
-           <ion-col end width-10 class="text-right">
-             <span>{{holeService.getResult().singlePlayer.penalties}}</span>
-           </ion-col>
-
-           <ion-col width-50>
-             <ion-buttons end>
-               <button ion-button round (click)="decrease('penalties')" type="button"><ion-icon name="remove"></ion-icon></button>
-               <button ion-button round (click)="increase('penalties')"><ion-icon name="add"></ion-icon></button>
-             </ion-buttons>
-           </ion-col>
-
-         </ion-row>
-
-
 
          <ion-item>
            <ion-label>GiR-osuma</ion-label>

@@ -83,7 +83,6 @@ export class PanComponent implements OnInit, OnDestroy {
           this.hideScrollY = true;
         }
         this.isMoveStarted = true;
-
         let positionX = event.deltaX;
 
         this.renderer.setElementStyle(this.el, '-webkit-transform', 'translate3d(' + positionX + 'px,0px,0px)');
@@ -91,6 +90,7 @@ export class PanComponent implements OnInit, OnDestroy {
     })
 
     this.panGesture.on('panend', event => {
+
       if(!this.panStarted) return;
       if(this.isOnEdge()) {
         this.snapPosition = 0;

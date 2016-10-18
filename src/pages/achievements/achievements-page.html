@@ -9,7 +9,7 @@
 
   <!-- <section *ngIf="tab === 0"> -->
 
-  <ion-slides (ionDidChange)="onSlideChanged()">
+  <ion-slides #achievementSlider (ionDidChange)="onSlideChanged()">
     <ion-slide>
       <ion-card>
         <ion-row center>
@@ -82,15 +82,15 @@
 <ion-footer>
   <ion-row text-center>
 
-    <ion-col width-33 (click)="activeTab(tabs.Xp)">
+    <ion-col width-33 (click)="slideTo(0)">
       <ion-icon color="{{getColor(tabs.Xp)}}" name="star-half"> </ion-icon>
     </ion-col>
 
-      <ion-col width-33 (click)="activeTab(tabs.Medal)">
+      <ion-col width-33 (click)="slideTo(1)">
       <ion-icon color="{{getColor(tabs.Medal)}}" name="medal"> </ion-icon>
     </ion-col>
 
-    <ion-col width-33 (click)="activeTab(tabs.Trophy)">
+    <ion-col width-33 (click)="slideTo(2)">
       <ion-icon color="{{getColor(tabs.Trophy)}}" name="person"> </ion-icon>
     </ion-col>
 

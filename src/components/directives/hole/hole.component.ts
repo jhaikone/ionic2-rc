@@ -8,28 +8,39 @@ import { HoleService } from '../../services/hole-service/hole-service.component'
 
 export class HoleComponent {
 
+  inputs: Array<Object> = [
+    {label: 'Lyönnit', color: 'primary', key: 'strokes'},
+    {label: 'Putit', key: 'putts'},
+    {label: 'Hiekkalyönnit', key: 'sands'},
+    {label: 'Rangaistukset', key: 'penalties'}
+  ];
+
   constructor(public holeService: HoleService) {
     this.holeService = holeService;
   }
 
-  increaseStrokes() {
-      this.holeService.getResult().singlePlayer.strokes++;
-  }
-
-  increase(key) {
+  increase (key) {
       this.holeService.getResult().singlePlayer[key]++;
-      this.increasePrimaryTotal();
+
+      if (key !== 'strokes') {
+        this.increasePrimaryTotal();
+      }
   }
 
-  decreaseStrokes() {
-    if(this.holeService.getResult().singlePlayer.strokes > 1) {
-      this.holeService.getResult().singlePlayer.strokes--;
+  decrease (key) {
+    let singlePlayer = this.holeService.getResult().singlePlayer;
+
+    if (key === 'strokes') {
+
+      if (singlePlayer.strokes > 1) {
+        singlePlayer.strokes--;
+      }
+
+      this._decreaseSecondaryTotal();
+    } else {
+      singlePlayer[key]--;
     }
-    this._decreaseSecondaryTotal();
-  }
 
-  decrease(key) {
-    this.holeService.getResult().singlePlayer[key]--;
   }
 
   /* increase strokes if the rest are greater*/
