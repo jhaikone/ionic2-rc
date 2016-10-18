@@ -30,6 +30,10 @@
   width: 100%;
 }
 
+.no-wrap {
+  white-space: nowrap;
+}
+
 .no-background {
   background: none !important;
 }
@@ -50,11 +54,6 @@
 .center-vertical {
   display: flex;
   align-items: center;
-}
-
-.my-scroll {
-  -webkit-overflow-scrolling: touch;
-  // overflow-y: auto;
 }
 
 ion-footer, ion-header {
