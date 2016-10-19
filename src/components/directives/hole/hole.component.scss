@@ -13,7 +13,7 @@ hole {
   }
 
   .strokes {
-    font-size: map-get($sizes, roundLarge);
+    font-size: map-get($fonts, big);
   }
 
 }

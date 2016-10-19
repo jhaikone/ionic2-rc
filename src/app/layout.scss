@@ -129,3 +129,11 @@ ion-slide {
     height: 100%;
   }
 }
+
+.scrollable-content {
+  overflow-y: scroll;
+
+  &.my-no-scroll {
+    overflow-y: hidden !important;
+  }
+}
