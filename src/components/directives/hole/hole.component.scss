@@ -14,6 +14,10 @@ hole {
 
   .strokes {
     font-size: map-get($fonts, big);
+    &.font-avarage {
+      white-space: nowrap;
+      font-size: map-get($fonts, avarage);;
+    }
   }
 
 }

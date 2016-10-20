@@ -19,7 +19,12 @@
 
            <ion-col width-40>{{input.label}}</ion-col>
            <ion-col end width-10 class="text-center">
-             <span color="{{input.color}}" [ngClass]="{strokes: input.color==='primary'}">{{holeService.getResult().singlePlayer[input.key]}}</span>
+             <span
+                  class="animate font"
+                  color="{{input.color}}"
+                  [ngClass]="{strokes: input.color==='primary', 'font-avarage': isBig(input.key), 'big': (!isBig(input.key))}"
+              > {{holeService.getResult().singlePlayer[input.key]}}
+            </span>
            </ion-col>
 
            <ion-col width-40>

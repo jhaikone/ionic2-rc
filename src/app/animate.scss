@@ -3,4 +3,9 @@
     -webkit-transition : width .5s ease;
     transition : width .5s ease;
   }
+
+  &.font {
+    -webkit-transition : font-size .1s ease-in;
+    transition : font-size .1s ease-in;
+  }
 }

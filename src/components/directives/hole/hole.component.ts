@@ -15,12 +15,13 @@ export class HoleComponent {
     {label: 'Rangaistukset', key: 'penalties'}
   ];
 
+
   constructor(public holeService: HoleService) {
     this.holeService = holeService;
   }
 
   increase (key) {
-      this.holeService.getResult().singlePlayer[key]++;
+      this.singlePlayer[key]++;
 
       if (key !== 'strokes') {
         this.increasePrimaryTotal();
@@ -28,7 +29,7 @@ export class HoleComponent {
   }
 
   decrease (key) {
-    let singlePlayer = this.holeService.getResult().singlePlayer;
+    let singlePlayer = this.singlePlayer;
 
     if (key === 'strokes') {
 
@@ -37,7 +38,7 @@ export class HoleComponent {
       }
 
       this._decreaseSecondaryTotal();
-    } else {
+    } else if (singlePlayer[key] > 0) {
       singlePlayer[key]--;
     }
 
@@ -45,30 +46,41 @@ export class HoleComponent {
 
   /* increase strokes if the rest are greater*/
   increasePrimaryTotal() {
-    let result = this.holeService.getResult().singlePlayer;
+    let total: number = this.calculateTotal();
 
-    let total: number = result.putts + result.sands + result.penalties + result.drive;
-    if (total > result.strokes) {
-     result.strokes = total;
+    if (total > this.singlePlayer.strokes) {
+     this.singlePlayer.strokes = total;
     }
   }
 
   /* decrease rest if strokes is greater */
   _decreaseSecondaryTotal() {
+    let total: number = this.calculateTotal();
 
-    let result = this.holeService.getResult().singlePlayer;
+    if (this.singlePlayer.strokes >= total) return;
 
-    let total:number = result.putts + result.sands + result.penalties + result.drive;
-    if (result.strokes < total) {
-      if (result.penalties > 0) {
-        result.penalties = result.penalties -1;
-      } else if (result.sands > 0) {
-        result.sands = result.sands -1;
-      } else {
-        result.putts = result.putts -1;
-      }
+    if (this.singlePlayer.penalties > 0) {
+      this.singlePlayer.penalties -= 1;
+    } else if (this.singlePlayer.sands > 0) {
+      this.singlePlayer.sands -= 1;
+    } else {
+      this.singlePlayer.putts -= 1;
     }
 
+  }
+
+  private get singlePlayer () {
+    return this.holeService.getResult().singlePlayer;
+  }
+
+  private calculateTotal() {
+    let singlePlayer = this.singlePlayer;
+    return singlePlayer.putts + singlePlayer.sands + singlePlayer.penalties + singlePlayer.drive;
+  }
+
+  isBig(key) {
+    if (key !== 'strokes') return false;
+    return this.singlePlayer.strokes > 8;
   }
 
 }
