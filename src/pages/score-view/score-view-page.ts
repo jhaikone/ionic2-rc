@@ -8,6 +8,8 @@ import { HoleService } from '../../components/services/hole-service/hole-service
 import { InformationPage } from '../information/information-page';
 import { AchievementsPage } from '../achievements/achievements-page';
 
+import { DirectionEnum } from '../../environment/environment';
+
 
 @Component({
   selector: 'page-score-view',
@@ -42,14 +44,14 @@ export class ScoreViewPage {
     console.log('next');
     //this.holeService.setIndex(this.holeService.getIndex()+1);
     this.holeService.holeChanged$.emit({
-      direction: 'next'
+      direction: DirectionEnum.Next
     });
   }
 
   previous() {
     //this.holeService.setIndex(this.holeService.getIndex()-1);
     this.holeService.holeChanged$.emit({
-      direction: 'previous'
+      direction: DirectionEnum.Previous
     });
   }
 

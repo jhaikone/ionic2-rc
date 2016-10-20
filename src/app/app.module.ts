@@ -20,6 +20,7 @@ import { HoleService } from '../components/services/hole-service/hole-service.co
 import { TrophyService } from '../components/services/trophy-service/trophy-service.component';
 import { HoleComponent } from '../components/directives/hole/hole.component';
 import { PanComponent } from '../components/directives/gestures/pan';
+import { DirectionEnum } from '../environment/environment';
 
 
 @NgModule({
@@ -34,11 +35,7 @@ import { PanComponent } from '../components/directives/gestures/pan';
     InformationPage,
     ScoreCardPage,
     HoleComponent,
-    PanComponent
-    // PanComponent,
-    // HoleComponent,
-    // StrokeInputComponent
-
+    PanComponent,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -59,7 +56,7 @@ import { PanComponent } from '../components/directives/gestures/pan';
     Storage,
     StorageService,
     TrophyService,
-    HoleService
+    HoleService,
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

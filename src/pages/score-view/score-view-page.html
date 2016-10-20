@@ -10,32 +10,35 @@
 
 <ion-content>
 
-  <ion-row text-center class="custom-tabs">
+    <div>
 
-    <ion-col class="border-right" width-50>
-      <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = false">
-        <ion-icon color="{{getTabColor('single')}}" name="person"></ion-icon>
-      </button>
-    </ion-col>
+    <ion-row text-center class="custom-tabs">
 
-    <ion-col width-50>
-      <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = true">
-        <ion-icon color="{{getTabColor('multi')}}" name="people"></ion-icon>
-      </button>
-    </ion-col>
+      <ion-col class="border-right" width-50>
+        <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = false">
+          <ion-icon color="{{getTabColor('single')}}" name="person"></ion-icon>
+        </button>
+      </ion-col>
 
-  </ion-row>
+      <ion-col width-50>
+        <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = true">
+          <ion-icon color="{{getTabColor('multi')}}" name="people"></ion-icon>
+        </button>
+      </ion-col>
 
-  <div [ngClass]="{'multiplayer': holeService.getResult().multiplayerTab}" class="tab-active animate"></div>
+    </ion-row>
 
-  <div class="carousel-wrap" pan>
+    <div [ngClass]="{'multiplayer': holeService.getResult().multiplayerTab}" class="tab-active animate"></div>
 
-    <hole holeChange="holeChangeEvent" id="floating-content-0"></hole>
-    <hole holeChange="holeChangeEvent" id="floating-content-1"></hole>
-    <hole id="floating-content-2"></hole>
+    <div class="carousel-wrap" pan>
 
-  </div>
+      <hole holeChange="holeChangeEvent" id="floating-content-0"></hole>
+      <hole holeChange="holeChangeEvent" id="floating-content-1"></hole>
+      <hole id="floating-content-2"></hole>
 
+    </div>
+
+    </div>
 
 </ion-content>
 
