@@ -1,13 +1,13 @@
-import {Directive, ElementRef, Renderer, OnInit, OnDestroy} from '@angular/core';
+import { Directive, ElementRef, Renderer, OnInit, OnDestroy } from '@angular/core';
 
-import {Gesture} from 'ionic-angular/gestures/gesture';
+import { Gesture } from 'ionic-angular/gestures/gesture';
 
 import { HoleService } from '../../../components/services/hole-service/hole-service.component';
 import { HoleComponent } from '../hole/hole.component';
 
 import { DirectionEnum } from '../../../environment/environment';
 
-declare var Hammer: any
+declare const Hammer: any;
 
 @Directive({
   selector: '[pan]'
@@ -15,48 +15,39 @@ declare var Hammer: any
 
 export class PanComponent implements OnInit, OnDestroy {
 
-  el: HTMLElement;
+  element: HTMLElement;
   panGesture: Gesture;
+  direction: DirectionEnum;
 
   index: number = 0;
-  holes: any = [{index:1},{index:2}, {index:3}];
-  hideScrollY: boolean = false;
-
   snapLocations: Array<number> = [100, 0, -100];
-  direction: any;
-  snapPosition: any;
-  positionX: number = 0;
-  isMoveStarted: boolean = false;
-  holeService: any;
-  listenFunc: any;
+  snapPosition: number;
   lockPanHorizontal: boolean = false;
+  options: Object = {
+    stopPropagation: true,
+    preventDefault: true,
+    invokeApply: false,
+    direction:  Hammer.DIRECTION_HORIZONTAL
+  };
 
-  constructor(el: ElementRef, holeService: HoleService, public renderer: Renderer) {
-    this.el = el.nativeElement;
-    this.holeService = holeService;
+  constructor(elementRef: ElementRef, public holeService: HoleService, public renderer: Renderer) {
+    this.element = elementRef.nativeElement;
     this.holeService.holeChanged$.subscribe(event => this.onHoleChange(event));
   }
 
   ngOnInit() {
-    this.renderer.listen(this.el, 'transitionend', (event) => {
+    this.renderer.listen(this.element, 'transitionend', (event) => {
       if (event.propertyName === 'transform') {
         event.preventDefault();
-        this.renderer.setElementStyle(this.el, '-webkit-transform', 'translate3d(0, 0, 0)');
-        this.renderer.setElementClass(this.el, 'animate-swipe', false);
+        this.renderer.setElementStyle(this.element, '-webkit-transform', 'translate3d(0, 0, 0)');
+        this.renderer.setElementClass(this.element, 'animate-swipe', false);
         this.lockPanHorizontal = false;
       }
     });
 
-    let options = {
-      stopPropagation: true,
-      preventDefault: true,
-      invokeApply: false,
-      direction:  Hammer.DIRECTION_HORIZONTAL
-    };
-
-    this.panGesture = new Gesture(this.el, {
+    this.panGesture = new Gesture(this.element, {
       recognizers: [
-        [Hammer.Pan, options]
+        [Hammer.Pan, this.options]
       ]
     });
 
@@ -65,15 +56,15 @@ export class PanComponent implements OnInit, OnDestroy {
     this.panGesture.on('panstart', event => {
       this.lockPanHorizontal = Math.abs(event.deltaY) > 20;
       this.direction = event.deltaX < 0 ? DirectionEnum.Next : DirectionEnum.Previous;
-      this.renderer.setElementClass(this.el, 'animate-swipe', false);
+      this.renderer.setElementClass(this.element, 'animate-swipe', false);
     })
 
     this.panGesture.on('panleft panright', event => {
         if (this.lockPanHorizontal) return;
 
         if (this.hasNext() || this.hasPrevious()) {
-          this.renderer.setElementStyle(this.el, '-webkit-transform', 'translate3d(' + event.deltaX + 'px,0px,0px)');
-          this.renderer.setElementStyle(this.el, 'transform', 'translate3d(' + event.deltaX + 'px,0px,0px)');
+          this.renderer.setElementStyle(this.element, '-webkit-transform', 'translate3d(' + event.deltaX + 'px,0px,0px)');
+          this.renderer.setElementStyle(this.element, 'transform', 'translate3d(' + event.deltaX + 'px,0px,0px)');
         } else {
           //TODO: animte out of bounds;
         }
@@ -134,8 +125,8 @@ export class PanComponent implements OnInit, OnDestroy {
   }
 
   private animateHoleChange() {
-    this.renderer.setElementClass(this.el, 'animate-swipe', true);
-    this.renderer.setElementStyle(this.el, '-webkit-transform', 'translate3d(' + this.snapPosition + '%, 0, 0)');
+    this.renderer.setElementClass(this.element, 'animate-swipe', true);
+    this.renderer.setElementStyle(this.element, '-webkit-transform', 'translate3d(' + this.snapPosition + '%, 0, 0)');
   }
 
 }
