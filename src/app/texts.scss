@@ -4,18 +4,10 @@
 
 .primary {
   color: color($colors, primary);
+}
 
-  &.big {
-    font-size: color($fonts, big);
-  }
-
-  &.avarage {
-    font-size: color($fonts, avarage);
-  }
-
-  &.small {
-    font-size: color($fonts, small);
-  }
+.secondary {
+  color: color($colors, secondary);
 }
 
 .font-big {

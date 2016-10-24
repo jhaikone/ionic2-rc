@@ -43,7 +43,7 @@
         <ion-row center [ngClass]="{'disabled': !isRibbonDiscovered(ribbon)}">
           <ion-col width-30><ion-icon class="{{ribbon.icon}}" role="img"></ion-icon></ion-col>
           <ion-col width-50> {{ribbon.label}}</ion-col>
-          <ion-col width-20 class="text-right"><span class="primary ribbon-count" [ngClass]="{'big':isBig(ribbon), 'avarage': (!isBig(ribbon))}">{{getRibbonCount(ribbon)}}</span></ion-col>
+          <ion-col width-20 class="text-right"><span class="primary ribbon-count" [ngClass]="{'font-big':isBig(ribbon), 'font-avarage': (!isBig(ribbon))}">{{getRibbonCount(ribbon)}}</span></ion-col>
         </ion-row>
       </ion-card>
     </ion-slide>

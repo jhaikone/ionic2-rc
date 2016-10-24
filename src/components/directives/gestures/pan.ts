@@ -3,7 +3,6 @@ import { Directive, ElementRef, Renderer, OnInit, OnDestroy } from '@angular/cor
 import { Gesture } from 'ionic-angular/gestures/gesture';
 
 import { HoleService } from '../../../components/services/hole-service/hole-service.component';
-import { HoleComponent } from '../hole/hole.component';
 import { DirectionEnum } from '../../../environment/environment';
 
 declare const Hammer: any;

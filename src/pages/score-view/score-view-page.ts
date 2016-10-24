@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
 
-// import { HoleComponent } from '../../components/directives/hole/hole.component';
-// import { PanDirective } from '../../components/directives/gestures/pan';
 import { HoleService } from '../../components/services/hole-service/hole-service.component';
 import { InformationPage } from '../information/information-page';
 import { AchievementsPage } from '../achievements/achievements-page';

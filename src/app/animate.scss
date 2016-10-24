@@ -8,4 +8,9 @@
     -webkit-transition : font-size .1s ease-in;
     transition : font-size .1s ease-in;
   }
+
+  &.color {
+    -webkit-transition : color .3s ease;
+    transition : color .3s ease;
+  }
 }

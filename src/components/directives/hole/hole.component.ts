@@ -9,10 +9,10 @@ import { HoleService } from '../../services/hole-service/hole-service.component'
 export class HoleComponent {
 
   inputs: Array<Object> = [
-    {label: 'Lyönnit', color: 'primary', key: 'strokes'},
-    {label: 'Putit', key: 'putts'},
-    {label: 'Hiekkalyönnit', key: 'sands'},
-    {label: 'Rangaistukset', key: 'penalties'}
+    {label: 'Lyönnit', color: 'primary', key: 'strokes', cssClasses: 'animate font'},
+    {label: 'Putit', key: 'putts', cssClasses:'font-avarage'},
+    {label: 'Hiekkalyönnit', key: 'sands', cssClasses:'font-avarage'},
+    {label: 'Rangaistukset', key: 'penalties', cssClasses:'font-avarage'}
   ];
 
 
@@ -80,7 +80,7 @@ export class HoleComponent {
 
   isBig(key) {
     if (key !== 'strokes') return false;
-    return this.singlePlayer.strokes > 8;
+    return this.singlePlayer.strokes < 9;
   }
 
 }

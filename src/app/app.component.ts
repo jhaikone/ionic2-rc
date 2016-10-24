@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
-import { TabsPage } from '../pages/tabs/tabs';
 import { ScoreViewPage } from '../pages/score-view/score-view-page';
+import { CourseSelectPage } from '../pages/course-select/course-select-page';
 
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = ScoreViewPage;
+  // rootPage = ScoreViewPage;
+  rootPage = CourseSelectPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
