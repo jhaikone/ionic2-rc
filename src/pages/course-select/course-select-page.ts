@@ -15,9 +15,10 @@ export class CourseSelectPage {
 
   constructor(public apiService: ApiService, public navController: NavController) {
       this.courses = this.apiService.getCourses();
+      console.log('course', CoursePage);
   }
 
   courseSelected(course) {
-    this.navController.push(CoursePage, {selected: course});
+    this.navController.push(CoursePage, {});
   }
 }

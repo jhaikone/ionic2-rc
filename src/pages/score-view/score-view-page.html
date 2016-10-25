@@ -1,11 +1,11 @@
-
 <ion-header>
-  <ion-row>
-    <ion-col width-33><ion-icon class="flag" name="flag"><span>{{getHole()}}</span></ion-icon>  </ion-col>
-    <ion-col text-center width-33><span >Par {{getPar()}}</span></ion-col>
-    <ion-col width-33 text-right><button ion-button color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button> </ion-col>
-  </ion-row>
-
+  <ion-toolbar>
+    <p>Väylä {{getHole()}}</p>
+    <p>Par {{getPar()}}</p>
+    <ion-buttons end>
+      <button ion-button color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -43,9 +43,11 @@
 </ion-content>
 
 <ion-footer>
+  <ion-navbar>
     <ion-row>
       <ion-col col-33><button ion-button icon-only clear *ngIf="holeService.getIndex() > 0" (click)="previous()"> <ion-icon name="arrow-back"> </ion-icon> </button> </ion-col>
       <ion-col col-33 text-center><button ion-button (click)="endRound()" *ngIf="holeService.getIndex() === holeService.getHoles().length-1">Näytä tulos</button></ion-col>
       <ion-col col-33 class="text-right"><button ion-button icon-only clear *ngIf="holeService.getIndex() < holeService.getHoles().length-1" (click)="next()"><ion-icon name="arrow-forward"></ion-icon></button></ion-col>
     </ion-row>
+  </ion-navbar>
 </ion-footer>

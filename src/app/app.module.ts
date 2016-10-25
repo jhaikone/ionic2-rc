@@ -53,7 +53,8 @@ import { PanComponent } from '../components/directives/gestures/pan';
     AchievementsPage,
     InformationPage,
     ScoreCardPage,
-    CourseSelectPage
+    CourseSelectPage,
+    CoursePage
   ],
   providers: [
     Storage,
