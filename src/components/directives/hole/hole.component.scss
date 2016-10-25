@@ -1,23 +1,20 @@
 hole {
-  padding-bottom: 60px;
   .content {
     padding: 10px;
     text-align: left;
     display: flex;
     align-items: center;
-
-    button {
-      width: map-get($sizes, roundLarge);
-      height: map-get($sizes, roundLarge);
-    }
   }
-
-  .strokes {
-    font-size: map-get($fonts, big);
-    &.font-avarage {
-      white-space: nowrap;
-      font-size: map-get($fonts, avarage);;
-    }
+  button {
+    width: map-get($sizes, roundLarge) !important;
+    height: map-get($sizes, roundLarge) !important;
   }
+  // .strokes {
+  //   font-size: map-get($fonts, big);
+  //   &.font-avarage {
+  //     white-space: nowrap;
+  //     font-size: map-get($fonts, avarage);;
+  //   }
+  // }
 
 }

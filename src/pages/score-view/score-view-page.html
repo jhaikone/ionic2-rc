@@ -1,44 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <p>Väylä {{getHole()}}</p>
-    <p>Par {{getPar()}}</p>
-    <ion-buttons end>
-      <button ion-button color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button>
-    </ion-buttons>
+    <ion-row>
+      <ion-col width-33> <p>Väylä {{getHole()}}</p></ion-col>
+      <ion-col width-33 text-center><p>Par {{getPar()}}</p></ion-col>
+      <ion-col width-33 text-right>
+          <button ion-button icon-only clear color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <div>
-
-    <ion-row text-center class="custom-tabs">
-
+  <ion-navbar no-border-top no-border-bottom>
+    <ion-row>
       <ion-col class="border-right" width-50>
         <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = false">
           <ion-icon color="{{getTabColor('single')}}" name="person"></ion-icon>
+          <span color="{{getTabColor('single')}}">Pelaaja</span>
         </button>
       </ion-col>
 
       <ion-col width-50>
         <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = true">
           <ion-icon color="{{getTabColor('multi')}}" name="people"></ion-icon>
+          <span color="{{getTabColor('multi')}}">Kaverit</span>
         </button>
       </ion-col>
 
     </ion-row>
+  </ion-navbar>
 
-    <div [ngClass]="{'multiplayer': holeService.getResult().multiplayerTab}" class="tab-active animate"></div>
+  <div [ngClass]="{'multiplayer': holeService.getResult().multiplayerTab}" class="tab-active animate"></div>
 
-    <div class="carousel-wrap" pan>
+  <div class="carousel-wrap" pan>
 
-      <hole holeChange="holeChangeEvent" id="floating-content-0"></hole>
-      <hole holeChange="holeChangeEvent" id="floating-content-1"></hole>
-      <hole id="floating-content-2"></hole>
+    <hole holeChange="holeChangeEvent" id="floating-content-0"></hole>
+    <hole holeChange="holeChangeEvent" id="floating-content-1"></hole>
+    <hole id="floating-content-2"></hole>
 
-    </div>
-
-    </div>
+  </div>
 
 </ion-content>
 

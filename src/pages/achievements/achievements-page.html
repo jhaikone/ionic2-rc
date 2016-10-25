@@ -1,8 +1,10 @@
 <ion-header>
-  <ion-row>
-    <ion-col width-50><span primary>Saavutukset!</span></ion-col>
-    <ion-col width-50 text-right><a (click)="close()"><ion-icon name="close"></ion-icon></a></ion-col>
-  </ion-row>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col width-50><p primary>Saavutukset!</p></ion-col>
+      <ion-col width-50 text-right><button ion-button clear (click)="close()">Sulje</button></ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="margin-top relative">
@@ -80,6 +82,7 @@
 </ion-content>
 
 <ion-footer>
+  <ion-navbar>
   <ion-row text-center>
 
     <ion-col width-33 (click)="slideTo(0)">
@@ -95,4 +98,5 @@
     </ion-col>
 
   </ion-row>
+</ion-navbar>
 </ion-footer>

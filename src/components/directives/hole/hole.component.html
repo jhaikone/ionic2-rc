@@ -15,34 +15,28 @@
            <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
          </ion-item>
 
-         <ion-row class="content" *ngFor="let input of inputs; let i = index">
+         <ion-item *ngFor="let input of inputs; let i = index" no-lines>
 
-           <ion-col width-40>{{input.label}}</ion-col>
-           <ion-col end width-10 class="text-center no-wrap">
-             <span
-                  class="{{input.cssClasses}}"
-                  color="{{input.color}}"
-                  [ngClass]="{strokes: input.color==='primary', 'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"
-              > {{holeService.getResult().singlePlayer[input.key]}}
-            </span>
-           </ion-col>
+          <ion-label class="width-70">{{input.label}}</ion-label>
 
-           <ion-col width-40 class="no-wrap">
-             <ion-buttons end>
-               <button ion-button round (click)="decrease(input.key)"><ion-icon name="remove"></ion-icon></button>
-               <button ion-button round (click)="increase(input.key)"><ion-icon name="add"></ion-icon></button>
-             </ion-buttons>
-           </ion-col>
+          <ion-label class="width-20" align="center"
+               class="{{input.cssClasses}}"
+               color="{{input.color}}"
+               [ngClass]="{strokes: input.color==='primary', 'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"
+           > {{holeService.getResult().singlePlayer[input.key]}}
+         </ion-label>
 
-         </ion-row>
+          <button item-right ion-button round (click)="decrease(input.key)"><ion-icon name="remove"></ion-icon></button>
+          <button item-right ion-button round (click)="increase(input.key)"><ion-icon name="add"></ion-icon></button>
+         </ion-item>
 
          <ion-item>
-           <ion-label>GiR-osuma</ion-label>
+           <ion-label class="animate color" [ngClass]="{'primary': holeService.getResult().singlePlayer.gir}">GiR-osuma</ion-label>
            <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.gir"></ion-toggle>
          </ion-item>
 
          <ion-item>
-           <ion-label>Hiekkapelastus</ion-label>
+           <ion-label class="animate color" [ngClass]="{'primary': holeService.getResult().singlePlayer.sandSave}">Hiekkapelastus</ion-label>
            <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.sandSave"></ion-toggle>
          </ion-item>
 

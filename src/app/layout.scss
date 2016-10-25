@@ -56,45 +56,6 @@
   align-items: center;
 }
 
-ion-navbar {
-  ion-col {
-    // display: flex;
-    // align-items: center;
-
-  }
-
-}
-
-// ion-footer, ion-header {
-//   font-size: map-get($fonts, avarage);
-//   height: map-get($sizes, menu-height);
-//   background-color: color($colors, dark);
-//
-//   button[icon-only] {
-//     background: inherit;
-//   }
-//
-//   ion-row {
-//     height: 100%;
-//     display: flex;
-//     align-items: center;
-//   }
-// }
-
-ion-footer {
-  // box-shadow: 0px 22px 64px 10px #656565;
-}
-ion-header {
-  // box-shadow: 0px 10px 40px -10px #656565;
-  // color: color($colors, primary);
-  // padding-left: 5px;
-  // padding-right: 5px;
-
-  ion-icon {
-    // font-size: map-get($fonts, 'big');
-  }
-}
-
 ion-row {
   ion-col {
     font-size: map-get($fonts, inputLabel);
@@ -113,20 +74,12 @@ ion-row[primary] {
   }
 }
 
-.custom-tabs {
-  position: relative;
-  width: 100%;
-  background-color: color($colors, tab);
-}
-
-
 .tab-active {
   -webkit-transition : margin .3s ease;
   transition : margin .3s ease;
   height: 2px;
   background: color($colors, primary);
   width: 50% !important;
-  margin-top: -1px;
 
   &.multiplayer {
     margin-left: 50%;
@@ -139,18 +92,27 @@ ion-slide {
   }
 }
 
+ion-header, ion-footer {
+  ion-toolbar {
+      min-height: map-get($sizes, menu-height) !important;
+      max-height: map-get($sizes, menu-height) !important;
+  }
+  ion-navbar {
+    min-height: map-get($sizes, menu-height) !important;
+    max-height: map-get($sizes, menu-height) !important;
+  }
+
+}
+
 ion-scroll {
   display: block;
   height: 1000px;
 }
 
-.my-scrollable-content {
-  // overflow-y: auto;
-  // height:100% !important;
-  // width: 100% !important;
-}
-
-.my-no-scroll {
-  // overflow-y: hidden !important;
-  // background: red;
+@for $i from 1 through 10 {
+    .width-#{$i*10} {
+        width: percentage($i/10);
+        min-width: percentage($i/10);
+        max-width: percentage($i/10);
+    }
 }

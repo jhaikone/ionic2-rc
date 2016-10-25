@@ -1,3 +1,7 @@
+html, ion-content, ion-item {
+  color: color($colors, text) !important;
+}
+
 .ribbon-count {
     min-height: 57px;
 }
