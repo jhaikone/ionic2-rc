@@ -14,6 +14,7 @@ import { AchievementsPage } from '../pages/achievements/achievements-page';
 import { InformationPage } from '../pages/information/information-page';
 import { ScoreCardPage } from '../pages/score-card/score-card-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
+import { CoursePage } from '../pages/course/course-page';
 
 import { StorageService } from '../components/services/storage-service/storage-service.component';
 import { HoleService } from '../components/services/hole-service/hole-service.component';
@@ -35,6 +36,7 @@ import { PanComponent } from '../components/directives/gestures/pan';
     InformationPage,
     ScoreCardPage,
     CourseSelectPage,
+    CoursePage,
     HoleComponent,
     PanComponent,
   ],

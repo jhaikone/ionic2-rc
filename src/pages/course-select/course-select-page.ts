@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
+import { CoursePage } from '../course/course-page';
 
 import { ApiService } from '../../components/services/api-service/api-service.component';
 
@@ -10,11 +13,11 @@ export class CourseSelectPage {
 
   courses: Array<any> = [];
 
-  constructor(public apiService: ApiService) {
+  constructor(public apiService: ApiService, public navController: NavController) {
       this.courses = this.apiService.getCourses();
   }
 
   courseSelected(course) {
-    console.log('selected course', course);
+    this.navController.push(CoursePage, {selected: course});
   }
 }
