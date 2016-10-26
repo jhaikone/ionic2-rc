@@ -5,14 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>course-page</ion-title>
+    <ion-title><span class="title">{{course.name}}</span></ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-item>
+  <ion-label>Tii</ion-label>
+  <ion-select [(ngModel)]="tee">
+    <ion-option *ngFor="let tee of teeList" value="{{tee.key}}">{{tee.name + ' (' + tee.metre + 'm)' }}</ion-option>
+  </ion-select>
+</ion-item>
 </ion-content>

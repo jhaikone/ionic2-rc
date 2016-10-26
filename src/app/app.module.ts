@@ -20,6 +20,7 @@ import { StorageService } from '../components/services/storage-service/storage-s
 import { HoleService } from '../components/services/hole-service/hole-service.component';
 import { ApiService } from '../components/services/api-service/api-service.component';
 import { TrophyService } from '../components/services/trophy-service/trophy-service.component';
+import { CourseService } from '../providers/course-service';
 
 import { HoleComponent } from '../components/directives/hole/hole.component';
 import { PanComponent } from '../components/directives/gestures/pan';
@@ -41,7 +42,10 @@ import { PanComponent } from '../components/directives/gestures/pan';
     PanComponent,
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Takaisin',
+      searchBarInput: 'fgefef'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,7 +65,8 @@ import { PanComponent } from '../components/directives/gestures/pan';
     StorageService,
     TrophyService,
     HoleService,
-    ApiService
+    ApiService,
+    CourseService
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

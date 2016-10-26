@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
   <ion-row class="text-center">
-    <ion-col><span color="primary">Valitse väylä</span></ion-col>
+    <ion-col><span>Valitse väylä</span></ion-col>
   </ion-row>
-</ion-navbar>
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -11,3 +11,9 @@
     <button *ngFor="let course of courses" ion-item (click)="courseSelected(course)">{{course.name}}</button>
   </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-footer>

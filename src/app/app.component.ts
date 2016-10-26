@@ -10,8 +10,8 @@ import { CourseSelectPage } from '../pages/course-select/course-select-page';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = ScoreViewPage;
-  // rootPage = CourseSelectPage;
+  // rootPage = ScoreViewPage;
+  rootPage = CourseSelectPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

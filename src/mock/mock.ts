@@ -16,9 +16,9 @@ export const MOCK_COURSES = [
     id: 25664,
     name: "Paloheinä",
     tees: [
-      {name:"a", metre: 2745},
-      {name:"b", metre: 2276},
-      {name:"c", metre: 1995}
+      {name:"yellow", metre: 2745},
+      {name:"blue", metre: 2276},
+      {name:"red", metre: 1995}
     ],
     par: 36,
     holes: [
@@ -26,162 +26,162 @@ export const MOCK_COURSES = [
         hole: 1,
         par: 4,
         distances: {
-          a: 284,
-          b: 229,
-          c: 194
+          yellow: 284,
+          blue: 229,
+          red: 194
         }
       },
       {
         hole: 2,
         par: 3,
         distances: {
-          a: 154,
-          b: 131,
-          c: 119
+          yellow: 154,
+          blue: 131,
+          red: 119
         }
       },
       {
         hole: 3,
         par: 5,
         distances: {
-          a: 477,
-          b: 381,
-          c: 332
+          yellow: 477,
+          blue: 381,
+          red: 332
         }
       },
       {
         hole: 4,
         par: 5,
         distances: {
-          a: 447,
-          b: 384,
-          c: 311
+          yellow: 447,
+          blue: 384,
+          red: 311
         }
       },
       {
         hole: 5,
         par: 3,
         distances: {
-          a: 110,
-          b: 102,
-          c: 78
+          yellow: 110,
+          blue: 102,
+          red: 78
         }
       },
       {
         hole: 6,
         par: 5,
         distances: {
-          a: 448,
-          b: 362,
-          c: 362
+          yellow: 448,
+          blue: 362,
+          red: 362
         }
       },
       {
         hole: 7,
         par: 4,
         distances: {
-          a: 339,
-          b: 282,
-          c: 237
+          yellow: 339,
+          blue: 282,
+          red: 237
         }
       },
       {
         hole: 8,
         par: 3,
         distances: {
-          a: 141,
-          b: 105,
-          c: 95
+          yellow: 141,
+          blue: 105,
+          red: 95
         }
       },
       {
         hole: 9,
         par: 4,
         distances: {
-          a: 345,
-          b: 300,
-          c: 267
+          yellow: 345,
+          blue: 300,
+          red: 267
         }
       }
       // {
       //   hole: 10,
       //   par: 4,
       //   distances: {
-      //     a: 284,
-      //     b: 229,
-      //     c: 194
+      //     yellow: 284,
+      //     blue: 229,
+      //     red: 194
       //   }
       // },
       // {
       //   hole: 11,
       //   par: 3,
       //   distances: {
-      //     a: 154,
-      //     b: 131,
-      //     c: 119
+      //     yellow: 154,
+      //     blue: 131,
+      //     red: 119
       //   }
       // },
       // {
       //   hole: 12,
       //   par: 5,
       //   distances: {
-      //     a: 477,
-      //     b: 381,
-      //     c: 332
+      //     yellow: 477,
+      //     blue: 381,
+      //     red: 332
       //   }
       // },
       // {
       //   hole: 13,
       //   par: 5,
       //   distances: {
-      //     a: 447,
-      //     b: 384,
-      //     c: 311
+      //     yellow: 447,
+      //     blue: 384,
+      //     red: 311
       //   }
       // },
       // {
       //   hole: 14,
       //   par: 3,
       //   distances: {
-      //     a: 110,
-      //     b: 102,
-      //     c: 78
+      //     yellow: 110,
+      //     blue: 102,
+      //     red: 78
       //   }
       // },
       // {
       //   hole: 15,
       //   par: 5,
       //   distances: {
-      //     a: 448,
-      //     b: 362,
-      //     c: 362
+      //     yellow: 448,
+      //     blue: 362,
+      //     red: 362
       //   }
       // },
       // {
       //   hole: 16,
       //   par: 4,
       //   distances: {
-      //     a: 339,
-      //     b: 282,
-      //     c: 237
+      //     yellow: 339,
+      //     blue: 282,
+      //     red: 237
       //   }
       // },
       // {
       //   hole: 17,
       //   par: 3,
       //   distances: {
-      //     a: 141,
-      //     b: 105,
-      //     c: 95
+      //     yellow: 141,
+      //     blue: 105,
+      //     red: 95
       //   }
       // },
       // {
       //   hole: 18,
       //   par: 4,
       //   distances: {
-      //     a: 345,
-      //     b: 300,
-      //     c: 267
+      //     yellow: 345,
+      //     blue: 300,
+      //     red: 267
       //   }
       // }
     ]
@@ -189,87 +189,87 @@ export const MOCK_COURSES = [
   {
     id: 24664,
     name: "Kytäjä",
-    tees: ["a","b","c"],
+    tees: ["yellow","blue","red"],
     holes: [
       {
         hole: 1,
         par: 4,
         distances: {
-          a: 284,
-          b: 229,
-          c: 194
+          yellow: 284,
+          blue: 229,
+          red: 194
         }
       },
       {
         hole: 2,
         par: 3,
         distances: {
-          a: 154,
-          b: 131,
-          c: 119
+          yellow: 154,
+          blue: 131,
+          red: 119
         }
       },
       {
         hole: 3,
         par: 5,
         distances: {
-          a: 477,
-          b: 381,
-          c: 332
+          yellow: 477,
+          blue: 381,
+          red: 332
         }
       },
       {
         hole: 4,
         par: 5,
         distances: {
-          a: 447,
-          b: 384,
-          c: 311
+          yellow: 447,
+          blue: 384,
+          red: 311
         }
       },
       {
         hole: 5,
         par: 3,
         distances: {
-          a: 110,
-          b: 102,
-          c: 78
+          yellow: 110,
+          blue: 102,
+          red: 78
         }
       },
       {
         hole: 6,
         par: 5,
         distances: {
-          a: 448,
-          b: 362,
-          c: 362
+          yellow: 448,
+          blue: 362,
+          red: 362
         }
       },
       {
         hole: 7,
         par: 4,
         distances: {
-          a: 339,
-          b: 282,
-          c: 237
+          yellow: 339,
+          blue: 282,
+          red: 237
         }
       },
       {
         hole: 8,
         par: 3,
         distances: {
-          a: 141,
-          b: 105,
-          c: 95
+          yellow: 141,
+          blue: 105,
+          red: 95
         }
       },
       {
         hole: 9,
         par: 4,
         distances: {
-          a: 345,
-          b: 300,
-          c: 267
+          yellow: 345,
+          blue: 300,
+          red: 267
         }
       }
     ]
