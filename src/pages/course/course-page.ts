@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { CourseService } from '../../providers/course-service';
+import  { ScoreViewPage } from '../score-view/score-view-page';
 
 /*
   Generated class for the CoursePage page.
@@ -16,14 +17,21 @@ export class CoursePage {
 
   course: any = {};
   teeList: Array<Object> = [];
+  players: Array<Object>;
 
-  constructor(public navCtrl: NavController,  public courseService: CourseService) {
+  constructor(public navController: NavController,  public courseService: CourseService) {
     this.course = courseService.getCourse();
     this.initTeeList();
+    this.players = this.initPlayers();
   }
 
   ionViewDidLoad() {
 
+  }
+
+  startRound() {
+    console.log('players', this.players);
+    this.navController.push(ScoreViewPage, {});
   }
 
   initTeeList() {
@@ -52,6 +60,14 @@ export class CoursePage {
         // }
       }
     })
+  }
+
+  private initPlayers() {
+    return [
+      {},
+      {},
+      {}
+    ]
   }
 
 }
