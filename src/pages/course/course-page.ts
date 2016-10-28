@@ -10,7 +10,7 @@ import { CourseService } from '../../providers/course-service';
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'course-page.html'
+  templateUrl: 'course-page.html',
 })
 export class CoursePage {
 
