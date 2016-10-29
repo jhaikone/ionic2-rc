@@ -2,8 +2,8 @@ import  { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ViewController, Slides } from 'ionic-angular';
 
-import { TrophyService } from '../../components/services/trophy-service/trophy-service.component';
-import { StorageService } from '../../components/services/storage-service/storage-service.component';
+import { TrophyService } from '../../providers/trophy-service';
+import { StorageService } from '../../providers/storage-service';
 
 export enum Tabs {
   Xp,

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 
-import { HoleService } from '../../components/services/hole-service/hole-service.component';
-import { TrophyService } from '../../components/services/trophy-service/trophy-service.component';
-import { StorageService } from '../../components/services/storage-service/storage-service.component';
+import { HoleService } from '../../providers/hole-service';
+import { TrophyService } from '../../providers/trophy-service';
+import { StorageService } from '../../providers/storage-service';
 
 import { ScoreCardPage } from '../score-card/score-card-page';
 

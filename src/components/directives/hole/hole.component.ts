@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HoleService } from '../../services/hole-service/hole-service.component';
+import { HoleService } from '../../../providers/hole-service';
 
 @Component({
   selector: 'hole',

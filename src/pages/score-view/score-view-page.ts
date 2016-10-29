@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
 
-import { HoleService } from '../../components/services/hole-service/hole-service.component';
+import { HoleService } from '../../providers/hole-service';
 import { InformationPage } from '../information/information-page';
 import { AchievementsPage } from '../achievements/achievements-page';
 

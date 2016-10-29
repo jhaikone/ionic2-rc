@@ -5,7 +5,11 @@ html, ion-content, ion-item, ion-title {
   }
 }
 
-
+.shadow {
+  &.light {
+    text-shadow: 1px 1px 1px black;
+  }
+}
 
 .ribbon-count {
     min-height: 57px;
@@ -25,6 +29,10 @@ html, ion-content, ion-item, ion-title {
 
 .font-extra-big {
   font-size: map-get($fonts, 'extra-big');
+}
+
+.font-large {
+  font-size: map-get($fonts, 'large');
 }
 
 .font-avarage {

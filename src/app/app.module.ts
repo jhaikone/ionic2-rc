@@ -17,15 +17,17 @@ import { CourseSelectPage } from '../pages/course-select/course-select-page';
 import { CoursePage } from '../pages/course/course-page';
 import { DashboardPage } from '../pages/dashboard/dashboard-page';
 
-import { StorageService } from '../components/services/storage-service/storage-service.component';
-import { HoleService } from '../components/services/hole-service/hole-service.component';
-import { ApiService } from '../components/services/api-service/api-service.component';
-import { TrophyService } from '../components/services/trophy-service/trophy-service.component';
+import { StorageService } from '../providers/storage-service';
+import { HoleService } from '../providers/hole-service';
+import { TrophyService } from '../providers/trophy-service';
 import { CourseService } from '../providers/course-service';
 import { PlayerService } from '../providers/player-service';
+import { ApiService } from '../providers/api-service';
 
 import { HoleComponent } from '../components/directives/hole/hole.component';
 import { PanComponent } from '../components/directives/gestures/pan';
+
+import { FromServerTime } from '../pipes/from-server-time';
 
 
 @NgModule({
@@ -43,6 +45,7 @@ import { PanComponent } from '../components/directives/gestures/pan';
     DashboardPage,
     HoleComponent,
     PanComponent,
+    FromServerTime
   ],
   imports: [
     IonicModule.forRoot(MyApp, {

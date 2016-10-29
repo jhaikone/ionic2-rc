@@ -1,3 +1,20 @@
+export const MOCK_ROUNDS = [
+  {
+    name: 'Paloheinä',
+    time: 1477753740,
+    score: 39,
+    putts: 19
+  },
+  {
+    name: 'Kytäjä',
+    time: 1476630540,
+    score: 105,
+    putts: 43
+  }
+]
+
+
+
 export const MOCK_PLAYER = {
   name: "Juuso Haikonen",
   hcp: 19.2,

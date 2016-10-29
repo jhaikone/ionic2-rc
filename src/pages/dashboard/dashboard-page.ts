@@ -3,21 +3,24 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { PlayerService } from '../../providers/player-service';
+import { ApiService } from '../../providers/api-service';
+
 import { CourseSelectPage } from '../course-select/course-select-page';
 
-/*
-  Generated class for the DashboardPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-dashboard-page',
-  templateUrl: 'dashboard-page.html'
+  templateUrl: 'dashboard-page.html',
 })
+
 export class DashboardPage {
 
-  constructor(public navController: NavController, public playerService: PlayerService) {}
+  constructor(
+    public navController: NavController,
+    public playerService: PlayerService,
+    public apiService: ApiService
+  ) {
+
+  }
 
   ionViewDidLoad() {
     console.log('Hello DashboardPage Page');
@@ -25,6 +28,10 @@ export class DashboardPage {
 
   startRound () {
     this.navController.push(CourseSelectPage, {});
+  }
+
+  getRounds() {
+    return this.apiService.getRounds();
   }
 
 }

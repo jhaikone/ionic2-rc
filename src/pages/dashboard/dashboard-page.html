@@ -1,7 +1,7 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title text-center>Tervetuloa</ion-title>
+  <ion-navbar color="dark">
+    <ion-title text-center>{{playerService.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -21,11 +21,44 @@
       </div>
   </div>
 
+  <ion-row class="relative">
+    <ion-col width-50 text-center class="border-right">
+      <div><span class="font-xsmall">Ennätys kierros</span></div>
+      <div><span class="font-large" color="primary">82</span></div>
+    </ion-col>
+
+    <ion-col width-50 text-center>
+      <div><span class="font-xsmall">Keskiarvo</span></div>
+      <div><span class="font-large" color="primary">66</span></div>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-list>
+
+      <button *ngFor="let round of getRounds()" ion-item (click)="courseSelected(course)">
+        <ion-row>
+          <ion-col width-40>
+            <div><span>{{round.name}}</span></div>
+            <div><span class="font-avarage" >{{round.time | fromServerTime}}</span></div>
+          </ion-col>
+          <ion-col width-20 text-center>
+            <div><span class="font-xsmall">Tulos</span></div>
+            <div><span class="font-avarage" color="primary">{{round.score}}</span></div>
+          </ion-col>
+          <ion-col width-20 text-center>
+            <div><span class="font-xsmall">Putit</span></div>
+            <div><span class="font-avarage" color="primary">{{round.putts}}</span></div>
+          </ion-col>
+        </ion-row>
+      </button>
+
+  </ion-list>
 
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar text-center>
+  <ion-toolbar text-center color="dark">
     <button ion-button (click)="startRound()">Aloita kierros</button>
   </ion-toolbar>
 </ion-footer>

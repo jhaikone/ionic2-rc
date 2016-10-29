@@ -32,6 +32,7 @@ $background-color:  #fff;
 // );
 //
 // best primary so far:; 94BB69  99CC99
+//dark #313131,
 
 $colors: (
   primary:    #94BB69,
@@ -39,10 +40,12 @@ $colors: (
   danger:     #f53d3d,
   light-danger: #ffb5a6,
   light:      #a7a7a7,
-  dark:       #313131,
+  dark:       #1d1d1d,
   favorite:   #69BB7B,
   background: #fff,
   extra-light: #e2e2e2,
+  colored-light: #caff90,
+  background-light: #fff,
   tab: #f8f8f8,
   text: #797979
 );
@@ -50,6 +53,7 @@ $colors: (
 
 $fonts: (
   extra-big: 100px,
+  large: 50px,
   big: 38px,
   moderate: 30px,
   avarage: 22px,
@@ -61,6 +65,10 @@ $fonts: (
 $sizes: (
   menu-height: 70px,
   roundLarge: 52px
+);
+
+$elements: (
+  small-circle: 60px
 );
 
 $text-color: #656565 !default;

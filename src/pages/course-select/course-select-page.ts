@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { CoursePage } from '../course/course-page';
 
-import { ApiService } from '../../components/services/api-service/api-service.component';
+import { ApiService } from '../../providers/api-service';
 import { CourseService } from '../../providers/course-service';
 
 @Component( {
