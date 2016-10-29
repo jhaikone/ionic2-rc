@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>Tervetuloa</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+<div class="background-image"></div>
+
+  <div class="portrait-content" text-center>
+      <div class="container">
+        <img class="portrait" src="assets/img/dashboard/portrait.jpg"/>
+        <div class="circle">
+          <span color="primary">{{playerService.hcp}}</span>
+        </div>
+      </div>
+  </div>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar text-center>
+    <button ion-button (click)="startRound()">Aloita kierros</button>
+  </ion-toolbar>
+</ion-footer>

@@ -15,12 +15,14 @@ import { InformationPage } from '../pages/information/information-page';
 import { ScoreCardPage } from '../pages/score-card/score-card-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
 import { CoursePage } from '../pages/course/course-page';
+import { DashboardPage } from '../pages/dashboard/dashboard-page';
 
 import { StorageService } from '../components/services/storage-service/storage-service.component';
 import { HoleService } from '../components/services/hole-service/hole-service.component';
 import { ApiService } from '../components/services/api-service/api-service.component';
 import { TrophyService } from '../components/services/trophy-service/trophy-service.component';
 import { CourseService } from '../providers/course-service';
+import { PlayerService } from '../providers/player-service';
 
 import { HoleComponent } from '../components/directives/hole/hole.component';
 import { PanComponent } from '../components/directives/gestures/pan';
@@ -38,6 +40,7 @@ import { PanComponent } from '../components/directives/gestures/pan';
     ScoreCardPage,
     CourseSelectPage,
     CoursePage,
+    DashboardPage,
     HoleComponent,
     PanComponent,
   ],
@@ -58,7 +61,8 @@ import { PanComponent } from '../components/directives/gestures/pan';
     InformationPage,
     ScoreCardPage,
     CourseSelectPage,
-    CoursePage
+    CoursePage,
+    DashboardPage
   ],
   providers: [
     Storage,
@@ -66,7 +70,8 @@ import { PanComponent } from '../components/directives/gestures/pan';
     TrophyService,
     HoleService,
     ApiService,
-    CourseService
+    CourseService,
+    PlayerService
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

@@ -1,3 +1,10 @@
+export const MOCK_PLAYER = {
+  name: "Juuso Haikonen",
+  hcp: 19.2,
+  club: 'Helsinki City Golf',
+}
+
+
 /**
 * Paloheinä
 * 1 (par 4) - A 284 m, B 229 m, C 194 m

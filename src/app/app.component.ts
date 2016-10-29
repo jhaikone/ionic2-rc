@@ -4,6 +4,7 @@ import { StatusBar } from 'ionic-native';
 
 import { ScoreViewPage } from '../pages/score-view/score-view-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
+import { DashboardPage } from '../pages/dashboard/dashboard-page';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { CourseSelectPage } from '../pages/course-select/course-select-page';
 })
 export class MyApp {
   // rootPage = ScoreViewPage;
-  rootPage = CourseSelectPage;
+  // rootPage = CourseSelectPage;
+  rootPage = DashboardPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
