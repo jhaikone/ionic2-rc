@@ -24,7 +24,7 @@
 
         <ion-row color="primary" class="border-bottom">
           <ion-col width-10 *ngFor="let hole of frontNine; let i = index"><span class="score-mark {{getClassName(i)}}">{{holeService.getResultAt(i).strokes}}</span></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span>{{player.frontNine}}</span></ion-col>
+          <ion-col width-10 class="border-left no-wrap"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
         </ion-row>
       </section>
 
@@ -41,7 +41,7 @@
 
         <ion-row color="primary" class="padding-bottom">
           <ion-col *ngFor="let hole of backNine; let i = index" width-10><span class="score-mark {{getClassName(i+9)}}"> {{holeService.getResultAt(i+9).strokes}}</span></ion-col>
-          <ion-col width-10 class="border-left"><span class="score-mark">{{player.backNine}}</span></ion-col>
+          <ion-col width-10 class="border-left"><span class="score-mark">{{scoreCardService.getScore('back', 0)}}</span></ion-col>
         </ion-row>
       </section>
 

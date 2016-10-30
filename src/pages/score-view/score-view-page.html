@@ -12,26 +12,16 @@
 
 <ion-content>
 
-  <ion-toolbar no-border-top no-border-bottom>
-    <ion-row>
-      <ion-col class="border-right" width-50>
-        <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = false">
-          <ion-icon color="{{getTabColor('single')}}" name="person"></ion-icon>
-          <span color="{{getTabColor('single')}}">Pelaaja</span>
-        </button>
-      </ion-col>
-
-      <ion-col width-50>
-        <button class="full-width" ion-button icon-only clear (click)="holeService.getResult().multiplayerTab = true">
-          <ion-icon color="{{getTabColor('multi')}}" name="people"></ion-icon>
-          <span color="{{getTabColor('multi')}}">Kaverit</span>
-        </button>
-      </ion-col>
-
-    </ion-row>
-  </ion-toolbar>
-
-  <div [ngClass]="{'multiplayer': holeService.getResult().multiplayerTab}" class="tab-active animate"></div>
+  <div padding>
+    <ion-segment [(ngModel)]="holeService.playerMode">
+      <ion-segment-button value="singleplayer">
+        Pelaaja
+      </ion-segment-button>
+      <ion-segment-button value="multiplayer">
+        Kaverit
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
   <div class="carousel-wrap" pan>
 

@@ -1,8 +1,8 @@
 import  { Injectable, EventEmitter } from '@angular/core';
 
 import  { ApiService } from './api-service';
-
-import _ from 'lodash';
+import  { CourseService } from './course-service';
+import  { ScoreCardService } from './score-card-service';
 
 let players = [
   {
@@ -27,20 +27,19 @@ export class HoleService {
 
   public holeChanged$ = new EventEmitter(false);
 
-  index: number;
+  index: number = 0;
   model: any = {holes: []};
   holes: Array<any> = [];
+  playerMode: any = 'singleplayer';
 
-  constructor(public apiService: ApiService) {
-    this.index = 0;
-    this.holes = this.apiService.getCourse().holes;
-
+  constructor(public apiService: ApiService, courseService: CourseService, public scoreCardService: ScoreCardService) {
+    this.holes = courseService.getCourse().holes;
     this.holes.map((mock, index) => {
-    let random = Math.floor(Math.random() * 6) + 2;
+    // let random = Math.floor(Math.random() * 6) + 2;
 
     let object = {
       singlePlayer: {
-        strokes: random,
+        strokes: this.getParAt(index),
         putts: 2,
         sands: 0,
         penalties: 0,
@@ -68,11 +67,16 @@ export class HoleService {
   }
 
   getParTotal(index, end) {
+    console.log(this.holes);
     let total = 0;
     for (index; index < end; index++) {
       total = total + this.holes[index].par;
     }
     return total;
+  }
+
+  setHoles(holes) {
+    this.holes = holes;
   }
 
   getFrontNinePar() {
@@ -81,11 +85,6 @@ export class HoleService {
 
   getBackNinePar() {
     return this.getParTotal(9, 17);
-  }
-
-  getHolesBetween(start, end) {
-    let copy = _.map(this.holes, _.clone);
-    return copy.splice(start, end);
   }
 
   getIndex() {
@@ -181,12 +180,15 @@ export class HoleService {
       information.player.sands = information.player.sands + hole.singlePlayer.sands;
       information.player.penalties = information.player.penalties + hole.singlePlayer.penalties;
 
+      this.scoreCardService.setScoreToCardAt(hole.singlePlayer.strokes, 0);
+
       this.updateStatistics(information, statistics, hole, holeIndex);
 
       holeIndex++;
 
       for (let i = 0; i < information.friends.length; i++) {
         information.friends[i].score = information.friends[i].score + hole.multiplayers[i].strokes;
+        this.scoreCardService.setScoreToCardAt(hole.multiplayers[i].strokes, i+1);
       }
 
     }
@@ -199,12 +201,6 @@ export class HoleService {
       statistics.noResults.amount = statistics.noResults.amount+1;
       statistics.noResults.holes.push(holeIndex);
       return;
-    }
-
-    if (holeIndex < 9) {
-      information.player.frontNine = information.player.frontNine + hole.singlePlayer.strokes;
-    } else {
-      information.player.backNine = information.player.backNine + hole.singlePlayer.strokes;
     }
 
     let par = this.getParAt(holeIndex)

@@ -1,19 +1,24 @@
+export const MOCK_ROUND_CARDS = {
+  1: [3,4,5,6,5,4,5,2,2],
+  2: [3,4,2,4,5,6,5,5,2,3,4,2,4,5,6,5,5,2]
+};
+
 export const MOCK_ROUNDS = [
   {
+    id: 1,
     name: 'Paloheinä',
     time: 1477753740,
     score: 39,
     putts: 19
   },
   {
+    id: 2,
     name: 'Kytäjä',
     time: 1476630540,
     score: 105,
     putts: 43
   }
-]
-
-
+];
 
 export const MOCK_PLAYER = {
   name: "Juuso Haikonen",

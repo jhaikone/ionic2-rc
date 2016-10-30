@@ -23,6 +23,8 @@ import { TrophyService } from '../providers/trophy-service';
 import { CourseService } from '../providers/course-service';
 import { PlayerService } from '../providers/player-service';
 import { ApiService } from '../providers/api-service';
+import { ScoreCardService } from '../providers/score-card-service';
+import { Helper } from '../providers/helper';
 
 import { HoleComponent } from '../components/directives/hole/hole.component';
 import { PanComponent } from '../components/directives/gestures/pan';
@@ -73,8 +75,10 @@ import { FromServerTime } from '../pipes/from-server-time';
     TrophyService,
     HoleService,
     ApiService,
+    ScoreCardService,
     CourseService,
-    PlayerService
+    PlayerService,
+    Helper
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

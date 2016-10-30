@@ -1,6 +1,6 @@
 import  { Injectable } from '@angular/core';
 
-import { MOCK_COURSES, MOCK_ROUNDS } from '../mock/mock';
+import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
 
 @Injectable()
 export class ApiService {
@@ -15,5 +15,9 @@ export class ApiService {
 
   getRounds() {
     return MOCK_ROUNDS;
+  }
+
+  getRound(round) {
+    return MOCK_ROUND_CARDS[round.id];
   }
 }

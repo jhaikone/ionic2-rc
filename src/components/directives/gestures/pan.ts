@@ -102,7 +102,7 @@ export class PanComponent implements OnInit, OnDestroy {
       this.holeService.setIndex(index+1);
     }
 
-    this.holeService.getResult().multiplayerTab = false;
+    this.holeService.playerMode = 'singleplayer';
     this.animateHoleChange();
   }
 

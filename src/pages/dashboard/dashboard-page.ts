@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 
 import { PlayerService } from '../../providers/player-service';
 import { ApiService } from '../../providers/api-service';
+import { ScoreCardService } from '../../providers/score-card-service';
 
 import { CourseSelectPage } from '../course-select/course-select-page';
 
@@ -17,7 +18,8 @@ export class DashboardPage {
   constructor(
     public navController: NavController,
     public playerService: PlayerService,
-    public apiService: ApiService
+    public apiService: ApiService,
+    public scoreCardService: ScoreCardService
   ) {
 
   }
@@ -32,6 +34,11 @@ export class DashboardPage {
 
   getRounds() {
     return this.apiService.getRounds();
+  }
+
+  getRound(round) {
+    this.scoreCardService.setCardByIndex(this.apiService.getRound(round), 0);
+    return this.apiService.getRound(round);
   }
 
 }

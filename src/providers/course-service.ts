@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CourseService {
 
-  course: Object = {};
+  course: any = {};
 
   constructor() {
     console.log('Hello CourseService Provider');

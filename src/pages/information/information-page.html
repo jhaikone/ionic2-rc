@@ -20,12 +20,12 @@
 
             <ion-col width-50 text-center class="border-right">
               <div><span class="font-xsmall" light>Etuysi</span></div>
-              <div><span primary>{{player.frontNine}}</span></div>
+              <div><span primary>{{scoreCardService.getScore('front', 0)}}</span></div>
             </ion-col>
 
             <ion-col width-50 text-center>
               <div><span class="font-xsmall" light>Takaysi</span></div>
-              <div><span primary>{{player.backNine}}</span></div>
+              <div><span primary>{{scoreCardService.getScore('back', 0)}}</span></div>
             </ion-col>
 
           </ion-row>

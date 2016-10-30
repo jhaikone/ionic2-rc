@@ -1,6 +1,6 @@
 <div>
 
-  <section *ngIf="!holeService.getResult().multiplayerTab">
+  <section *ngIf="holeService.playerMode === 'singleplayer'">
 
        <ion-item>
          <ion-label class="animate color" [ngClass]="{'secondary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
@@ -44,7 +44,7 @@
 
   </section>
 
-    <section *ngIf="holeService.getResult().multiplayerTab">
+    <section *ngIf="holeService.playerMode === 'multiplayer'">
       <ion-grid *ngFor="let multiplayer of holeService.getResult().multiplayers">
 
        <ion-row class="content">

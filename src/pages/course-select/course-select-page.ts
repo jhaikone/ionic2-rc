@@ -24,6 +24,7 @@ export class CourseSelectPage {
 
   courseSelected(course) {
     this.courseService.setCourse(course);
+    console.log('cour', course);
     this.navController.push(CoursePage, {});
   }
 
