@@ -1,0 +1,12 @@
+score-card-view {
+ .minus {
+   background: color($colors, primary);
+   padding: 5px;
+ }
+
+ .plus {
+   background: color($colors, light-danger);
+   padding: 5px;
+ }
+
+}

@@ -14,4 +14,12 @@ export class Helper {
     return copy.splice(start, end);
   }
 
+  getTotal(array, key) {
+    let total = 0;
+    array.forEach((item) => {
+      total += item[key];
+    })
+    return total;
+  }
+
 }

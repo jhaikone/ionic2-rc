@@ -7,6 +7,7 @@ import { ApiService } from '../../providers/api-service';
 import { ScoreCardService } from '../../providers/score-card-service';
 
 import { CourseSelectPage } from '../course-select/course-select-page';
+import { ScoreCardPage } from '../score-card/score-card-page';
 
 @Component({
   selector: 'page-dashboard-page',
@@ -38,7 +39,7 @@ export class DashboardPage {
 
   getRound(round) {
     this.scoreCardService.setCardByIndex(this.apiService.getRound(round), 0);
-    return this.apiService.getRound(round);
+    this.navController.push(ScoreCardPage, {});
   }
 
 }

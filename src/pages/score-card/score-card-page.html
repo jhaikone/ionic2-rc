@@ -18,12 +18,12 @@
         </ion-row>
 
         <ion-row>
-          <ion-col *ngFor="let hole of frontNine; let i = index" width-10>{{holeService.getParAt(i)}}</ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span>{{holeService.getFrontNinePar()}}</span></ion-col>
+          <ion-col *ngFor="let hole of frontNine; let i = index" width-10>{{parList[i].par}}</ion-col>
+          <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('front')}}</span></ion-col>
         </ion-row>
 
         <ion-row color="primary" class="border-bottom">
-          <ion-col width-10 *ngFor="let hole of frontNine; let i = index"><span class="score-mark {{getClassName(i)}}">{{holeService.getResultAt(i).strokes}}</span></ion-col>
+          <ion-col width-10 *ngFor="let hole of frontNine; let i = index"><span class="score-mark {{getClassName(i)}}">{{holes[i]}}</span></ion-col>
           <ion-col width-10 class="border-left no-wrap"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
         </ion-row>
       </section>
@@ -35,12 +35,12 @@
         </ion-row>
 
         <ion-row>
-          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{holeService.getParAt(i+9)}}</span></ion-col>
-          <ion-col width-10 class="border-left"><span>{{holeService.getFrontNinePar()}}</span></ion-col>
+          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{parList[i+9].par}}</span></ion-col>
+          <ion-col width-10 class="border-left"><span>{{getTotal('back')}}</span></ion-col>
         </ion-row>
 
         <ion-row color="primary" class="padding-bottom">
-          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span class="score-mark {{getClassName(i+9)}}"> {{holeService.getResultAt(i+9).strokes}}</span></ion-col>
+          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span class="score-mark {{getClassName(i+9)}}"> {{holes[i+9]}}</span></ion-col>
           <ion-col width-10 class="border-left"><span class="score-mark">{{scoreCardService.getScore('back', 0)}}</span></ion-col>
         </ion-row>
       </section>

@@ -37,18 +37,19 @@ export class ScoreCardService {
 
   getScore(from, index) {
     if (from === 'front') {
-      return this.getTotal(this.helper.fromToArray(0, 8, this.scoreCard[index]))
+      return this.getTotal(this.helper.fromToArray(0, 9, this.scoreCard[index]))
     } else {
-      return this.getTotal(this.helper.fromToArray(9, 17, this.scoreCard[index]));
+      return this.getTotal(this.helper.fromToArray(9, 17, this.scoreCard[index])) || 0;
     }
 
   }
 
   private getTotal(array) {
     let total = 0;
-    return array.forEach((value) => {
-      return total += value;
+    array.forEach((value) => {
+      total += value;
     })
+    return total;
   }
 
 }

@@ -20,4 +20,8 @@ export class ApiService {
   getRound(round) {
     return MOCK_ROUND_CARDS[round.id];
   }
+
+  getParListFromCourse() {
+    return MOCK_COURSES[0].holes;
+  }
 }
