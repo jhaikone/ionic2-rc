@@ -1,9 +1,16 @@
 <ion-header>
-
-  <ion-navbar color="dark">
-    <ion-title text-center>{{playerService.name}}</ion-title>
+  <ion-navbar text-center>
+    <button ion-button clear (click)="showClubPrompt()">
+      <ion-grid>
+        <ion-col>
+          <div><span class="custom-ion-title">{{playerService.name}}</span></div>
+          <div class="font-small">
+            <span class="font-xsmall">{{playerService.club || 'Aseta jäsenyys'}}</span>
+          </div>
+        </ion-col>
+      </ion-grid>
+    </button>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -16,20 +23,22 @@
       <div class="container">
         <img class="portrait" src="assets/img/dashboard/portrait.jpg"/>
         <div class="circle">
-          <span color="primary">{{playerService.hcp}}</span>
+          <button ion-button icon-only clear (click)="showPrompt()">
+            <span class="font-small" color="primary">{{playerService.hcp}}</span>
+          </button>
         </div>
       </div>
   </div>
 
   <ion-row class="relative">
     <ion-col width-50 text-center class="border-right">
-      <div><span class="font-xsmall">Ennätys kierros</span></div>
-      <div><span class="font-large" color="primary">82</span></div>
+      <div><span class="font-small">Ennätyskierros</span></div>
+      <div><span class="font-large" color="primary">81</span></div>
     </ion-col>
 
     <ion-col width-50 text-center>
-      <div><span class="font-xsmall">Keskiarvo</span></div>
-      <div><span class="font-large" color="primary">66</span></div>
+      <div><span class="font-small">Keskiarvo</span></div>
+      <div><span class="font-large" color="primary">94</span></div>
     </ion-col>
 
   </ion-row>

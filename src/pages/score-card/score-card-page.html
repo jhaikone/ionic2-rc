@@ -1,9 +1,13 @@
 <ion-header>
-    <ion-toolbar>
-    <ion-row>
-      <ion-col width-50><span color="primary">Tuloskortti</span></ion-col>
-      <ion-col width-50 text-right><a (click)="close()"><ion-icon name="close"></ion-icon></a></ion-col>
-    </ion-row>
+    <ion-toolbar text-center>
+      <ion-grid>
+        <ion-col>
+          <div><span class="custom-ion-title">{{courseService.getCourse().name}}</span></div>
+          <div class="font-small">
+            <span color="background-light" class="font-xsmall">{{courseService.getCourse().time | fromServerTime}}</span>
+          </div>
+        </ion-col>
+      </ion-grid>
   </ion-toolbar>
 </ion-header>
 
@@ -30,18 +34,18 @@
 
       <section *ngIf="backNine.length > 0">
         <ion-row color="light">
-          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{i+10}}</span></ion-col>
-          <ion-col width-10 class="border-left"><span>In</span></ion-col>
+          <ion-col class="no-wrap" *ngFor="let hole of backNine; let i = index" width-10><span color="light">{{i+10}}</span></ion-col>
+          <ion-col width-10 class="border-left no-wrap"><span color="light">In</span></ion-col>
         </ion-row>
 
         <ion-row>
           <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{parList[i+9].par}}</span></ion-col>
-          <ion-col width-10 class="border-left"><span>{{getTotal('back')}}</span></ion-col>
+          <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('back')}}</span></ion-col>
         </ion-row>
 
         <ion-row color="primary" class="padding-bottom">
           <ion-col *ngFor="let hole of backNine; let i = index" width-10><span class="score-mark {{getClassName(i+9)}}"> {{holes[i+9]}}</span></ion-col>
-          <ion-col width-10 class="border-left"><span class="score-mark">{{scoreCardService.getScore('back', 0)}}</span></ion-col>
+          <ion-col width-10 class="border-left no-wrap"><span>{{scoreCardService.getScore('back', 0)}}</span></ion-col>
         </ion-row>
       </section>
 
@@ -50,10 +54,6 @@
   </ion-card>
 </ion-content>
 
-<ion-footer text-center>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col> <button ion-button (click)="close()">Sulje</button></ion-col>
-    </ion-row>
-  </ion-toolbar>
+<ion-footer>
+  <ion-navbar></ion-navbar>
 </ion-footer>

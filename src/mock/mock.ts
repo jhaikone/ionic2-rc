@@ -42,7 +42,7 @@ export const MOCK_PLAYER = {
 
 export const MOCK_COURSES = [
   {
-    id: 25664,
+    id: 1,
     name: "Paloheinä",
     tees: [
       {name:"yellow", metre: 2745},
@@ -132,91 +132,10 @@ export const MOCK_COURSES = [
           red: 267
         }
       }
-      // {
-      //   hole: 10,
-      //   par: 4,
-      //   distances: {
-      //     yellow: 284,
-      //     blue: 229,
-      //     red: 194
-      //   }
-      // },
-      // {
-      //   hole: 11,
-      //   par: 3,
-      //   distances: {
-      //     yellow: 154,
-      //     blue: 131,
-      //     red: 119
-      //   }
-      // },
-      // {
-      //   hole: 12,
-      //   par: 5,
-      //   distances: {
-      //     yellow: 477,
-      //     blue: 381,
-      //     red: 332
-      //   }
-      // },
-      // {
-      //   hole: 13,
-      //   par: 5,
-      //   distances: {
-      //     yellow: 447,
-      //     blue: 384,
-      //     red: 311
-      //   }
-      // },
-      // {
-      //   hole: 14,
-      //   par: 3,
-      //   distances: {
-      //     yellow: 110,
-      //     blue: 102,
-      //     red: 78
-      //   }
-      // },
-      // {
-      //   hole: 15,
-      //   par: 5,
-      //   distances: {
-      //     yellow: 448,
-      //     blue: 362,
-      //     red: 362
-      //   }
-      // },
-      // {
-      //   hole: 16,
-      //   par: 4,
-      //   distances: {
-      //     yellow: 339,
-      //     blue: 282,
-      //     red: 237
-      //   }
-      // },
-      // {
-      //   hole: 17,
-      //   par: 3,
-      //   distances: {
-      //     yellow: 141,
-      //     blue: 105,
-      //     red: 95
-      //   }
-      // },
-      // {
-      //   hole: 18,
-      //   par: 4,
-      //   distances: {
-      //     yellow: 345,
-      //     blue: 300,
-      //     red: 267
-      //   }
-      // }
     ]
   },
   {
-    id: 24664,
+    id: 2,
     name: "Kytäjä",
     tees: ["yellow","blue","red"],
     holes: [
@@ -294,6 +213,87 @@ export const MOCK_COURSES = [
       },
       {
         hole: 9,
+        par: 4,
+        distances: {
+          yellow: 345,
+          blue: 300,
+          red: 267
+        }
+      },
+      {
+        hole: 10,
+        par: 4,
+        distances: {
+          yellow: 284,
+          blue: 229,
+          red: 194
+        }
+      },
+      {
+        hole: 11,
+        par: 3,
+        distances: {
+          yellow: 154,
+          blue: 131,
+          red: 119
+        }
+      },
+      {
+        hole: 12,
+        par: 5,
+        distances: {
+          yellow: 477,
+          blue: 381,
+          red: 332
+        }
+      },
+      {
+        hole: 13,
+        par: 5,
+        distances: {
+          yellow: 447,
+          blue: 384,
+          red: 311
+        }
+      },
+      {
+        hole: 14,
+        par: 3,
+        distances: {
+          yellow: 110,
+          blue: 102,
+          red: 78
+        }
+      },
+      {
+        hole: 15,
+        par: 5,
+        distances: {
+          yellow: 448,
+          blue: 362,
+          red: 362
+        }
+      },
+      {
+        hole: 16,
+        par: 4,
+        distances: {
+          yellow: 339,
+          blue: 282,
+          red: 237
+        }
+      },
+      {
+        hole: 17,
+        par: 3,
+        distances: {
+          yellow: 141,
+          blue: 105,
+          red: 95
+        }
+      },
+      {
+        hole: 18,
         par: 4,
         distances: {
           yellow: 345,

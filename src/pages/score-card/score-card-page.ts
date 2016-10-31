@@ -8,6 +8,7 @@ import { StorageService } from '../../providers/storage-service';
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
 import { ApiService } from '../../providers/api-service';
+import { CourseService } from '../../providers/course-service';
 
 @Component({
   selector: 'score-card-view',
@@ -28,6 +29,7 @@ export class ScoreCardPage  {
     public viewCtrl : ViewController,
     public scoreCardService: ScoreCardService,
     apiService: ApiService,
+    public courseService: CourseService,
     public helper: Helper
   ) {
 

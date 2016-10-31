@@ -5,6 +5,14 @@ html, ion-content, ion-item, ion-title {
   }
 }
 
+.custom-ion-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  pointer-events: auto;
+}
+
 .shadow {
   &.light {
     text-shadow: 1px 1px 1px black;
@@ -41,6 +49,10 @@ html, ion-content, ion-item, ion-title {
 
 .font-small {
   font-size: map-get($fonts, 'small');
+}
+
+.font-xsmall {
+  font-size: map-get($fonts, 'xsmall');
 }
 
 .text-inset {

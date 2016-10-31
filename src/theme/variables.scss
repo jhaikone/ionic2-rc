@@ -58,7 +58,8 @@ $fonts: (
   moderate: 30px,
   avarage: 22px,
   small: 16px,
-  xsmall: 12px,
+  xsmall: 14px,
+  xxsmall: 12px,
   inputLabel: 1.6rem
 );
 
@@ -74,10 +75,24 @@ $elements: (
 $text-color: #656565 !default;
 $list-text-color: $text-color !default;
 $toolbar-text-color: $text-color !default;
+// Use the primary color as the background for the toolbar-md-background
+$toolbar-md-background:                   color($colors, dark);
+$toolbar-ios-background:                   color($colors, dark);
+$navbar-md-background:                   color($colors, dark);
+$navbar-ios-background:                   color($colors, dark);
+
+
+.back-button {
+  color: color($colors, primary) !important;
+}
+
+
 
 ion-card-title {
   color: $text-color !important;
 }
+
+$bar-button-ios:                      color($colors, primary);
 
 //Dark theme
 

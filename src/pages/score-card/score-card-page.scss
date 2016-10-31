@@ -1,10 +1,12 @@
 score-card-view {
  .minus {
+   color: color($colors, background-light);
    background: color($colors, primary);
    padding: 5px;
  }
 
  .plus {
+   color: color($colors, background-light);
    background: color($colors, light-danger);
    padding: 5px;
  }

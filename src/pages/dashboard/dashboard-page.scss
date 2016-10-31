@@ -39,17 +39,15 @@ page-dashboard-page {
     right: 0;
     top: 70%;
     width: map-get($elements, small-circle);
-    height: map-get($elements, small-circle);;
+    height: map-get($elements, small-circle);
     background: color($colors, background-light);
     border-radius: 50%;
     border: 1px solid map-get($colors, light);
     text-align: center;
 
-    span {
-      font-size: map-get($fonts, small);
-      text-align: center;
-      vertical-align: middle;
-      line-height: map-get($elements, small-circle);;
+    button {
+      height: map-get($elements, small-circle);
+      margin: 0;
     }
   }
 

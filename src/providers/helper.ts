@@ -22,4 +22,10 @@ export class Helper {
     return total;
   }
 
+
+  round(value, precision = 1) {
+    let multiplier = Math.pow(10, precision || 0);
+    return (Math.round(value * multiplier) / multiplier).toFixed(precision);
+  }
+
 }
