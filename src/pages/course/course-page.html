@@ -5,16 +5,16 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title><span class="title">{{course.name}}</span></ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-title>{{course.name}}</ion-title>
+  </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
   <ion-item>
-  <ion-label>Tii</ion-label>
+  <ion-label>Valitse tii</ion-label>
   <ion-select [(ngModel)]="tee">
     <ion-option *ngFor="let tee of teeList" value="{{tee.key}}">{{tee.name + ' (' + tee.metre + 'm)' }}</ion-option>
   </ion-select>
@@ -32,12 +32,16 @@
   </ion-item>
 </section>
 
-
-
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar text-center>
-    <button (click)="startRound()" *ngIf="tee" ion-button>Aloita kierros</button>
-  </ion-toolbar>
+  <ion-navbar>
+    <ion-buttons end>
+      <button color="primary" (click)="startRound()" [disabled]="!tee" ion-button icon-only clear>
+        Pelaa<ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
 </ion-footer>
