@@ -24,6 +24,8 @@ import { CourseService } from '../providers/course-service';
 import { PlayerService } from '../providers/player-service';
 import { ApiService } from '../providers/api-service';
 import { ScoreCardService } from '../providers/score-card-service';
+
+import  { Settings } from '../providers/settings';
 import { Helper } from '../providers/helper';
 
 import { HoleComponent } from '../components/directives/hole/hole.component';
@@ -78,6 +80,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     ScoreCardService,
     CourseService,
     PlayerService,
+    Settings,
     Helper
     // HoleService,
     // StorageServiceComponent,

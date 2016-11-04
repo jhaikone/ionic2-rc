@@ -28,4 +28,13 @@ export class Helper {
     return (Math.round(value * multiplier) / multiplier).toFixed(precision);
   }
 
+  sortNumberArray(array, key, reverse = false) {
+    return array.sort((a, b) => {
+      if (reverse) {
+        return b[key] - a[key];
+      }
+      return a[key] - b[key];
+    });
+  }
+
 }

@@ -13,32 +13,36 @@
 
 
 <ion-content padding>
-  <ion-item>
-  <ion-label>Valitse tii</ion-label>
-  <ion-select [(ngModel)]="tee">
-    <ion-option *ngFor="let tee of teeList" value="{{tee.key}}">{{tee.name + ' (' + tee.metre + 'm)' }}</ion-option>
-  </ion-select>
-</ion-item>
+
+<ion-list radio-group [(ngModel)]="settings.selected">
+  <ion-list-header>
+    Valitse tii
+  </ion-list-header>
+
+  <ion-item *ngFor="let tee of teeList; let i = index">
+    <ion-label>{{tee.name + ' (' + tee.metre + 'm)' }}</ion-label>
+    <ion-radio checked="{{i === 0}}" value="{{tee.key}}"></ion-radio>
+  </ion-item>
+</ion-list>
 
 <ion-item>
   <ion-label class="animate color" [ngClass]="{'primary': multiplayer}">Moninpeli</ion-label>
-  <ion-toggle color="primary" [(ngModel)]="multiplayer"></ion-toggle>
+  <ion-toggle color="primary" [(ngModel)]="settings.multiplayer"></ion-toggle>
 </ion-item>
 
-<section *ngIf="multiplayer">
+<section *ngIf="settings.multiplayer">
   <ion-item *ngFor="let player of players; let i = index">
     <ion-label color="{{players[i].name ? 'primary' : 'light'}}" floating>Pelaaja {{i+2}}</ion-label>
     <ion-input [(ngModel)]="players[i].name" type="text"></ion-input>
   </ion-item>
 </section>
-
 </ion-content>
 
 <ion-footer>
   <ion-navbar>
     <ion-buttons end>
-      <button color="primary" (click)="startRound()" [disabled]="!tee" ion-button icon-only clear>
-        Pelaa<ion-icon name="arrow-forward"></ion-icon>
+      <button color="primary" (click)="startRound()" ion-button icon-only clear>
+        <span>Pelaa</span><ion-icon name="arrow-forward" item-left></ion-icon>
       </button>
     </ion-buttons>
 

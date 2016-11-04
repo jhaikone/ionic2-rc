@@ -6,6 +6,8 @@ import { HoleService } from '../../providers/hole-service';
 import { InformationPage } from '../information/information-page';
 import { AchievementsPage } from '../achievements/achievements-page';
 
+import { Settings } from '../../providers/settings';
+
 import { DirectionEnum } from '../../environment/environment';
 
 
@@ -27,7 +29,8 @@ export class ScoreViewPage {
   result: any;
   holes: any;
 
-  constructor(public holeService: HoleService, public nav: NavController, public modalController: ModalController) {
+  constructor(public holeService: HoleService, public nav: NavController, public modalController: ModalController, public settings: Settings) {
+    console.log('settings', settings);
     this.holes = this.holeService.getHoles();
     this.model = this.holeService.getResults();
     this.holeIndex = this.holeService.getIndex();

@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-row>
-      <ion-col width-33> <p>Väylä {{getHole()}}</p></ion-col>
-      <ion-col width-33 text-center><p>Par {{getPar()}}</p></ion-col>
+      <ion-col width-33> <p class="custom-ion-title">Väylä {{getHole()}}</p></ion-col>
+      <ion-col width-33 text-center><p class="custom-ion-title">Par {{getPar()}}</p></ion-col>
       <ion-col width-33 text-right>
           <button ion-button icon-only clear color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button>
       </ion-col>
@@ -12,7 +12,7 @@
 
 <ion-content>
 
-  <div padding>
+  <div padding *ngIf="settings.multiplayer">
     <ion-segment [(ngModel)]="holeService.playerMode">
       <ion-segment-button value="singleplayer">
         Pelaaja
