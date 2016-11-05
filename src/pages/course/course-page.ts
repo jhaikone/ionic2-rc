@@ -29,6 +29,7 @@ export class CoursePage {
     this.course = courseService.getCourse();
     this.initTeeList();
     this.players = this.initPlayers();
+    this.settings.multiplayer = false;
   }
 
   ionViewDidLoad() {

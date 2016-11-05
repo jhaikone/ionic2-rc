@@ -33,18 +33,19 @@
 <section *ngIf="settings.multiplayer">
   <ion-item *ngFor="let player of players; let i = index">
     <ion-label color="{{players[i].name ? 'primary' : 'light'}}" floating>Pelaaja {{i+2}}</ion-label>
-    <ion-input [(ngModel)]="players[i].name" type="text"></ion-input>
+    <ion-input [(ngModel)]="settings.players[i].name" type="text"></ion-input>
   </ion-item>
 </section>
 </ion-content>
 
 <ion-footer>
-  <ion-navbar>
-    <ion-buttons end>
-      <button color="primary" (click)="startRound()" ion-button icon-only clear>
-        <span>Pelaa</span><ion-icon name="arrow-forward" item-left></ion-icon>
+  <ion-navbar text-right>
+
+      <button color="primary" (click)="startRound()" ion-button>
+        Pelaa
+        <!-- <ion-icon name="arrow-forward" item-left></ion-icon> -->
       </button>
-    </ion-buttons>
+
 
   </ion-navbar>
 

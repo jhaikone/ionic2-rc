@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col width-50><p class="custom-ion-title">Saavutukset!</p></ion-col>
-      <ion-col width-50 text-right><button ion-button clear (click)="close()">Sulje</button></ion-col>
-    </ion-row>
-  </ion-toolbar>
+  <ion-navbar text-left>
+      <ion-buttons end>
+          <button color="primary" ion-button clear (click)="close()">Sulje</button>
+        </ion-buttons>
+      <ion-title>Saavutukset!</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="margin-top relative">

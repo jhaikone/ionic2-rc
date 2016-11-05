@@ -13,9 +13,10 @@ export class Settings {
 
   multiplayer: Boolean = false;
   selected: 'String';
+  players: Array<any> = [ {name:''}, {name:''}, {name:''} ];
 
   constructor(public http: Http) {
-    console.log('Hello Settings Provider');
+    console.log('Hello Settings Provider', this.players);
   }
 
 }

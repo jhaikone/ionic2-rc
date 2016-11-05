@@ -43,7 +43,6 @@ export class DashboardPage {
   }
 
   getRound(selected) {
-    console.log('selected', selected);
     this.courseService.setCourse(selected);
     this.scoreCardService.setCardByIndex(this.apiService.getRound(selected), 0);
     this.navController.push(ScoreCardPage, {});
