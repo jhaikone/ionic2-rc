@@ -3,24 +3,7 @@ import  { Injectable, EventEmitter } from '@angular/core';
 import  { ApiService } from './api-service';
 import  { CourseService } from './course-service';
 import  { ScoreCardService } from './score-card-service';
-
-let players = [
-  {
-    id: 33442,
-    hcp: 20,
-    name:"Jesse"
-  },
-  {
-    id: 43442,
-    hcp: 23,
-    name:"Jaska"
-  },
-  {
-    id: 53442,
-    hcp: 10,
-    name:"Pekka"
-  }
-];
+import { Settings } from './settings';
 
 @Injectable()
 export class HoleService {
@@ -32,34 +15,33 @@ export class HoleService {
   holes: Array<any> = [];
   playerMode: any = 'singleplayer';
 
-  constructor(public apiService: ApiService, courseService: CourseService, public scoreCardService: ScoreCardService) {
+  constructor(public apiService: ApiService, courseService: CourseService, public scoreCardService: ScoreCardService, public settings: Settings) {
     this.holes = courseService.getCourse().holes;
     this.holes.map((mock, index) => {
     // let random = Math.floor(Math.random() * 6) + 2;
+      let object = {
+        singlePlayer: {
+          strokes: this.getParAt(index),
+          putts: 2,
+          sands: 0,
+          penalties: 0,
+          drive: 1,
+          fairway: true,
+          gir: false,
+          sandSave: false,
+        },
+        multiplayers: []
+      };
 
-    let object = {
-      singlePlayer: {
-        strokes: this.getParAt(index),
-        putts: 2,
-        sands: 0,
-        penalties: 0,
-        drive: 1,
-        fairway: true,
-        gir: false,
-        sandSave: false,
-      },
-      multiplayers: []
-    };
-
-      players.map((player) => {
+      this.settings.players.map((player) => {
         object.multiplayers.push(
           {
-            id: player.id,
             name: player.name,
+            hcp: player.hcp,
             strokes: this.holes[index].par
           }
         );
-      })
+      });
 
       this.model.holes[index] = object;
 
@@ -67,7 +49,6 @@ export class HoleService {
   }
 
   getParTotal(index, end) {
-    console.log(this.holes);
     let total = 0;
     for (index; index < end; index++) {
       total = total + this.holes[index].par;
@@ -276,7 +257,7 @@ export class HoleService {
 
   createPlayerModel(index) {
    let objectPlayers = [];
-   let totalPlayers = players;
+   let totalPlayers = this.settings.players;
 
    let strokes = this.holes[index].par;
    let putts = 2;

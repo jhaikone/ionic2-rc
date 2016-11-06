@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the Settings provider.
+import { Helper } from './helper';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class Settings {
 
   multiplayer: Boolean = false;
-  selected: 'String';
-  players: Array<any> = [ {name:''}, {name:''}, {name:''} ];
+  selectedTee: 'String';
+  players: Array<any> = [ {name:'', hcp: 36}, {name:'', hcp: 36}, {name:'', hcp: 36} ];
 
-  constructor(public http: Http) {
+  constructor(public helper: Helper) {
     console.log('Hello Settings Provider', this.players);
+  }
+
+  prepareRound(playerList) {
+    this.players = this.helper.cleanArrayBy(playerList, 'name');
   }
 
 }

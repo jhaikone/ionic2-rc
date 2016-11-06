@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
-import _ from 'lodash';
-
 import { TrophyService } from '../../providers/trophy-service';
 import { StorageService } from '../../providers/storage-service';
 import { ScoreCardService } from '../../providers/score-card-service';

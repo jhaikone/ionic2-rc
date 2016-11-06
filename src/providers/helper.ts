@@ -37,4 +37,17 @@ export class Helper {
     });
   }
 
+  cleanArrayBy(array, key) {
+    return array.filter(this.isSet);
+  }
+
+  private isSet(value) {
+    console.log('value', value);
+    return !(value === '' || value === undefined || value === null || _.isEmpty(value));
+  }
+
+  clone(array) {
+    return _.clone(array);
+  }
+
 }

@@ -63,6 +63,9 @@
 ion-row {
   ion-col {
     font-size: map-get($fonts, inputLabel);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

@@ -22,7 +22,6 @@ export class CoursePage {
 
   course: any = {};
   teeList: Array<any> = [];
-  selected: String;
   players: Array<Object>;
 
   constructor(public navController: NavController,  public courseService: CourseService, public helper: Helper, public settings: Settings) {
@@ -37,6 +36,7 @@ export class CoursePage {
   }
 
   startRound() {
+    this.settings.prepareRound(this.players);
     this.navController.push(ScoreViewPage, {});
   }
 
@@ -46,7 +46,7 @@ export class CoursePage {
     });
 
     this.helper.sortNumberArray(this.teeList, 'metre');
-    this.settings.selected = this.teeList[0].key;
+    this.settings.selectedTee = this.teeList[0].key;
 
   }
 
