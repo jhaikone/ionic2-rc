@@ -5,11 +5,17 @@ html, ion-content, ion-item, ion-title {
   }
 }
 
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .custom-ion-title {
   font-size: 1.7rem;
   font-weight: 600;
   text-align: center;
-  color: #fff;
+  color: color($colors, menu-title);
   pointer-events: auto;
 }
 
