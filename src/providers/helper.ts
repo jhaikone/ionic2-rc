@@ -50,4 +50,12 @@ export class Helper {
     return _.clone(array);
   }
 
+  isEmpty (object) {
+    return _.isEmpty(object);
+  }
+
+  isNotEmpty(object) {
+    return !_.isEmpty(object);
+  }
+
 }

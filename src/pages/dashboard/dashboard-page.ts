@@ -31,7 +31,7 @@ export class DashboardPage {
   }
 
   ionViewDidLoad() {
-    console.log('Hello DashboardPage Page');
+    console.log('Hello DashboardPage Pag');
   }
 
   startRound () {

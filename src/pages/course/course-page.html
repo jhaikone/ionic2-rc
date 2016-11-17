@@ -26,17 +26,17 @@
 
 <section *ngIf="settings.multiplayer">
   <ion-grid>
-    <ion-row *ngFor="let player of players; let i = index">
+    <ion-row *ngFor="let friend of friends; let i = index">
       <ion-col width-67>
         <ion-item>
-          <ion-label color="{{players[i].name ? 'primary' : 'light'}}" floating>Pelaaja {{i+2}}</ion-label>
-          <ion-input [(ngModel)]="players[i].name" type="text"></ion-input>
+          <ion-label color="{{friend.name ? 'primary' : 'light'}}" floating>Pelaaja {{i+2}}</ion-label>
+          <ion-input [(ngModel)]="friend.name" (blur)="initHCP(friend)" type="text"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col width-33>
-        <ion-item *ngIf="players[i].name">
-          <ion-label floating>HCP</ion-label>
-          <ion-input [(ngModel)]="players[i].hcp" type="number"></ion-input>
+        <ion-item *ngIf="friend.name">
+          <ion-label color="{{friend.hcp ? 'primary' : 'light'}}" floating>HCP</ion-label>
+          <ion-input [(ngModel)]="friend.hcp" (keypress)="onChange($event)"  type="number" min="0.1" step="1"></ion-input>
         </ion-item>
       </ion-col>
 

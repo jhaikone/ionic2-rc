@@ -22,12 +22,17 @@ export class CoursePage {
 
   course: any = {};
   teeList: Array<any> = [];
-  players: Array<Object>;
+  friends: Array<any>;
 
-  constructor(public navController: NavController,  public courseService: CourseService, public helper: Helper, public settings: Settings) {
+  constructor(
+    public navController: NavController,
+    public courseService: CourseService,
+    public helper: Helper,
+    public settings: Settings,
+  ) {
     this.course = courseService.getCourse();
     this.initTeeList();
-    this.players = this.initPlayers();
+    this.friends = [ {}, {}, {} ];
     this.settings.multiplayer = false;
   }
 
@@ -36,7 +41,7 @@ export class CoursePage {
   }
 
   startRound() {
-    this.settings.prepareRound(this.players);
+    this.settings.setPlayers(this.helper.cleanArrayBy(this.friends, 'name'));
     this.navController.push(ScoreViewPage, {});
   }
 
@@ -50,16 +55,26 @@ export class CoursePage {
 
   }
 
-  getValue(tee) {
-    return tee.key;
+  initHCP (friend) {
+    if (this.isNameSet(friend)) {
+        friend.hcp = this.settings.friendsHcp;
+    }
   }
 
-  private initPlayers() {
-    return [
-      {},
-      {},
-      {}
-    ]
+  private isNameSet(friend) {
+    return this.helper.isNotEmpty(friend) && friend.name !== '';
   }
+
+  onChange(event) {
+    //const pattern = /[0-9]+\,\./;
+    const pattern = /[0-9\+\.+\,+\ ]+\[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    console.log('inputChar', event.charCode);
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
 
 }
