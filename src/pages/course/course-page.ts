@@ -7,6 +7,9 @@ import { Settings } from '../../providers/settings';
 
 import  { ScoreViewPage } from '../score-view/score-view-page';
 
+
+const pattern = new RegExp('^[+]?([1-9][0-9]*(?:[\.][0-9]*)?|0*\.0*[1-9][0-9]*)(?:[eE][+-][0-9]+)?$');
+
 const TEE_NAMES = {
   red: 'Punainen',
   blue: 'Sininen',
@@ -65,15 +68,22 @@ export class CoursePage {
     return this.helper.isNotEmpty(friend) && friend.name !== '';
   }
 
-  onChange(event) {
-    //const pattern = /[0-9]+\,\./;
-    const pattern = /[0-9\+\.+\,+\ ]+\[0-9]/;
-    let inputChar = String.fromCharCode(event.charCode);
-    console.log('inputChar', event.charCode);
-    if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
+  validateHcp(event, hcp) {
+    let newHcp = hcp + event.key;
+    let dotIndex = newHcp.indexOf('.');
+    let decimalPrecision = 0;
+
+    if (dotIndex > -1) {
+      decimalPrecision = newHcp.substr(dotIndex+1).length;
+    }
+
+    if (!pattern.test(newHcp) || decimalPrecision > 1 || Number(hcp) === 54 || Number(newHcp) > 54) {
       event.preventDefault();
     }
+  }
+
+  trimHcp($event, friend) {
+    friend.hcp = Number(friend.hcp);
   }
 
 
