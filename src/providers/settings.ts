@@ -19,6 +19,10 @@ export class Settings {
     this.players = players;
   }
 
+  getPlayers () {
+    return this.players;
+  }
+
   get friendsHcp () {
     return this._friendsHcp;
   }

@@ -30,7 +30,7 @@
       <ion-col width-50>
         <ion-item>
           <ion-label color="{{friend.name ? 'primary' : 'light'}}" floating>Pelaaja {{i+2}}</ion-label>
-          <ion-input [(ngModel)]="friend.name" (blur)="initHCP(friend)" type="text"></ion-input>
+          <ion-input [(ngModel)]="friend.name" (focus)="isKeyboardOpen = true" (blur)="initHCP(friend); isKeyboardOpen = false" type="text"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col width-50>
@@ -46,7 +46,7 @@
 </section>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isKeyboardOpen">
   <ion-navbar text-right>
 
       <button color="primary" (click)="startRound()" ion-button>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController, Keyboard } from 'ionic-angular';
 
 import { CourseService } from '../../providers/course-service';
 import { Helper } from '../../providers/helper';
@@ -8,7 +8,7 @@ import { Settings } from '../../providers/settings';
 import  { ScoreViewPage } from '../score-view/score-view-page';
 
 
-const pattern = new RegExp('^[+]?([1-9][0-9]*(?:[\.][0-9]*)?|0*\.0*[1-9][0-9]*)(?:[eE][+-][0-9]+)?$');
+const NUMBER_PATTERN = new RegExp('^[+]?([1-9][0-9]*(?:[\.][0-9]*)?|0*\.0*[1-9][0-9]*)(?:[eE][+-][0-9]+)?$');
 
 const TEE_NAMES = {
   red: 'Punainen',
@@ -26,12 +26,15 @@ export class CoursePage {
   course: any = {};
   teeList: Array<any> = [];
   friends: Array<any>;
+  isKeyboardOpen: boolean = false;
 
   constructor(
+    public keyboard: Keyboard,
     public navController: NavController,
     public courseService: CourseService,
     public helper: Helper,
     public settings: Settings,
+    public alertController: AlertController
   ) {
     this.course = courseService.getCourse();
     this.initTeeList();
@@ -43,9 +46,44 @@ export class CoursePage {
 
   }
 
+  keyboardCheck(){
+    setTimeout(()  => console.log('is the keyboard open ', this.keyboard.isOpen()));
+  }
+
+  showConfirmationDialog() {
+    let alert = this.alertController.create({
+      title: 'Vahvistus',
+      message: 'Pelataanko ilman kavereita?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            // do nothing, stay at this page
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.settings.multiplayer = false;
+            this.goToScoreViewPage();
+          }
+        }
+      ]
+    });
+
+    alert.present();
+  }
+
   startRound() {
     this.settings.setPlayers(this.helper.cleanArrayBy(this.friends, 'name'));
-    this.navController.push(ScoreViewPage, {});
+
+    if (this.settings.getPlayers().length === 0 && this.settings.multiplayer === true) {
+      this.showConfirmationDialog();
+    } else {
+      this.goToScoreViewPage();
+    }
+
   }
 
   initTeeList() {
@@ -64,10 +102,6 @@ export class CoursePage {
     }
   }
 
-  private isNameSet(friend) {
-    return this.helper.isNotEmpty(friend) && friend.name !== '';
-  }
-
   validateHcp(event, hcp) {
     let newHcp = hcp + event.key;
     let dotIndex = newHcp.indexOf('.');
@@ -77,13 +111,25 @@ export class CoursePage {
       decimalPrecision = newHcp.substr(dotIndex+1).length;
     }
 
-    if (!pattern.test(newHcp) || decimalPrecision > 1 || Number(hcp) === 54 || Number(newHcp) > 54) {
+    if (this.isInvalidHcp(hcp, newHcp, decimalPrecision)) {
       event.preventDefault();
     }
   }
 
   trimHcp($event, friend) {
     friend.hcp = Number(friend.hcp);
+  }
+
+  private isNameSet(friend) {
+    return this.helper.isNotEmpty(friend) && friend.name !== '';
+  }
+
+  private goToScoreViewPage () {
+    this.navController.push(ScoreViewPage, {});
+  }
+
+  private isInvalidHcp(hcp, newHcp, decimalPrecision) {
+    return !NUMBER_PATTERN.test(newHcp) || decimalPrecision > 1 || Number(hcp) === 54 || Number(newHcp) > 54;
   }
 
 
