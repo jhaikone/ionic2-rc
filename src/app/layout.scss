@@ -1,3 +1,13 @@
+ion-content {
+
+  &.hide-footer-margin {
+    .scroll-content {
+      margin-bottom: 0px !important;
+    }
+  }
+
+}
+
 .relative {
   position: relative;
 }
@@ -8,6 +18,10 @@
 
 .margin-bottom {
   margin-top: 16px;
+}
+
+.hide-footer {
+  max-height: 0px;
 }
 
 .margin-vertical {
@@ -97,13 +111,14 @@ ion-slide {
 }
 
 ion-header, ion-footer {
+  max-height: map-get($sizes, menu-height);
   ion-toolbar {
-      min-height: map-get($sizes, menu-height) !important;
-      max-height: map-get($sizes, menu-height) !important;
+      min-height: map-get($sizes, menu-height);
+      max-height: map-get($sizes, menu-height);
   }
   ion-navbar {
-    min-height: map-get($sizes, menu-height) !important;
-    max-height: map-get($sizes, menu-height) !important;
+    min-height: map-get($sizes, menu-height);
+    max-height: map-get($sizes, menu-height);
   }
 
 }

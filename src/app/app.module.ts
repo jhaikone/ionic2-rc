@@ -53,8 +53,7 @@ import { FromServerTime } from '../pipes/from-server-time';
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
-      backButtonText: 'Takaisin',
-      searchBarInput: 'fgefef'
+      backButtonText: 'Takaisin'
     })
   ],
   bootstrap: [IonicApp],
@@ -72,7 +71,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     DashboardPage
   ],
   providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Storage,
     StorageService,
     TrophyService,

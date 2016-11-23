@@ -6,7 +6,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding [ngClass]="{'hide-footer-margin': isKeyboardOpen}">
 
 <ion-list radio-group [(ngModel)]="settings.selectedTee">
   <ion-list-header>
@@ -36,7 +36,7 @@
       <ion-col width-50>
         <ion-item *ngIf="friend.name">
           <ion-label color="{{friend.hcp ? 'primary' : 'light'}}" floating>HCP</ion-label>
-          <ion-input [(ngModel)]="friend.hcp" (blur)="trimHcp($event, friend)" (keypress)="validateHcp($event, friend.hcp)" ></ion-input>
+          <ion-input [(ngModel)]="friend.hcp" (focus)="isKeyboardOpen = true" (blur)="trimHcp($event, friend); isKeyboardOpen = false" (keypress)="validateHcp($event, friend.hcp)" ></ion-input>
         </ion-item>
       </ion-col>
 
@@ -46,7 +46,7 @@
 </section>
 </ion-content>
 
-<ion-footer *ngIf="!isKeyboardOpen">
+<ion-footer class="animate height" [ngClass]="{'hide-footer': isKeyboardOpen}">
   <ion-navbar text-right>
 
       <button color="primary" (click)="startRound()" ion-button>
