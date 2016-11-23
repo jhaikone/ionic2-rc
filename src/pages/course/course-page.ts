@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, Keyboard } from 'ionic-angular';
 
-import { CourseService } from '../../providers/course-service';
+import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
 import { Settings } from '../../providers/settings';
 
@@ -31,12 +31,12 @@ export class CoursePage {
   constructor(
     public keyboard: Keyboard,
     public navController: NavController,
-    public courseService: CourseService,
+    public scoreCardService: ScoreCardService,
     public helper: Helper,
     public settings: Settings,
     public alertController: AlertController
   ) {
-    this.course = courseService.getCourse();
+    this.course = scoreCardService.getCourse();
     this.initTeeList();
     this.friends = [ {}, {}, {} ];
     this.settings.multiplayer = false;

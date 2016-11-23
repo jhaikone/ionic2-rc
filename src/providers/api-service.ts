@@ -2,20 +2,27 @@ import  { Injectable } from '@angular/core';
 
 import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
 
-import { CourseService } from './course-service';
-
 @Injectable()
 export class ApiService {
-  constructor(public courseService: CourseService) {
-
+  constructor() {
+    console.log('Rounds', MOCK_ROUND_CARDS)
   }
 
   getCourses() {
     return MOCK_COURSES;
   }
 
-  getCourse() {
-    return MOCK_COURSES[0];
+  getRoundData(course) {
+    let gettingCourse = new Promise((resolve, reject) => resolve(MOCK_COURSES[0]));
+    let gettingScore = new Promise((resolve, reject) => resolve(MOCK_ROUND_CARDS[1]));
+
+    return Promise.all([gettingCourse, gettingScore]).then(value => {
+      return {course: value[0], score: value[1]};
+    });
+  }
+
+  getCourseData(id) {
+    return new Promise((resolve, reject) => resolve(MOCK_COURSES[0]));
   }
 
   getRounds() {
@@ -26,8 +33,4 @@ export class ApiService {
     return MOCK_ROUND_CARDS[round.id];
   }
 
-  getParListFromCourse() {
-    let course = this.courseService.getCourse();
-    return MOCK_COURSES.find((c) => c.id === course.id).holes;
-  }
 }

@@ -20,7 +20,6 @@ import { DashboardPage } from '../pages/dashboard/dashboard-page';
 import { StorageService } from '../providers/storage-service';
 import { HoleService } from '../providers/hole-service';
 import { TrophyService } from '../providers/trophy-service';
-import { CourseService } from '../providers/course-service';
 import { PlayerService } from '../providers/player-service';
 import { ApiService } from '../providers/api-service';
 import { ScoreCardService } from '../providers/score-card-service';
@@ -78,7 +77,6 @@ import { FromServerTime } from '../pipes/from-server-time';
     HoleService,
     ApiService,
     ScoreCardService,
-    CourseService,
     PlayerService,
     Settings,
     Helper

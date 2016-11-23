@@ -1,7 +1,6 @@
 import  { Injectable, EventEmitter } from '@angular/core';
 
 import  { ApiService } from './api-service';
-import  { CourseService } from './course-service';
 import  { ScoreCardService } from './score-card-service';
 import { Settings } from './settings';
 
@@ -15,8 +14,8 @@ export class HoleService {
   holes: Array<any> = [];
   playerMode: any = 'singleplayer';
 
-  constructor(public apiService: ApiService, courseService: CourseService, public scoreCardService: ScoreCardService, public settings: Settings) {
-    this.holes = courseService.getCourse().holes;
+  constructor(public apiService: ApiService, public scoreCardService: ScoreCardService, public settings: Settings) {
+    this.holes = scoreCardService.getCourse().holes;
     this.holes.map((mock, index) => {
     // let random = Math.floor(Math.random() * 6) + 2;
       let object = {

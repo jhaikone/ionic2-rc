@@ -2,9 +2,9 @@
     <ion-toolbar text-center>
       <ion-grid>
         <ion-col>
-          <div><span class="custom-ion-title">{{courseService.getCourse().name}}</span></div>
+          <div><span class="custom-ion-title">{{scoreCardService.getCourse().name}}</span></div>
           <div class="font-small">
-            <span color="background-light" class="font-xsmall">{{courseService.getCourse().time | fromServerTime}}</span>
+            <span color="background-light" class="font-xsmall">{{scoreCardService.getCourse().time | fromServerTime}}</span>
           </div>
         </ion-col>
       </ion-grid>
@@ -22,7 +22,7 @@
         </ion-row>
 
         <ion-row>
-          <ion-col *ngFor="let hole of frontNine; let i = index" width-10>{{parList[i].par}}</ion-col>
+          <ion-col *ngFor="let hole of frontNine; let i = index" width-10>{{parList[i]}}</ion-col>
           <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('front')}}</span></ion-col>
         </ion-row>
 
@@ -39,7 +39,7 @@
         </ion-row>
 
         <ion-row>
-          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{parList[i+9].par}}</span></ion-col>
+          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{parList[i+9]}}</span></ion-col>
           <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('back')}}</span></ion-col>
         </ion-row>
 

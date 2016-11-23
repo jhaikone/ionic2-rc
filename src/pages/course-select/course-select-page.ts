@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 import { CoursePage } from '../course/course-page';
 
 import { ApiService } from '../../providers/api-service';
-import { CourseService } from '../../providers/course-service';
+import { ScoreCardService } from '../../providers/score-card-service';
 
 @Component( {
   templateUrl: 'course-select-page.html'
@@ -14,7 +14,7 @@ export class CourseSelectPage {
 
   courses: Array<any> = [];
 
-  constructor(public apiService: ApiService, public navController: NavController, public courseService: CourseService) {
+  constructor(public apiService: ApiService, public navController: NavController, public scoreCardService: ScoreCardService) {
       this.initCourses();
   }
 
@@ -23,8 +23,7 @@ export class CourseSelectPage {
   }
 
   courseSelected(course) {
-    this.courseService.setCourse(course);
-    console.log('cour', course);
+    this.scoreCardService.prepareCard(course, false);
     this.navController.push(CoursePage, {});
   }
 

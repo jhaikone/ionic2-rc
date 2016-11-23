@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { ApiService } from './api-service';
 import { Helper } from './helper';
 
 @Injectable()
@@ -19,7 +20,10 @@ export class ScoreCardService {
     3: []
   }
 
-  constructor(public helper: Helper) {
+  course:any = {};
+  parList = [];
+
+  constructor(public apiService: ApiService, public helper: Helper) {
     console.log('Hello ScoreCardService Provider');
   }
 
@@ -42,6 +46,27 @@ export class ScoreCardService {
       return this.getTotal(this.helper.fromToArray(9, 17, this.scoreCard[index])) || 0;
     }
 
+  }
+
+  prepareCard(course, getRoundData:boolean) {
+    this.course = course;
+    if (getRoundData) {
+      return this.apiService.getRoundData(course).then((data:any) => {
+        data.course.holes.forEach((hole) => {
+          this.parList.push(hole.par);
+        });
+        this.scoreCard[0] = data.score;
+      })
+    }
+
+  }
+
+  getCourse() {
+    return this.course;
+  }
+
+  getParList() {
+    return this.parList;
   }
 
   private getTotal(array) {

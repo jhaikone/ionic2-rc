@@ -6,7 +6,6 @@ import { PlayerService } from '../../providers/player-service';
 import { ApiService } from '../../providers/api-service';
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
-import { CourseService } from '../../providers/course-service';
 
 import { CourseSelectPage } from '../course-select/course-select-page';
 import { ScoreCardPage } from '../score-card/score-card-page';
@@ -24,7 +23,6 @@ export class DashboardPage {
     public apiService: ApiService,
     public scoreCardService: ScoreCardService,
     public alertController: AlertController,
-    public courseService: CourseService,
     public helper: Helper
   ) {
 
@@ -43,9 +41,10 @@ export class DashboardPage {
   }
 
   getRound(selected) {
-    this.courseService.setCourse(selected);
-    this.scoreCardService.setCardByIndex(this.apiService.getRound(selected), 0);
-    this.navController.push(ScoreCardPage, {});
+    this.scoreCardService.prepareCard(selected, true).then(() => {
+      this.navController.push(ScoreCardPage, {});
+    });
+
   }
 
   showClubPrompt() {

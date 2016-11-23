@@ -6,7 +6,6 @@ import { StorageService } from '../../providers/storage-service';
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
 import { ApiService } from '../../providers/api-service';
-import { CourseService } from '../../providers/course-service';
 
 @Component({
   selector: 'score-card-view',
@@ -27,12 +26,13 @@ export class ScoreCardPage  {
     public viewCtrl : ViewController,
     public scoreCardService: ScoreCardService,
     apiService: ApiService,
-    public courseService: CourseService,
     public helper: Helper
   ) {
 
     this.holes = scoreCardService.getCard()[0];
-    this.parList = apiService.getParListFromCourse();
+    this.parList = scoreCardService.getParList();
+    console.log('holes', this.holes);
+    console.log('pars', this.parList);
     this.frontNine = helper.fromToArray(0, 9, this.holes);
     this.backNine = helper.fromToArray(9, 17, this.holes);
   }
@@ -45,7 +45,7 @@ export class ScoreCardPage  {
 
   getTotal(from) {
     let array = from === 'front' ? this.helper.fromToArray(0, 9, this.parList) : this.helper.fromToArray(9, 17, this.parList);
-    return this.helper.getTotal(array, 'par');
+    return array.reduce((a,b) => a + b, 0);
   }
 
   close() {
