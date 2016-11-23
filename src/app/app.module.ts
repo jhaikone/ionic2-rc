@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler  } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -72,6 +72,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     DashboardPage
   ],
   providers: [
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
     Storage,
     StorageService,
     TrophyService,
