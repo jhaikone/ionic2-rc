@@ -111,14 +111,13 @@ ion-slide {
 }
 
 ion-header, ion-footer {
+  height: map-get($sizes, menu-height);
   max-height: map-get($sizes, menu-height);
   ion-toolbar {
-      min-height: map-get($sizes, menu-height);
-      max-height: map-get($sizes, menu-height);
+    height:  map-get($sizes, menu-height);
   }
   ion-navbar {
-    min-height: map-get($sizes, menu-height);
-    max-height: map-get($sizes, menu-height);
+    height:  map-get($sizes, menu-height);
   }
 
 }
