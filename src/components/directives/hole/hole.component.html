@@ -2,6 +2,36 @@
 
   <section *ngIf="holeService.playerMode === 'singleplayer'">
 
+    <ion-card>
+        <section class="margin-vertical circle">
+
+          <div text-center class="border-bottom padding-bottom"><span [innerText]="kokeilu" color="primary" class="score font-big hole-title"></span></div>
+
+
+
+          <ion-row>
+
+            <ion-col width-33 text-center class="border-right">
+              <div><span class="font-xsmall" color="light">Par</span></div>
+              <div><span color="light">{{holeService.getPar()}}</span></div>
+            </ion-col>
+
+            <ion-col width-33 text-center class="border-right">
+              <div><span class="font-xsmall" color="light">Pituus</span></div>
+              <div><span color="light">200m</span></div>
+            </ion-col>
+
+            <ion-col width-33 text-center>
+              <div><span class="font-xsmall" color="light">HCP</span></div>
+              <div><span color="light">16</span></div>
+            </ion-col>
+
+          </ion-row>
+
+        </section>
+    </ion-card>
+
+
        <ion-item>
          <ion-label class="animate color" [ngClass]="{'secondary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
          <ion-toggle color="secondary" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>

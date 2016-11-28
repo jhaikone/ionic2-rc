@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef,ChangeDetectorRef,ChangeDetectionStrategy } from '@angular/core';
 import { HoleService } from '../../../providers/hole-service';
 
 @Component({
   selector: 'hole',
-  templateUrl: 'hole.component.html'
+  templateUrl: 'hole.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 
 export class HoleComponent {
+
+  kokeilu: any = 'testname';
 
   inputs: Array<Object> = [
     {label: 'Lyönnit', color: 'primary', key: 'strokes', cssClasses: 'animate font'},
@@ -16,8 +19,14 @@ export class HoleComponent {
   ];
 
 
-  constructor(public holeService: HoleService) {
+  constructor(public holeService: HoleService, public elRef: ElementRef, change: ChangeDetectorRef) {
     this.holeService = holeService;
+
+    console.log('el', elRef)
+    this.holeService.pageLoaded$.subscribe(event => {
+      this.kokeilu = 'new test name';
+      console.log('change', change)
+    });
   }
 
   increase (key) {

@@ -12,20 +12,32 @@ ion-content {
   position: relative;
 }
 
-.margin-top {
-  margin-top: 16px;
-}
-
-.margin-bottom {
-  margin-top: 16px;
-}
-
 .hide-footer {
   max-height: 0px;
 }
 
+.margin-top {
+  margin-top: 8px;
+}
+
+.margin-top-2 {
+  margin-top: 16px;
+}
+
+.margin-bottom {
+  margin-bottom: 8px;
+}
+
 .margin-vertical {
-    margin: 16px 0;
+    margin: 8px 0;
+}
+
+.padding-bottom {
+  padding-bottom: 8px;
+}
+
+.padding-top {
+  padding-top: 8px;
 }
 
 .text-right {

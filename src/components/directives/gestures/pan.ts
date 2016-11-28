@@ -40,6 +40,7 @@ export class PanComponent implements OnInit, OnDestroy {
         this.renderer.setElementStyle(this.element, '-webkit-transform', 'translate3d(0, 0, 0)');
         this.renderer.setElementClass(this.element, 'animate-swipe', false);
         this.lockPanHorizontal = false;
+        this.holeService.pageLoaded$.emit({value: true});
       }
     });
 

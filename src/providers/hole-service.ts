@@ -8,6 +8,7 @@ import { Settings } from './settings';
 export class HoleService {
 
   public holeChanged$ = new EventEmitter(false);
+  public pageLoaded$ = new EventEmitter(false);
 
   index: number = 0;
   model: any = {holes: []};
