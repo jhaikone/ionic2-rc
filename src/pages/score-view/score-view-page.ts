@@ -56,14 +56,6 @@ export class ScoreViewPage {
     });
   }
 
-  getHole() {
-    return this.holeService.getIndex()+1;
-  }
-
-  getPar() {
-    return this.holeService.getPar();
-  }
-
   endRound() {
     console.log('results', this.holeService.getResults());
     this.nav.push(InformationPage, {});
