@@ -11,7 +11,7 @@ export class HoleComponent {
   kokeilu: any = 'testname';
 
   inputs: Array<Object> = [
-    {label: 'Lyönnit', color: 'primary', key: 'strokes', cssClasses: 'animate font'},
+    {label: 'Lyönnit', key: 'strokes', cssClasses: 'animate font primary strokes'},
     {label: 'Putit', key: 'putts', cssClasses:'font-avarage'},
     {label: 'Hiekkalyönnit', key: 'sands', cssClasses:'font-avarage'},
     {label: 'Rangaistukset', key: 'penalties', cssClasses:'font-avarage'}

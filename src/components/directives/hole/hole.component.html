@@ -5,25 +5,25 @@
     <ion-card>
         <section class="margin-vertical circle">
 
-          <div text-center class="border-bottom padding-bottom"><span color="primary" class="score font-big hole-title">Väylä {{holeService.getIndex()+1}}</span></div>
+          <div text-center class="border-bottom padding-bottom"><span class="score font-big hole-title primary">Väylä {{holeService.getIndex()+1}}</span></div>
 
 
 
           <ion-row>
 
             <ion-col width-33 text-center class="border-right">
-              <div><span class="font-xsmall" color="light">Par</span></div>
-              <div><span color="light">{{holeService.getPar()}}</span></div>
+              <div><a ion-text color="light" class="font-xsmall">Par</a></div>
+              <div><a ion-text color="light">{{holeService.getPar()}}</a></div>
             </ion-col>
 
             <ion-col width-33 text-center class="border-right">
-              <div><span class="font-xsmall" color="light">Pituus</span></div>
-              <div><span color="light">200m</span></div>
+              <div><a ion-text color="light" class="font-xsmall">Pituus</a></div>
+              <div><a ion-text color="light">200m</a></div>
             </ion-col>
 
             <ion-col width-33 text-center>
-              <div><span class="font-xsmall" color="light">HCP</span></div>
-              <div><span color="light">16</span></div>
+              <div><a ion-text color="light" class="font-xsmall">HCP</a></div>
+              <div><a ion-text color="light">16</a></div>
             </ion-col>
 
           </ion-row>
@@ -34,7 +34,7 @@
 
        <ion-item>
          <ion-label class="animate color" [ngClass]="{'secondary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
-         <ion-toggle color="secondary" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
+         <ion-toggle class="secondary" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
        </ion-item>
 
 
@@ -51,8 +51,7 @@
 
           <ion-label class="width-20" align="center"
                class="{{input.cssClasses}}"
-               color="{{input.color}}"
-               [ngClass]="{strokes: input.color==='primary', 'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"
+               [ngClass]="{'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"
            > {{holeService.getResult().singlePlayer[input.key]}}
          </ion-label>
 
