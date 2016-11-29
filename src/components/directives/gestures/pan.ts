@@ -18,6 +18,7 @@ export class PanComponent implements OnInit, OnDestroy {
   direction: DirectionEnum;
 
   index: number = 0;
+  holeCount: number = 0;
   snapLocations: Array<number> = [100, 0, -100];
   snapPosition: number;
   lockPanHorizontal: boolean = false;
@@ -31,16 +32,18 @@ export class PanComponent implements OnInit, OnDestroy {
   constructor(elementRef: ElementRef, public holeService: HoleService, public renderer: Renderer) {
     this.element = elementRef.nativeElement;
     this.holeService.holeChanged$.subscribe(event => this.onHoleChange(event));
+    this.index = holeService.getIndex();
+    this.holeCount = holeService.getHoles().length;
   }
 
   ngOnInit() {
     this.renderer.listen(this.element, 'transitionend', (event) => {
       if (event.propertyName === 'transform') {
+        this.index = this.holeService.getIndex();
         event.preventDefault();
         this.renderer.setElementStyle(this.element, '-webkit-transform', 'translate3d(0, 0, 0)');
         this.renderer.setElementClass(this.element, 'animate-swipe', false);
         this.lockPanHorizontal = false;
-        this.holeService.pageLoaded$.emit({value: true});
       }
     });
 
@@ -116,11 +119,11 @@ export class PanComponent implements OnInit, OnDestroy {
   }
 
   private hasPrevious() {
-    return this.direction === DirectionEnum.Previous && this.holeService.getIndex() > 0;
+    return this.direction === DirectionEnum.Previous && this.index > 0;
   }
 
   private hasNext() {
-    return this.direction === DirectionEnum.Next && this.holeService.getIndex() < this.holeService.getHoles().length-1;
+    return this.direction === DirectionEnum.Next && this.index < this.holeCount-1;
   }
 
   private animateHoleChange() {

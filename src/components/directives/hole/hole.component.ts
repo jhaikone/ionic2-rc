@@ -1,10 +1,9 @@
-import { Component, ElementRef,ChangeDetectorRef,ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef,ChangeDetectorRef } from '@angular/core';
 import { HoleService } from '../../../providers/hole-service';
 
 @Component({
   selector: 'hole',
-  templateUrl: 'hole.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+  templateUrl: 'hole.component.html'
 })
 
 export class HoleComponent {
@@ -19,15 +18,7 @@ export class HoleComponent {
   ];
 
 
-  constructor(public holeService: HoleService, public elRef: ElementRef, change: ChangeDetectorRef) {
-    this.holeService = holeService;
-
-    console.log('el', elRef)
-    this.holeService.pageLoaded$.subscribe(event => {
-      this.kokeilu = 'new test name';
-      console.log('change', change)
-    });
-  }
+  constructor(public holeService: HoleService, public elRef: ElementRef) {}
 
   increase (key) {
       this.singlePlayer[key]++;
