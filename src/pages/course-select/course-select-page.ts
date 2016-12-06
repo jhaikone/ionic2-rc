@@ -19,7 +19,10 @@ export class CourseSelectPage {
   }
 
   initCourses() {
-    this.courses = this.apiService.getCourses();
+    this.apiService.getCourses().then((res) => {
+      console.log('res', res);
+      this.courses = res;
+    });
   }
 
   courseSelected(course) {

@@ -1,15 +1,23 @@
 import  { Injectable } from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
 
 import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
 
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+
+const COURSES_URL = 'https://api.backand.com:443/1/objects/courses?pageSize=20&pageNumber=1';
+
 @Injectable()
 export class ApiService {
-  constructor() {
+  constructor(public http: Http) {
     console.log('Rounds', MOCK_ROUND_CARDS)
   }
 
   getCourses() {
-    return MOCK_COURSES;
+   return this.http.get(COURSES_URL)
+       .toPromise()
+       .then(res => res.json(), err => console.log(err));
   }
 
   getRoundData(course) {
