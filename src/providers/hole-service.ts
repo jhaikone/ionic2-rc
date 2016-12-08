@@ -101,8 +101,16 @@ export class HoleService {
     return this.holes;
   }
 
-  getPar() {
+  getPar () {
     return this.holes[this.index].par;
+  }
+
+  getHcp () {
+    return this.holes[this.index].hcp;
+  }
+
+  getDistance () {
+    return this.holes[this.index][this.settings.selectedTee];
   }
 
   getParAt(index) {

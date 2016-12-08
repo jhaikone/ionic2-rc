@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController,NavController } from 'ionic-angular';
 
 import { HoleService } from '../../providers/hole-service';
 import { TrophyService } from '../../providers/trophy-service';
@@ -18,7 +18,7 @@ export class InformationPage  {
   player: any;
   friends: any;
 
-  constructor(holeService: HoleService, trophyService: TrophyService, storageService: StorageService, public modalController: ModalController, public scoreCardService: ScoreCardService) {
+  constructor(holeService: HoleService, trophyService: TrophyService, storageService: StorageService, public modalController: ModalController, public scoreCardService: ScoreCardService, public navController: NavController) {
     this.modalController = modalController;
 
     this.information = holeService.getInformation();
@@ -30,8 +30,7 @@ export class InformationPage  {
   }
 
   public showScoreCard() {
-    let modal = this.modalController.create(ScoreCardPage);
-    modal.present();
+    this.navController.push(ScoreCardPage, {});
   }
 
 }

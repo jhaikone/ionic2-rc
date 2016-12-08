@@ -15,7 +15,7 @@ export class CourseSelectPage {
   courses: Array<any> = [];
   loader: any = {};
 
-  constructor(public apiService: ApiService, public navController: NavController, public scoreCardService: ScoreCardService,public loaderController: LoadingController) {
+  constructor(public apiService: ApiService, public navController: NavController, public scoreCardService: ScoreCardService, public loaderController: LoadingController) {
       this.loader = this.loaderController.create(
         { content: "Haetaan kenttiä..." }
       );
@@ -29,9 +29,6 @@ export class CourseSelectPage {
       console.log('courses:', this.courses);
       this.loader.dismiss();
     });
-    this.apiService.getHoles(1).then((res) => {
-      console.log('kenttä', res);
-    })
   }
 
   courseSelected(course) {

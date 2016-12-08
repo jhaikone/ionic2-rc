@@ -48,17 +48,27 @@ export class ScoreCardService {
 
   }
 
+  setHoles (holes) {
+    this.course.holes = holes;
+    this.populateParList(this.course.holes);
+    this.course.time = new Date();
+  }
+
   prepareCard(course, getRoundData:boolean) {
     this.course = course;
     if (getRoundData) {
       return this.apiService.getRoundData(course).then((data:any) => {
-        data.course.holes.forEach((hole) => {
-          this.parList.push(hole.par);
-        });
+        this.populateParList(data.course.holes);
         this.scoreCard[0] = data.score;
       })
     }
 
+  }
+
+  private populateParList (holes) {
+    holes.forEach((hole) => {
+      this.parList.push(hole.par);
+    });
   }
 
   getCourse() {

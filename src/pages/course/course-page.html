@@ -13,7 +13,7 @@
     Valitse tii
   </ion-list-header>
 
-  <ion-item *ngFor="let tee of teeList; let i = index">
+  <ion-item *ngFor="let tee of teeList; let i = index" class="list-item">
     <ion-label>{{tee.name + ' (' + tee.metre + 'm)' }}</ion-label>
     <ion-radio checked="{{i === 0}}" value="{{tee.key}}"></ion-radio>
   </ion-item>
@@ -29,7 +29,7 @@
   </ion-item>
 
   <span *ngIf="settings.multiplayer">
-    <div class="item item-block" *ngFor="let friend of friends; let i = index">
+    <div [ngClass]="{'list-item-last': l===true}" *ngFor="let friend of friends; let i = index; let l = last">
       <ion-row>
         <ion-item class="width-50">
           <ion-label color="{{friend.name ? 'primary' : 'light'}}" stacked>Pelaaja {{i+2}}</ion-label>

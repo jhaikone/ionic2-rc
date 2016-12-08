@@ -8,6 +8,20 @@ ion-content {
 
 }
 
+.list-item:first-child {
+  border-top:  0.55px solid color($colors, border);
+}
+
+.list-item:last-child {
+  border-bottom: 0.55px solid color($colors, border);
+}
+
+.list-item-last {
+  padding-bottom: 8px;
+  border-bottom: 0.55px solid color($colors, border);
+  background-color: color($colors, background)
+}
+
 .relative {
   position: relative;
 }

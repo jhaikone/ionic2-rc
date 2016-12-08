@@ -2,7 +2,7 @@ import { Pipe } from '@angular/core';
 
 import moment from 'moment';
 
-const dateFormat = "DD.MM.YYYY";
+const dateFormat = "DD.MM.YYYY hh:mm";
 
 @Pipe({
   name: 'fromServerTime'
