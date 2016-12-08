@@ -13,7 +13,7 @@ const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
 export class ApiService {
 
 
-  auth_token: {header_name: string, header_value: string} = {header_name: 'AnonymousToken', header_value: ''};
+  auth_token: {header_name: string, header_value: string} = {header_name: 'AnonymousToken', header_value: ANOM_TOKEN};
   options: RequestOptions;
 
   constructor(public http: Http) {

@@ -49,7 +49,7 @@ export class ScoreCardService {
   }
 
   prepareCard(course, getRoundData:boolean) {
-    this.course = this.;
+    this.course = course;
     if (getRoundData) {
       return this.apiService.getRoundData(course).then((data:any) => {
         data.course.holes.forEach((hole) => {
