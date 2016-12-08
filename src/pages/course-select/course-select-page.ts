@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import { CoursePage } from '../course/course-page';
 
@@ -13,16 +13,25 @@ import { ScoreCardService } from '../../providers/score-card-service';
 export class CourseSelectPage {
 
   courses: Array<any> = [];
+  loader: any = {};
 
-  constructor(public apiService: ApiService, public navController: NavController, public scoreCardService: ScoreCardService) {
+  constructor(public apiService: ApiService, public navController: NavController, public scoreCardService: ScoreCardService,public loaderController: LoadingController) {
+      this.loader = this.loaderController.create(
+        { content: "Haetaan kenttiä..." }
+      );
       this.initCourses();
   }
 
   initCourses() {
+    this.loader.present();
     this.apiService.getCourses().then((res) => {
-      console.log('res', res);
-      this.courses = res;
+      this.courses = res.data;
+      console.log('courses:', this.courses);
+      this.loader.dismiss();
     });
+    this.apiService.getHoles(1).then((res) => {
+      console.log('kenttä', res);
+    })
   }
 
   courseSelected(course) {

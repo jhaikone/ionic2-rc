@@ -30,6 +30,7 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     console.log('Hello DashboardPage Pag');
+    console.log('secret sauce', process.env);
   }
 
   startRound () {
