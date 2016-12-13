@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
-import { TrophyService } from '../../providers/trophy-service';
-import { StorageService } from '../../providers/storage-service';
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
 import { ApiService } from '../../providers/api-service';
@@ -20,9 +18,7 @@ export class ScoreCardPage  {
   player: Object;
   parList: Array<any>;
 
-  constructor(
-    trophyService: TrophyService,
-    storageService: StorageService,
+  constructor (
     public viewCtrl : ViewController,
     public scoreCardService: ScoreCardService,
     apiService: ApiService,

@@ -5,6 +5,7 @@ import { StatusBar } from 'ionic-native';
 import { ScoreViewPage } from '../pages/score-view/score-view-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
 import { DashboardPage } from '../pages/dashboard/dashboard-page';
+import { LoginPage } from '../pages/login/login';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard-page';
 export class MyApp {
   // rootPage = ScoreViewPage;
   // rootPage = CourseSelectPage;
+  //rootPage = LoginPage;
   rootPage = DashboardPage;
 
   constructor(platform: Platform) {

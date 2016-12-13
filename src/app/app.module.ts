@@ -16,6 +16,7 @@ import { ScoreCardPage } from '../pages/score-card/score-card-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
 import { CoursePage } from '../pages/course/course-page';
 import { DashboardPage } from '../pages/dashboard/dashboard-page';
+import { LoginPage } from '../pages/login/login';
 
 import { StorageService } from '../providers/storage-service';
 import { HoleService } from '../providers/hole-service';
@@ -23,6 +24,7 @@ import { TrophyService } from '../providers/trophy-service';
 import { PlayerService } from '../providers/player-service';
 import { ApiService } from '../providers/api-service';
 import { ScoreCardService } from '../providers/score-card-service';
+import { LoginService } from '../providers/login-service';
 
 import  { Settings } from '../providers/settings';
 import { Helper } from '../providers/helper';
@@ -36,6 +38,7 @@ import { FromServerTime } from '../pipes/from-server-time';
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -58,6 +61,7 @@ import { FromServerTime } from '../pipes/from-server-time';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -78,6 +82,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     ApiService,
     ScoreCardService,
     PlayerService,
+    LoginService,
     Settings,
     Helper
     // HoleService,

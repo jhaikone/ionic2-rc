@@ -9,7 +9,7 @@ const dateFormat = "DD.MM.YYYY hh:mm";
 })
 
 export class FromServerTime {
-  transform(value, args) {
+  transform(value) {
     return moment.unix(value).format(dateFormat);
   }
 

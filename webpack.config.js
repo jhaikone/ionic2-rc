@@ -13,7 +13,8 @@ try {
 module.exports = {
   plugins: [
     new DefinePlugin({
-      ANOM_TOKEN: JSON.stringify(process.env.ANOM_TOKEN)
+      ANOM_TOKEN: JSON.stringify(process.env.ANOM_TOKEN),
+      APP_ID: JSON.stringify(process.env.APP_ID)
     })
   ]
 };
