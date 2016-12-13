@@ -24,7 +24,7 @@
         <img class="portrait" src="assets/img/dashboard/portrait.jpg"/>
         <div class="circle">
           <button ion-button icon-only clear (click)="showPrompt()">
-            <span class="font-small" color="primary">{{playerService.hcp}}</span>
+            <a ion-text class="font-small" color="primary">{{playerService.hcp}}</a>
           </button>
         </div>
       </div>
@@ -33,12 +33,12 @@
   <ion-row class="relative">
     <ion-col width-50 text-center class="border-right">
       <div><span class="font-small">Ennätyskierro</span></div>
-      <div><span class="font-large" color="primary">81</span></div>
+      <div><a ion-text class="font-large" color="primary">81</a></div>
     </ion-col>
 
     <ion-col width-50 text-center>
       <div><span class="font-small">Keskiarvo</span></div>
-      <div><span class="font-large" color="primary">94</span></div>
+      <div><a ion-text class="font-large" color="primary">94</a></div>
     </ion-col>
 
   </ion-row>
@@ -52,11 +52,11 @@
           </ion-col>
           <ion-col width-20 text-center>
             <div><span class="font-xsmall">Tulos</span></div>
-            <div><span class="font-avarage" color="primary">{{round.score}}</span></div>
+            <div><a ion-text class="font-avarage" color="primary">{{round.score}}</a></div>
           </ion-col>
           <ion-col width-20 text-center>
             <div><span class="font-xsmall">Putit</span></div>
-            <div><span class="font-avarage" color="primary">{{round.putts}}</span></div>
+            <div><a ion-text class="font-avarage" color="primary">{{round.putts}}</a></div>
           </ion-col>
         </ion-row>
       </button>

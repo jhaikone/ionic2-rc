@@ -4,7 +4,7 @@
         <ion-col>
           <div><span class="custom-ion-title">{{scoreCardService.getCourse().name}}</span></div>
           <div class="font-small">
-            <span color="background-light" class="font-xsmall">{{scoreCardService.getCourse().time | fromServerTime}}</span>
+            <a ion-text color="background-light" class="font-xsmall">{{scoreCardService.getCourse().time | fromServerTime}}</a>
           </div>
         </ion-col>
       </ion-grid>
@@ -17,8 +17,8 @@
 
       <section *ngIf="frontNine.length > 0">
         <ion-row>
-          <ion-col *ngFor="let hole of frontNine; let i = index" width-10><span color="light">{{i+1}}</span></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span color="light">Out</span></ion-col>
+          <ion-col *ngFor="let hole of frontNine; let i = index" width-10><a ion-text color="light">{{i+1}}</a></ion-col>
+          <ion-col width-10 class="border-left no-wrap"><a ion-text color="light">Out</a></ion-col>
         </ion-row>
 
         <ion-row>
@@ -34,8 +34,8 @@
 
       <section *ngIf="backNine.length > 0">
         <ion-row color="light">
-          <ion-col class="no-wrap" *ngFor="let hole of backNine; let i = index" width-10><span color="light">{{i+10}}</span></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span color="light">In</span></ion-col>
+          <ion-col class="no-wrap" *ngFor="let hole of backNine; let i = index" width-10><a ion-text color="light">{{i+10}}</a></ion-col>
+          <ion-col width-10 class="border-left no-wrap"><a ion-text color="light">In</a></ion-col>
         </ion-row>
 
         <ion-row>

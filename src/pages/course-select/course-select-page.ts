@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
@@ -6,6 +7,8 @@ import { CoursePage } from '../course/course-page';
 import { ApiService } from '../../providers/api-service';
 import { ScoreCardService } from '../../providers/score-card-service';
 
+const COURSES_KEY = 'courses';
+
 @Component( {
   templateUrl: 'course-select-page.html'
 })
@@ -13,21 +16,25 @@ import { ScoreCardService } from '../../providers/score-card-service';
 export class CourseSelectPage {
 
   courses: Array<any> = [];
-  loader: any = {};
+  loadFailed: boolean = false;
 
-  constructor(public apiService: ApiService, public navController: NavController, public scoreCardService: ScoreCardService, public loaderController: LoadingController) {
-      this.loader = this.loaderController.create(
-        { content: "Haetaan kenttiä..." }
-      );
-      this.initCourses();
+  constructor(
+    private apiService: ApiService, 
+    private navController: NavController, 
+    private scoreCardService: ScoreCardService, 
+    private loaderController: LoadingController,
+    private storage: Storage
+  ) {
+    this.initCourses();
   }
 
   initCourses() {
-    this.loader.present();
-    this.apiService.getCourses().then((res) => {
-      this.courses = res.data;
-      console.log('courses:', this.courses);
-      this.loader.dismiss();
+    this.storage.get(COURSES_KEY).then((res) => {
+      if (res && res.length > 0) {
+         this.courses = res;     
+      } else {
+        this.fetchCourses();
+      }
     });
   }
 
@@ -37,8 +44,38 @@ export class CourseSelectPage {
   }
 
   getItems(event) {
-    this.initCourses();
+    this.storage.get(COURSES_KEY).then((res) => {
+      this.courses = res;
+      this.filterCourses(event);
+    })
+  }
 
+  private fetchCourses () {
+    let loader = this.loaderController.create(
+      { content: "Haetaan kenttiä..." }
+    );
+
+    loader.present();
+
+    this.apiService.getCourses().then((res) => {
+      console.log('success', res.data );
+      this.loadFailed = false;
+      this.courses = res.data;
+      this.storage.set(COURSES_KEY, this.courses);
+      loader.dismiss();
+    }, () => {
+      console.log('error');
+      this.loadFailed = true;
+      this.courses = [];
+      loader.dismiss();
+    })
+  }
+  
+  private isNotEmpty(value) {
+    return value && value.trim() != '';
+  }
+
+  private filterCourses (event) {
     let value = event.target.value;
 
     if (this.isNotEmpty(value)) {
@@ -47,10 +84,6 @@ export class CourseSelectPage {
       })
     }
 
-  }
-
-  private isNotEmpty(value) {
-    return value && value.trim() != '';
   }
 
 }

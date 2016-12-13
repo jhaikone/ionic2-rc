@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
 
-import { NavController, AlertController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { AlertController, NavController } from 'ionic-angular';
 
 import { PlayerService } from '../../providers/player-service';
 import { ApiService } from '../../providers/api-service';
@@ -9,6 +9,7 @@ import { Helper } from '../../providers/helper';
 
 import { CourseSelectPage } from '../course-select/course-select-page';
 import { ScoreCardPage } from '../score-card/score-card-page';
+
 
 @Component({
   selector: 'page-dashboard-page',
@@ -19,10 +20,10 @@ export class DashboardPage {
 
   constructor(
     public navController: NavController,
+    public alertController: AlertController,
     public playerService: PlayerService,
     public apiService: ApiService,
     public scoreCardService: ScoreCardService,
-    public alertController: AlertController,
     public helper: Helper
   ) {
 

@@ -5,6 +5,7 @@ import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/timeout';
 
 const COURSES_URL = 'https://api.backand.com:443/1/objects/courses';
 const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
@@ -28,9 +29,11 @@ export class ApiService {
   }
 
   getCourses () {
+    
    return this.http.get(COURSES_URL, this.options )
-     .toPromise()
-     .then(res => res.json(), err => console.log(err));
+      .timeout(10000)
+      .toPromise()
+      .then(res => res.json(), err => Promise.reject('error'));
   }
 
   getHoles (id) {

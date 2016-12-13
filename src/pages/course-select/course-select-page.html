@@ -1,13 +1,20 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title text-center><span color="menu-title">Valitse kenttä</span></ion-title>
+    <ion-title text-center><a ion-text color="menu-title">Valitse kenttä</a></ion-title>
 </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  
+  <div *ngIf="loadFailed" text-center padding>
+      <div>Hups, jokin meni pieleen. Hae kentät uudelleen alla olevasta napista</div>
+      <button (click)="fetchCourses()" ion-button>Hae kentät uudelleen</button>
+  </div>
+
+  <ion-list *ngIf="loadFailed === false">
     <button class="list-item" *ngFor="let course of courses" ion-item (click)="courseSelected(course)">{{course.name}}</button>
   </ion-list>
+
 </ion-content>
 
 <ion-footer>
