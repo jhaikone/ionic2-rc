@@ -9,6 +9,8 @@ import 'rxjs/add/operator/timeout';
 
 const COURSES_URL = 'https://api.backand.com:443/1/objects/courses';
 const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
+const ROUND_URL = 'https://api.backand.com/1/query/data/score_card';
+const DASHBOARD_URL = 'https://api.backand.com/1/query/data/round_ids'
 
 @Injectable()
 export class ApiService {
@@ -29,19 +31,15 @@ export class ApiService {
   }
 
   getCourses () {
-    
-   return this.http.get(COURSES_URL, this.options )
+   return this.http.get(COURSES_URL, this.options)
       .timeout(10000)
       .toPromise()
-      .then(res => res.json(), err => Promise.reject('error'));
+      .then(res => res.json(), err => Promise.reject('error')
+    );
   }
 
   getHoles (id) {
-    let params: URLSearchParams = new URLSearchParams();
-
-    params.set('filter', JSON.stringify([{    "fieldName": "course_id",    "operator": "in",    "value": id  }]));
-
-    this.options.search =  params;
+    this.options.search = this.createUrlSearchParams('filter', [{ "fieldName": "course_id", "operator": "in", "value": id }]);
 
     return this.http.get(HOLES_URL, this.options)
     .toPromise()
@@ -62,11 +60,29 @@ export class ApiService {
   }
 
   getRounds () {
-    return MOCK_ROUNDS;
+    this.options.search = this.createUrlSearchParams('parameters', {user_id: '1'});
+    return this.http.get(DASHBOARD_URL, this.options)
+      .timeout(10000)
+      .toPromise()
+      .then(res => res.json(), err => Promise.reject('error')
+    );
   }
 
   getRound (round) {
-    return MOCK_ROUND_CARDS[round.id];
+    console.log('gettin', round);
+    this.options.search = this.createUrlSearchParams('parameters', {session_id: '1'});
+    return this.http.get(ROUND_URL, this.options)
+      .timeout(10000)
+      .toPromise()
+      .then(res => res.json(), err => Promise.reject('error')
+    );
+  }
+
+  private createUrlSearchParams (key:string, params:Object) {
+    let urlParams: URLSearchParams = new URLSearchParams();
+    urlParams.set(key, JSON.stringify(params));
+
+    return urlParams;
   }
 
 }

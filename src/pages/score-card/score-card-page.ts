@@ -26,22 +26,25 @@ export class ScoreCardPage  {
   ) {
 
     this.holes = scoreCardService.getCard()[0];
-    this.parList = scoreCardService.getParList();
-    console.log('holes', this.holes);
-    console.log('pars', this.parList);
+
     this.frontNine = helper.fromToArray(0, 9, this.holes);
     this.backNine = helper.fromToArray(9, 17, this.holes);
   }
 
-  public getClassName(i) {
-    let total = this.holes[i] - this.parList[i].par;
+  public getClassName(hole) {
+    let total = hole.score - hole.par;
+    
     if (total === 0) return '';
     return total > 0 ? 'plus' : 'minus';
   }
 
   getTotal(from) {
-    let array = from === 'front' ? this.helper.fromToArray(0, 9, this.parList) : this.helper.fromToArray(9, 17, this.parList);
-    return array.reduce((a,b) => a + b, 0);
+    let array = from === 'front' ? this.helper.fromToArray(0, 9, this.holes) : this.helper.fromToArray(9, 17, this.holes);
+    let total = 0;
+    array.forEach((value) => {
+      total += value.par;
+    })
+    return total;
   }
 
   close() {

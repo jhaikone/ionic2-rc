@@ -1,3 +1,4 @@
+import { Helper } from './../../../providers/helper';
 import { Directive, ElementRef, Renderer, OnInit, OnDestroy } from '@angular/core';
 
 import { Gesture } from 'ionic-angular/gestures/gesture';
@@ -29,7 +30,7 @@ export class PanComponent implements OnInit, OnDestroy {
     direction:  Hammer.DIRECTION_HORIZONTAL
   };
 
-  constructor(elementRef: ElementRef, public holeService: HoleService, public renderer: Renderer) {
+  constructor(elementRef: ElementRef, public holeService: HoleService, public renderer: Renderer, public helper: Helper) {
     this.element = elementRef.nativeElement;
     this.holeService.holeChanged$.subscribe(event => this.onHoleChange(event));
     this.index = holeService.getIndex();
@@ -97,17 +98,27 @@ export class PanComponent implements OnInit, OnDestroy {
   }
 
   private update() {
+    this.setTimeStamp('finishedAt');
     this.calculateSnapPosition();
+
     let index = this.holeService.getIndex();
 
     if (this.hasPrevious()) {
       this.holeService.setIndex(index-1);
     } else  {
       this.holeService.setIndex(index+1);
+      this.setTimeStamp('startAt');
     }
 
     this.holeService.playerMode = 'singleplayer';
     this.animateHoleChange();
+  }
+
+  private setTimeStamp (key) {
+    let model = this.holeService.getResult().singlePlayer;
+    if (model[key]) return;
+
+    model[key] = this.helper.timeNow();
   }
 
   private calculateSnapPosition() {

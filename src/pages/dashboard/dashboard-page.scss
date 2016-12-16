@@ -4,6 +4,11 @@ page-dashboard-page {
     position: relative;
   }
 
+  .course-label {
+    font-size: map-get($fonts, small);
+    white-space: normal;
+  }
+
   .background-image {
     position: absolute;
     width: 100%;

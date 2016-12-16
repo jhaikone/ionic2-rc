@@ -51,15 +51,18 @@ export class ScoreCardService {
   setHoles (holes) {
     this.course.holes = holes;
     this.populateParList(this.course.holes);
-    this.course.time = new Date();
   }
 
   prepareCard(course, getRoundData:boolean) {
     this.course = course;
+    console.log('courseeee', course);
+    
     if (getRoundData) {
-      return this.apiService.getRoundData(course).then((data:any) => {
-        this.populateParList(data.course.holes);
-        this.scoreCard[0] = data.score;
+      return this.apiService.getRound(course).then((data:any) => {
+        console.log('data', data);
+          
+        //this.populateParList(data.course.holes);
+        this.scoreCard[0] = data;
       })
     }
 
@@ -82,7 +85,7 @@ export class ScoreCardService {
   private getTotal(array) {
     let total = 0;
     array.forEach((value) => {
-      total += value;
+      total += value.score;
     })
     return total;
   }

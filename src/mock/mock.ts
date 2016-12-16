@@ -7,14 +7,14 @@ export const MOCK_ROUNDS = [
   {
     id: 1,
     name: 'Paloheinä',
-    time: 1477753740,
+    time: Math.round(+new Date()/1000),
     score: 39,
     putts: 19
   },
   {
     id: 2,
     name: 'Kytäjä',
-    time: 1476630540,
+    time: Math.round(+new Date()/1000),
     score: 105,
     putts: 43
   }

@@ -18,6 +18,8 @@ import { ScoreCardPage } from '../score-card/score-card-page';
 
 export class DashboardPage {
 
+  rounds: Array<any> = [];
+
   constructor(
     public navController: NavController,
     public alertController: AlertController,
@@ -26,7 +28,21 @@ export class DashboardPage {
     public scoreCardService: ScoreCardService,
     public helper: Helper
   ) {
+    this.apiService.getRounds().then( (response) => {
+      this.rounds = response;
+      console.log('rounds', this.rounds);
+      
+    });
+  }
 
+  
+  private setCourseNames(courses) {
+    this.rounds.forEach((round) => {
+      let course = (<any>Object).values(courses).find((c) => {
+        return Number(c.id) === Number(round.course_id);
+      });
+      round.name = course.name;
+    });
   }
 
   ionViewDidLoad() {
@@ -35,10 +51,6 @@ export class DashboardPage {
 
   startRound () {
     this.navController.push(CourseSelectPage, {});
-  }
-
-  getRounds() {
-    return this.apiService.getRounds();
   }
 
   getRound(selected) {

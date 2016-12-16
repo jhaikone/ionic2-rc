@@ -31,13 +31,15 @@ export class CoursePage {
   loader: any;
 
   constructor (
-    public navController: NavController,
-    public scoreCardService: ScoreCardService,
-    public helper: Helper,
-    public settings: Settings,
-    public apiService: ApiService,
-    public alertController: AlertController,
-    public loadingController: LoadingController
+    private navController: NavController,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private scoreCardService: ScoreCardService,
+    private helper: Helper,
+    private settings: Settings,
+    private apiService: ApiService,
+    
+
   ) {
     this.course = scoreCardService.getCourse();
     this.initTeeList();

@@ -1,3 +1,5 @@
+import { ScoreCardService } from '../../providers/score-card-service';
+
 import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
@@ -5,6 +7,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { HoleService } from '../../providers/hole-service';
 import { InformationPage } from '../information/information-page';
 import { AchievementsPage } from '../achievements/achievements-page';
+import { Helper } from '../../providers/helper';
 
 import { Settings } from '../../providers/settings';
 
@@ -22,18 +25,25 @@ export class ScoreViewPage {
   isFirstHole: boolean = true;
   multiPlayerSelected: boolean;
 
-  holeIndex:number;
   style: string;
 
   model: any;
   result: any;
   holes: any;
 
-  constructor(public holeService: HoleService, public nav: NavController, public modalController: ModalController, public settings: Settings) {
+  constructor(
+    private holeService: HoleService, 
+    private nav: NavController, 
+    private modalController: ModalController,
+    private scoreCardService: ScoreCardService, 
+    private settings: Settings,
+    private helper: Helper
+  ) {
     console.log('settings', settings);
     this.holes = this.holeService.getHoles();
     this.model = this.holeService.getResults();
-    this.holeIndex = this.holeService.getIndex();
+    this.setTimeStamp('startAt');
+    this.scoreCardService.getCourse().time = this.holeService.getResult().singlePlayer.startAt;
   }
 
   showAchievements() {
@@ -42,15 +52,12 @@ export class ScoreViewPage {
   }
 
   next() {
-    console.log('next');
-    //this.holeService.setIndex(this.holeService.getIndex()+1);
     this.holeService.holeChanged$.emit({
       direction: DirectionEnum.Next
     });
   }
 
   previous() {
-    //this.holeService.setIndex(this.holeService.getIndex()-1);
     this.holeService.holeChanged$.emit({
       direction: DirectionEnum.Previous
     });
@@ -58,16 +65,16 @@ export class ScoreViewPage {
 
   endRound() {
     console.log('results', this.holeService.getResults());
+    this.setTimeStamp('finishedAt');
     this.nav.push(InformationPage, {});
   }
 
-  // getTabColor(type) {
-  //   if (type === 'single') {
-  //     return this.holeService.getResult().multiplayerTab === true ? 'light' : 'primary';
-  //   } else {
-  //     return this.holeService.getResult().multiplayerTab === true ? 'primary' : 'light';
-  //   }
-  //
-  // }
+  private setTimeStamp (key) {
+    let model = this.holeService.getResult().singlePlayer;
+    if (model[key]) return;
+
+    model[key] = this.helper.timeNow();
+  }
+
 
 }

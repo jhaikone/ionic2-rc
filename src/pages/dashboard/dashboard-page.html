@@ -44,11 +44,11 @@
   </ion-row>
 
   <ion-list>
-      <button *ngFor="let round of getRounds()" ion-item (click)="getRound(round)" class="list-item">
+      <button *ngFor="let round of rounds" ion-item (click)="getRound(round)" class="list-item">
         <ion-row>
           <ion-col width-40>
-            <div><span class="font-avarage">{{round.name}}</span></div>
-            <div><span class="font-xsmall" >{{round.time | fromServerTime}}</span></div>
+            <div><span class="course-label">{{round.name}}</span></div>
+            <div><span class="font-xsmall" >{{round.startedAt | fromServerTime}}</span></div>
           </ion-col>
           <ion-col width-20 text-center>
             <div><span class="font-xsmall">Tulos</span></div>

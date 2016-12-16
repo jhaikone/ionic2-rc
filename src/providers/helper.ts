@@ -58,4 +58,8 @@ export class Helper {
     return !_.isEmpty(object);
   }
 
+  timeNow () {
+    return Math.round(+new Date()/1000);
+  }
+
 }

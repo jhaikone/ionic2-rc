@@ -2,7 +2,7 @@ import { Pipe } from '@angular/core';
 
 import moment from 'moment';
 
-const dateFormat = "DD.MM.YYYY hh:mm";
+const dateFormat = "DD.MM.YYYY HH:mm";
 
 @Pipe({
   name: 'fromServerTime'
@@ -10,7 +10,7 @@ const dateFormat = "DD.MM.YYYY hh:mm";
 
 export class FromServerTime {
   transform(value) {
-    return moment.unix(value).format(dateFormat);
+    return moment(value).format(dateFormat);
   }
 
 }
