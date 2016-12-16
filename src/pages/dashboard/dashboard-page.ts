@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, LoadingController } from 'ionic-angular';
 
 import { PlayerService } from '../../providers/player-service';
 import { ApiService } from '../../providers/api-service';
@@ -21,12 +21,13 @@ export class DashboardPage {
   rounds: Array<any> = [];
 
   constructor(
-    public navController: NavController,
-    public alertController: AlertController,
-    public playerService: PlayerService,
-    public apiService: ApiService,
-    public scoreCardService: ScoreCardService,
-    public helper: Helper
+    private navController: NavController,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private playerService: PlayerService,
+    private apiService: ApiService,
+    private scoreCardService: ScoreCardService,
+    private helper: Helper
   ) {
     this.apiService.getRounds().then( (response) => {
       this.rounds = response;
@@ -54,7 +55,13 @@ export class DashboardPage {
   }
 
   getRound(selected) {
+    let loader = this.loadingController.create(
+      { content: "Haetaan tulosta..." }
+    );
+
+    loader.present();
     this.scoreCardService.prepareCard(selected, true).then(() => {
+      loader.dismiss();
       this.navController.push(ScoreCardPage, {});
     });
 
