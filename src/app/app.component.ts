@@ -1,3 +1,4 @@
+import { InformationPage } from '../pages/information/information-page';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
@@ -12,10 +13,11 @@ import { LoginPage } from '../pages/login/login';
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
+    //rootPage = InformationPage;
   // rootPage = ScoreViewPage;
   // rootPage = CourseSelectPage;
-  //rootPage = LoginPage;
-  rootPage = DashboardPage;
+  rootPage = LoginPage;
+  // rootPage = DashboardPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

@@ -36,16 +36,6 @@ export class DashboardPage {
     });
   }
 
-  
-  private setCourseNames(courses) {
-    this.rounds.forEach((round) => {
-      let course = (<any>Object).values(courses).find((c) => {
-        return Number(c.id) === Number(round.course_id);
-      });
-      round.name = course.name;
-    });
-  }
-
   ionViewDidLoad() {
     console.log('Hello DashboardPage Pag');
   }

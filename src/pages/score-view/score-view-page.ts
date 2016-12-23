@@ -31,7 +31,7 @@ export class ScoreViewPage {
   result: any;
   holes: any;
 
-  constructor(
+  constructor (
     private holeService: HoleService, 
     private nav: NavController, 
     private modalController: ModalController,

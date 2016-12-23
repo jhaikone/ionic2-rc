@@ -31,6 +31,10 @@ export class StorageService {
     });
   }
 
+  async get(key) {
+    return this.storage.get(key);
+  }
+
   // Get ribbon from our Ribbons table
   getRibbon(key) {
     return this.storage.get(key);

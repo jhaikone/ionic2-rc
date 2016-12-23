@@ -1,4 +1,8 @@
+import { StorageKeys } from '../../environment/environment';
+import { DashboardPage } from '../dashboard/dashboard-page';
+import { ApiService } from '../../providers/api-service';
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { ModalController,NavController } from 'ionic-angular';
 
 import { HoleService } from '../../providers/hole-service';
@@ -18,8 +22,16 @@ export class InformationPage  {
   player: any;
   friends: any;
 
-  constructor(holeService: HoleService, trophyService: TrophyService, storageService: StorageService, public modalController: ModalController, public scoreCardService: ScoreCardService, public navController: NavController) {
-    this.modalController = modalController;
+  constructor(
+    private holeService: HoleService, 
+    private trophyService: TrophyService, 
+    private storageService: StorageService, 
+    private storage: Storage,
+    private modalController: ModalController, 
+    private scoreCardService: ScoreCardService, 
+    private navController: NavController,
+    private apiService: ApiService
+  ) {
 
     this.information = holeService.getInformation();
     console.log('information', this.information);
@@ -29,8 +41,19 @@ export class InformationPage  {
 
   }
 
-  public showScoreCard() {
+  public showScoreCard () {
     this.navController.push(ScoreCardPage, {});
+  }
+
+  public finishRound () {
+    //TODO: add loader
+    this.apiService.setRounds(this.player.scoreCard.holes).then((res) => {
+      this.navController.popToRoot();
+    }, (err) => {
+      console.log('HANDLE ERROR', err);
+      
+    });
+
   }
 
 }

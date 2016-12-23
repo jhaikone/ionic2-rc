@@ -1,3 +1,4 @@
+import { MOCK_COURSES } from '../mock/mock';
 import  { Injectable, EventEmitter } from '@angular/core';
 
 import  { ApiService } from './api-service';
@@ -15,15 +16,19 @@ export class HoleService {
   holes: Array<any> = [];
   playerMode: any = 'singleplayer';
 
-  constructor(public apiService: ApiService, public scoreCardService: ScoreCardService, public settings: Settings) {
-    this.holes = scoreCardService.getCourse().holes;
+  constructor(private apiService: ApiService, private scoreCardService: ScoreCardService, private settings: Settings) {
+    //this.holes = scoreCardService.getCourse().holes;
+    this.holes = MOCK_COURSES[0].holes;
+    let i = 34;
     this.holes.map((mock, index) => {
-    // let random = Math.floor(Math.random() * 6) + 2;
+      let random = Math.floor(Math.random() * 6) + 2;
       let object = {
         singlePlayer: {
-          strokes: this.getParAt(index),
+          //strokes: this.getParAt(index),
+          hole_id: i,
+          session_id: 3,
+          strokes: random,
           putts: 2,
-          sands: 0,
           penalties: 0,
           drive: 1,
           fairway: true,
@@ -44,6 +49,7 @@ export class HoleService {
       });
 
       this.model.holes[index] = object;
+      i++;
 
     });
   }
@@ -130,7 +136,7 @@ export class HoleService {
         score: 0,
         putts: 0,
         penalties: 0,
-        sands: 0,
+        sandSaves: 0,
         scoreCard: this.getResults(),
         statistics: {
           holeInOne: this.createScoreObject(),
@@ -166,7 +172,7 @@ export class HoleService {
       information.player.score = information.player.score + hole.singlePlayer.strokes;
 
       information.player.putts = information.player.putts + hole.singlePlayer.putts;
-      information.player.sands = information.player.sands + hole.singlePlayer.sands;
+      information.player.sandSaves = information.player.sandSaves + hole.singlePlayer.sandSave ? 1 : 0;
       information.player.penalties = information.player.penalties + hole.singlePlayer.penalties;
 
       this.scoreCardService.setScoreToCardAt(hole.singlePlayer.strokes, 0);
@@ -261,26 +267,6 @@ export class HoleService {
         hole.singlePlayer.resultName = 'quadro-bogey';
       }
     }
-  }
-
-  createPlayerModel(index) {
-   let objectPlayers = [];
-   let totalPlayers = this.settings.players;
-
-   let strokes = this.holes[index].par;
-   let putts = 2;
-   let sands = 0;
-   let penalties = 0;
-   let drive = 1;
-
-   totalPlayers.forEach( (player) => {
-     objectPlayers.push({name: player.name, id: player.id, strokes, putts, sands, penalties, drive, noResult: false});
-   })
-
-   return {
-     players: objectPlayers
-   };
-
   }
 
 }

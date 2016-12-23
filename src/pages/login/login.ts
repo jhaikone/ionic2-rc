@@ -1,3 +1,6 @@
+import { StorageKeys } from '../../environment/environment';
+
+import { ApiService } from '../../providers/api-service';
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -13,16 +16,30 @@ export class LoginPage {
 
   loading: any;
 
-  constructor(public navCtrl: NavController, public storage: Storage, public loadingController: LoadingController) {
+  constructor(private navCtrl: NavController, private storage: Storage, private loadingController: LoadingController, private apiService: ApiService) {
     this.loading = this.loadingController.create({
       content: 'Please wait...'
     });
-
-    console.log('APp', APP_ID);
   }
 
   ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
+ 
+    this.storage.get(StorageKeys.userData).then((data) => {
+      if (data) {
+        this.navCtrl.setRoot(DashboardPage);
+       // this.navCtrl.push(DashboardPage);
+      } else {
+        this.signIn();
+      }
+    });
+  }
+
+  private signIn () {
+    
+    this.apiService.signIn(TEST_USER_EMAIL, TEST_USER_PASSWORD).then((data) => {
+      this.storage.set(StorageKeys.userData, data);
+      this.navCtrl.setRoot(DashboardPage);
+    });
   }
 
   login (provider) {

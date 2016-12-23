@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-<ion-title><span color="menu-title">Tulokset</span></ion-title>
+<ion-title><a ion-text color="menu-title">Tulokset</a></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
 
           <section class="border-bottom">
 
-            <div text-center><span color="primary" class="score font-extra-big">{{player.score}}</span></div>
+            <div text-center><a ion-text color="primary" class="score font-extra-big">{{player.score}}</a></div>
 
           </section>
 
@@ -42,17 +42,17 @@
       <ion-card-title text-center> <span light>Ennätykset</span> </ion-card-title>
       <ion-row class="border-bottom">
         <ion-col width-50><span light>Tulos</span></ion-col>
-        <ion-col width-50 text-right><span color="primary">72</span></ion-col>
+        <ion-col width-50 text-right><a ion-text color="primary">72</a></ion-col>
       </ion-row>
 
       <ion-row class="border-bottom">
         <ion-col width-50><span light>Etuysi</span></ion-col>
-        <ion-col width-50 text-right><span color="primary">35</span></ion-col>
+        <ion-col width-50 text-right><a ion-text color="primary">35</a></ion-col>
       </ion-row>
 
       <ion-row class="border-bottom">
         <ion-col width-50><span light>Takaysi</span></ion-col>
-        <ion-col width-50 text-right><span color="primary">37</span></ion-col>
+        <ion-col width-50 text-right><a ion-text color="primary">37</a></ion-col>
       </ion-row>
 
   </ion-card-content>
@@ -63,7 +63,7 @@
 <ion-footer text-center>
   <ion-toolbar>
     <ion-row>
-      <ion-col> <button ion-button>Lopeta kierros</button></ion-col>
+      <ion-col> <button ion-button (click)="finishRound()">Lopeta kierros</button></ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-footer>
