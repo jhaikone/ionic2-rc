@@ -4,7 +4,7 @@
         <ion-col>
           <div><span class="custom-ion-title">{{scoreCardService.getCourse().name}}</span></div>
           <div class="font-small">
-            <a ion-text color="background-light" class="font-xsmall">{{scoreCardService.getCourse().time | fromServerTime}}</a>
+            <a ion-text color="background-light" class="font-xsmall">{{scoreCardService.getCourse().startedAt | fromServerTime}}</a>
           </div>
         </ion-col>
       </ion-grid>
@@ -17,29 +17,29 @@
 
       <section *ngIf="frontNine.length > 0">
         <ion-row>
-          <ion-col *ngFor="let hole of frontNine; let i = index" width-10><a ion-text color="light">{{hole.order}}</a></ion-col>
+          <ion-col *ngFor="let hole of frontNine" width-10><a ion-text color="light">{{hole.order}}</a></ion-col>
           <ion-col width-10 class="border-left no-wrap"><a ion-text color="light">Out</a></ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col *ngFor="let hole of frontNine; let i = index" width-10>{{hole.par}}</ion-col>
+          <ion-col *ngFor="let hole of frontNine" width-10>{{hole.par}}</ion-col>
           <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('front')}}</span></ion-col>
         </ion-row>
 
         <ion-row color="primary" class="border-bottom">
-          <ion-col width-10 *ngFor="let hole of frontNine; let i = index"><span class="score-mark {{getClassName(hole)}}">{{hole.score}}</span></ion-col>
+          <ion-col width-10 *ngFor="let hole of frontNine"><span class="score-mark {{getClassName(hole)}}">{{hole.score}}</span></ion-col>
           <ion-col width-10 class="border-left no-wrap"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
         </ion-row>
       </section>
 
       <section *ngIf="backNine.length > 0">
         <ion-row color="light">
-          <ion-col class="no-wrap" *ngFor="let hole of backNine; let i = index" width-10><a ion-text color="light">{{hole.par}}</a></ion-col>
+          <ion-col class="no-wrap" *ngFor="let hole of backNine" width-10><a ion-text color="light">{{hole.par}}</a></ion-col>
           <ion-col width-10 class="border-left no-wrap"><a ion-text color="light">In</a></ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span>{{hole.par}}</span></ion-col>
+          <ion-col *ngFor="let hole of backNine" width-10><span>{{hole.par}}</span></ion-col>
           <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('back')}}</span></ion-col>
         </ion-row>
 

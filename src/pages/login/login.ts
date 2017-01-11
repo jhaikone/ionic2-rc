@@ -1,3 +1,4 @@
+import { InformationPage } from '../information/information-page';
 import { StorageKeys } from '../../environment/environment';
 
 import { ApiService } from '../../providers/api-service';
@@ -23,11 +24,10 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
- 
+    this.storage.remove(StorageKeys.userData);
     this.storage.get(StorageKeys.userData).then((data) => {
       if (data) {
         this.navCtrl.setRoot(DashboardPage);
-       // this.navCtrl.push(DashboardPage);
       } else {
         this.signIn();
       }
@@ -35,7 +35,6 @@ export class LoginPage {
   }
 
   private signIn () {
-    
     this.apiService.signIn(TEST_USER_EMAIL, TEST_USER_PASSWORD).then((data) => {
       this.storage.set(StorageKeys.userData, data);
       this.navCtrl.setRoot(DashboardPage);

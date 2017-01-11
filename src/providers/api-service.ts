@@ -1,3 +1,4 @@
+import { Settings } from './settings';
 import { StorageKeys } from '../environment/environment';
 import  { Injectable } from '@angular/core';
 import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
@@ -14,7 +15,7 @@ const COURSES_URL = 'https://api.backand.com:443/1/objects/courses';
 const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
 const ROUNDS_URL = 'https://api.backand.com:443/1/objects/rounds';
 const ACCESS_URL = 'https://api.backand.com:443/token';
-const BULK_URL = 'https://api.backand.com/1/bulk';
+const SESSION_URL = 'https://api.backand.com:443/1/objects/sessions';
 
 // security urls
 const SIGN_UP_URL = 'https://api.backand.com/1/user/signup'
@@ -31,7 +32,7 @@ export class ApiService {
   auth_token: { header_name: string, header_value: string } = { header_name: 'AnonymousToken', header_value: ANOM_TOKEN };
   options: RequestOptions;
 
-  constructor(private http: Http, private storage: Storage) {
+  constructor(private http: Http, private storage: Storage, private settings: Settings) {
     console.log('Rounds', MOCK_ROUND_CARDS)
     this.options = new RequestOptions({headers: this.authHeader()})
   }
@@ -85,7 +86,7 @@ export class ApiService {
 
   getRound (round) {
     console.log('gettin', round);
-    this.options.search = this.createUrlSearchParams('parameters', {session_id: '1'});
+    this.options.search = this.createUrlSearchParams('parameters', {session_id: round.id});
     return this.http.get(SCORE_CARD_QUERY_URL, this.options)
       .timeout(10000)
       .toPromise()
@@ -97,6 +98,7 @@ export class ApiService {
 
   setRounds (holes: Array<any>) {
       return this.storage.get(StorageKeys.userData).then((data) => {
+        console.log('DATA', data)
         let access_token:string = 'bearer ' + data.access_token;
         let auth_token: { header_name: string, header_value: string } = {
             header_name: "Authorization", 
@@ -104,14 +106,24 @@ export class ApiService {
         };
 
         let opt = new RequestOptions({headers: this.authHeader(auth_token)})
+        let dataReq = this.createRoundsRequest(holes);
 
-        let req = this.createRoundsRequest(holes);
-  
+
+        let req = {
+          user_id: 2,
+          tee: this.settings.selectedTee,
+          startedAt: '',
+          courseId: 2,
+          //data: dataReq,
+          data: this.createRoundsRequest(holes)
+        };
         
-        return this.http.post(BULK_URL, req, opt)
+        console.log('isArray', req);
+
+        return this.http.post(SESSION_URL, req, this.options)
           .timeout(10000)
           .toPromise()
-          .then(res => res.json(), err => Promise.reject('error')
+          .then(res => res.json(), err => Promise.reject(err)
         );
       })
 
@@ -180,23 +192,20 @@ export class ApiService {
 
     scoreCard.forEach((result) => {
       let player = result.singlePlayer; 
-      let bulkAction = {
-        'method': "POST",
-        'url': ROUNDS_URL,
-        'data': {
-          'hole_id': player.hole_id,
-          'session_id': player.session_id,
-          'score': player.strokes,
-          'putts': player.putts,
-          'startAt': player.startAt,
-          'finishedAt': player.finishedAt,
-          'isFairway': player.fairway,
-          'isGir': player.gir,
-          'isSandSave': player.sandSave,
-          'penalties': player.penalties
+      let data = {
+        data: {
+          hole_id: player.hole_id,
+          score: player.strokes,
+          putts: player.putts,
+          startedAt: player.startAt || '',
+          finishedAt: player.finishedAt || '',
+          isFairway: player.fairway,
+          isGir: player.gir,
+          isSandSave: player.sandSave,
+          penalties: player.penalties
         }
-      };
-      bulkActions.push(bulkAction);
+      }
+      bulkActions.push(data);
     });
 
     return bulkActions;

@@ -24,10 +24,9 @@ export class HoleService {
       let random = Math.floor(Math.random() * 6) + 2;
       let object = {
         singlePlayer: {
-          //strokes: this.getParAt(index),
+          strokes: this.getParAt(index),
           hole_id: i,
           session_id: 3,
-          strokes: random,
           putts: 2,
           penalties: 0,
           drive: 1,
