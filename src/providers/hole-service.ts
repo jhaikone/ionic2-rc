@@ -17,10 +17,10 @@ export class HoleService {
   playerMode: any = 'singleplayer';
 
   constructor(private apiService: ApiService, private scoreCardService: ScoreCardService, private settings: Settings) {
-    //this.holes = scoreCardService.getCourse().holes;
-    this.holes = MOCK_COURSES[0].holes;
+    this.holes = scoreCardService.getCourse().holes;
+   // this.holes = MOCK_COURSES[0].holes;
     let i = 34;
-    this.holes.map((mock, index) => {
+    this.holes.map((holes, index) => {
       let random = Math.floor(Math.random() * 6) + 2;
       let object = {
         singlePlayer: {

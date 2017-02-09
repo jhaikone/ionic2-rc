@@ -36,7 +36,9 @@ $background-color:  #fff;
 
 $colors: (
   primary:    #94BB69,
-  secondary:  #94BB69,
+  secondary:  #2b7292,
+  tertiary: #4e7d94,
+  tertiary-text: #9cbfd0,
   danger:     #f53d3d,
   light-danger: #ffb5a6,
   light:      #a7a7a7,
@@ -49,7 +51,9 @@ $colors: (
   tab: #f8f8f8,
   text: #797979,
   menu-title: #f1f1f1,
-  border: #c8c7cc
+  border: #c8c7cc,
+  facebook: #3b5998,
+  google: #DD4B39,
 );
 
 
@@ -101,7 +105,9 @@ $navbar-ios-background:                   color($colors, dark);
   padding-right: 0 !important;
 }
 
-
+.swiper-pagination-bullet-active {
+  background: color($colors, tertiary) !important;
+}
 
 ion-card-title {
   color: $text-color !important;

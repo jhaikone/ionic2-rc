@@ -1,3 +1,81 @@
 page-login {
 
+ .scroll-contentt {
+    background: #16222A; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #16222A , #3A6073); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #16222A , #3A6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */      
+  }
+
+  .scroll-content {
+    overflow-x: initial;
+  }
+         
+  .background-image {
+    /*
+    position: absolute;
+    top: 0;
+    left:0 ;
+    right: 0;
+    bottom: 0;
+    background-image: url("../../assets/img/login/login.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(10px);
+    */
+    position: absolute;
+    width: 100%;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+
+    background-image: url("../../assets/img/dashboard/background1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    filter        : blur(0px);
+    -moz-filter   : blur(0px);
+    -webkit-filter: blur(0px);
+    -o-filter     : blur(0px);
+  }
+
+  .logo {
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    span {
+      color: #ccc5bb;
+    }
+  
+  }
+
+  .login-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    top: 50%;
+  }
+
+  .social-logins {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .register-button {
+    margin-top:50px;
+  }
+
+  .line {
+    background: white;
+    height: 1px;
+  }
 }

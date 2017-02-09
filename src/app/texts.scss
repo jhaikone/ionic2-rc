@@ -5,6 +5,10 @@ html, ion-content, ion-item, ion-title {
   }
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -23,9 +27,26 @@ html, ion-content, ion-item, ion-title {
   pointer-events: auto;
 }
 
+.text-input::-moz-placeholder {
+  color: map-get($colors, light);
+}
+
+.text-input:-ms-input-placeholder {
+  color: map-get($colors, light);
+}
+
+.text-input::-webkit-input-placeholder {
+  text-indent: 0;
+  color: map-get($colors, light);
+}
+
 .shadow {
   &.light {
     text-shadow: 1px 1px 1px black;
+  }
+
+  &.extra-light {
+    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
   }
 }
 

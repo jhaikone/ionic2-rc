@@ -8,6 +8,20 @@ ion-content {
 
 }
 
+.no-overflow {
+  overflow: hidden;
+}
+
+.transparent {
+  background:rgba(255, 255, 255, 0.95);
+}
+
+.text-background {
+  background:rgba(0, 0, 0, 0.3);
+}
+
+
+
 .list-item:first-child {
   border-top:  0.55px solid color($colors, border);
 }
@@ -30,6 +44,14 @@ ion-content {
   max-height: 0px;
 }
 
+.margin-auto {
+  margin: auto;
+}
+
+.no-margin {
+  margin: 0;
+}
+
 .margin-top {
   margin-top: 8px;
 }
@@ -44,6 +66,14 @@ ion-content {
 
 .margin-vertical {
     margin: 8px 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.padding-vertical {
+  padding: 8px 0;
 }
 
 .padding-bottom {
@@ -86,7 +116,10 @@ ion-content {
   border-bottom: 1px solid color($colors, extra-light);
 }
 .border-top {
-  border-top: 1px solid color($colors, extra-light);;
+  border-top: 1px solid color($colors, extra-light);
+    &.dark {
+    border-color: color($colors, dark);
+  }
 }
 .border-left {
   border-left: 1px solid color($colors, extra-light);;

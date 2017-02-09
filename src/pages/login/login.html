@@ -1,13 +1,69 @@
 
-<ion-header>
+<ion-content class="no-overflow">
 
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-
-</ion-header>
+  <div class="background-image"></div>
 
 
-<ion-content padding>
-  <button ion-button (click)="login('google')">Google+ login</button>
+ 
+      <ion-title text-center class="logo"><span class="shadow light font-large" ion-text>Logo</span></ion-title>
+
+      <form [formGroup]="loginForm" (ngSumbit)="signIn($event)" class="login-container">
+        
+        <div text-center class="margin-auto width-80">
+          <ion-item class="transparent">
+          
+            <ion-input formControlName="email" ion-text color="dark" type="text" placeholder="Sähköpostiosoite" icon-left>
+            
+            </ion-input>
+          
+          </ion-item>
+
+          <ion-item class="transparent">
+            <ion-input formControlName="password" ion-text color="dark" type="password" placeholder="Salasana"></ion-input>
+          </ion-item>
+    
+        </div>
+
+        <div text-center>
+          <button ion-button class="width-80" type="submit" (click)="signIn($event)">Kirjaudu sisään</button>
+          </div>
+      
+      </form>
+
+      <div class="social-logins relative text-background padding-vertical border-top dark">
+
+        <ion-row text-center class="center-vertical margin-auto width-80">
+              <ion-col class="no-padding"><div class="animate progress line shadow extra-light"></div></ion-col> 
+              <ion-col class="no-padding" class="no-wrap" text-center><span color="background" class="shadow extra-light" >Kirjaudu käyttäen</span></ion-col> 
+              <ion-col class="no-padding"><div class="line shadow extra-light"></div></ion-col>    
+        </ion-row> 
+    
+      
+        <ion-row>
+          <div text-center class="width-100">
+
+            <button class="width-40" color="facebook" icon-left ion-button>
+              <ion-icon name="logo-facebook"></ion-icon>
+              Facebook
+            </button>
+
+            <button (click)="googleLogin()" class="width-40" color="google" icon-left ion-button>
+              <ion-icon name="logo-google"></ion-icon>
+              Google
+            </button>
+
+          </div>
+        </ion-row>
+        
+        <div text-right class="width-80 margin-auto">
+          <button clear color="menu-title" class="no-padding" (click)="signUp()" ion-button>Uusi käyttäjä? Luo tili</button>
+        </div>
+      
+
+      </div>
+    
+
 </ion-content>
+  
+      
+  

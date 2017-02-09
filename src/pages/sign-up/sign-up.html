@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>Rekisteröidy</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-slides [pager]="true" [paginationType]="'bullet'" (ionSlideDidChange)="validateSlideChange($event)">
+
+
+    <ion-slide >
+      <form [formGroup]="signupForm" (ngSumbit)="signIn($event)">
+          <ion-item>
+             <ion-label color="tertiary" stacked>Etunimi *</ion-label>
+            <ion-input color="dark" formControlName="firstName" ion-text type="text" placeholder="Tiger"></ion-input>
+          </ion-item>
+
+          <ion-item>
+             <ion-label color="tertiary" stacked>Sukunimi</ion-label>
+            <ion-input color="dark" formControlName="lastName" ion-text type="text" placeholder="Woods"></ion-input>
+          </ion-item>
+
+          <ion-item>
+             <ion-label color="tertiary" stacked>Pelitasoitus *</ion-label>
+            <ion-input (keypress)="validateHCP($event)" color="dark" formControlName="hcp" ion-text type="number" placeholder="27.2"></ion-input>
+          </ion-item>
+
+          <ion-item>
+             <ion-label color="tertiary" stacked>Seura</ion-label>
+            <ion-input color="dark" formControlName="club" ion-text type="text" placeholder="Helsinki City Golf"></ion-input>
+          </ion-item>
+      </form>
+    </ion-slide>
+
+    <ion-slide>
+      <form [formGroup]="signupForm">
+          
+          <ion-item>
+             <ion-label color="tertiary" stacked>Sähköposti</ion-label>
+            <ion-input formControlName="email" ion-text type="text" placeholder="tiger.woods@mail.com"></ion-input>
+          </ion-item>
+
+          <ion-item>
+             <ion-label color="tertiary" stacked>Salasana</ion-label>
+            <ion-input formControlName="password" ion-text type="password"></ion-input>
+          </ion-item>
+          <div padding>
+            <button ion-button full primary (click)="signUp()">Luo tunnus</button>
+          </div>
+    
+
+      </form>
+    </ion-slide>
+ 
+    
+
+  </ion-slides>
+
+</ion-content>
+
+<ion-footer>
+  <ion-navbar>
+      <div class="text-right width-100" *ngIf="slides.realIndex === 0">
+        <button ion-button icon-only clear (click)="slideToNext()">Jatka<ion-icon name="arrow-forward"></ion-icon></button>
+      </div>
+
+  
+  </ion-navbar>
+</ion-footer>

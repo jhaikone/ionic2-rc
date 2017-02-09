@@ -1,3 +1,4 @@
+import { Settings } from '../../providers/settings';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
@@ -23,7 +24,8 @@ export class CourseSelectPage {
     private navController: NavController, 
     private scoreCardService: ScoreCardService, 
     private loaderController: LoadingController,
-    private storage: Storage
+    private storage: Storage,
+    private settings: Settings
   ) {
     this.initCourses();
   }
@@ -39,7 +41,9 @@ export class CourseSelectPage {
   }
 
   courseSelected(course) {
+    console.log('course', course)
     this.scoreCardService.prepareCard(course, false);
+    this.settings.courseId = course.id;
     this.navController.push(CoursePage, {});
   }
 

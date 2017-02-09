@@ -6,7 +6,8 @@ import { Helper } from './helper';
 export class Settings {
 
   multiplayer: Boolean = false;
-  selectedTee: 'String';
+  selectedTee: string;
+  courseId: string;
   players: Array<any> = [];
   _friendsHcp: Number = 36;
 

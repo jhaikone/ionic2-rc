@@ -1,3 +1,5 @@
+import { SignUpPage } from '../sign-up/sign-up';
+import { ToasterService } from '../../providers/toaster-service';
 import { InformationPage } from '../information/information-page';
 import { StorageKeys } from '../../environment/environment';
 
@@ -9,40 +11,92 @@ import { GooglePlus } from 'ionic-native';
 
 import { DashboardPage } from '../dashboard/dashboard-page';
 
+import { FormBuilder, Validators } from '@angular/forms';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
+
 export class LoginPage {
 
   loading: any;
 
-  constructor(private navCtrl: NavController, private storage: Storage, private loadingController: LoadingController, private apiService: ApiService) {
-    this.loading = this.loadingController.create({
-      content: 'Please wait...'
-    });
+  public loginForm:any = this.formBuilder.group({
+    email: ["", Validators.required],
+    password: ["", Validators.required]
+  });
+
+  constructor(
+    private navCtrl: NavController, 
+    private storage: Storage, 
+    private loadingController: LoadingController, 
+    private apiService: ApiService,
+    private formBuilder: FormBuilder,
+    private toasterService: ToasterService
+    ) {
   }
 
   ionViewDidLoad() {
+    /*
     this.storage.remove(StorageKeys.userData);
     this.storage.get(StorageKeys.userData).then((data) => {
       if (data) {
-        this.navCtrl.setRoot(DashboardPage);
+        //this.navCtrl.setRoot(DashboardPage);
       } else {
         this.signIn();
       }
     });
+    */
   }
 
-  private signIn () {
-    this.apiService.signIn(TEST_USER_EMAIL, TEST_USER_PASSWORD).then((data) => {
-      this.storage.set(StorageKeys.userData, data);
-      this.navCtrl.setRoot(DashboardPage);
+  private async signIn ($event) {
+    if (!this.loginForm.valid) {
+      this.pushInvalidToasts();
+      return;
+    }
+
+    this.loading = this.loadingController.create({
+      content: 'Kirjaudutaan sisään...'
     });
+
+    this.loading.present();
+
+    try {
+      let data = await this.apiService.signIn(this.loginForm.value.email, this.loginForm.value.password);
+      this.loading.dismiss();
+      await this.storage.set(StorageKeys.userData, data);
+      this.navCtrl.setRoot(DashboardPage);
+    } catch (error) {
+      this.loading.dismiss();
+      this.toasterService.error(error);
+    
+    }
+    
   }
 
-  login (provider) {
-    console.log('login :', provider);
+  signUp() {
+    this.navCtrl.push(SignUpPage);
+  }
+
+  private pushInvalidToasts() {
+    let messages = [];
+    if (this.loginForm.controls.email.invalid) {
+      this.toasterService.invalid('Email kenttä ei voi olla tyhjä');
+    }
+    if (this.loginForm.controls.password.invalid) {
+      this.toasterService.invalid('Salasana kenttä ei voi olla tyhjä');
+    }
+  }
+
+  private facebookLogin () {
+    //TODO: implement facebook login here
+  }
+
+  private googleLogin () {
+    this.loading = this.loadingController.create({
+      content: 'Kirjaudutaan sisään...'
+    });
 
     this.loading.present();
 
@@ -56,9 +110,10 @@ export class LoginPage {
       this.loading.dismiss();
       this.navCtrl.push(DashboardPage);
     }, (error) => {
+      console.log('erro', error);
       this.loading.dismiss();
+      this.toasterService.invalid(error);
     });
-
   }
 
 }

@@ -10,6 +10,8 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
 
+import _ from 'lodash';
+
 // data urls
 const COURSES_URL = 'https://api.backand.com:443/1/objects/courses';
 const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
@@ -53,11 +55,12 @@ export class ApiService {
   }
 
   getHoles (id) {
-    this.options.search = this.createUrlSearchParams('filter', [{ "fieldName": "course_id", "operator": "in", "value": id }]);
+    let options = this.copyOptions();
+    options.search = this.createUrlSearchParams('filter', [{ "fieldName": "course_id", "operator": "in", "value": id }]);
 
-    return this.http.get(HOLES_URL, this.options)
-    .toPromise()
-    .then(res => res.json(), err => console.log(err));
+    return this.http.get(HOLES_URL, options)
+     .toPromise()
+     .then(res => res.json(), err => console.log(err));
   }
 
   getRoundData (course) {
@@ -75,46 +78,44 @@ export class ApiService {
 
   async getRounds () {
     let userData = await this.storage.get(StorageKeys.userData);
-
-    this.options.search = this.createUrlSearchParams('parameters', {user_id: userData.userId});
-    return this.http.get(SESSION_QUERY_URL, this.options)
-      .timeout(10000)
-      .toPromise()
-      .then(res => res.json(), err => Promise.reject('error')
-    );
+    let options = this.copyOptions();
+    console.log('USERDATE', userData);
+    options.search = this.createUrlSearchParams('parameters', {user_id: userData.userId});
+      return this.http.get(SESSION_QUERY_URL, options)
+        .timeout(10000)
+        .toPromise()
+        .then(res => res.json(), err => Promise.reject(err)
+      );
   }
 
   getRound (round) {
     console.log('gettin', round);
-    this.options.search = this.createUrlSearchParams('parameters', {session_id: round.id});
-    return this.http.get(SCORE_CARD_QUERY_URL, this.options)
+    let options = this.copyOptions();
+    options.search = this.createUrlSearchParams('parameters', {session_id: round.id});
+    return this.http.get(SCORE_CARD_QUERY_URL, options)
       .timeout(10000)
       .toPromise()
-      .then(res => res.json(), err => Promise.reject('error')
+      .then(res => res.json(), err => Promise.reject(err)
     );
   }
-
-
 
   setRounds (holes: Array<any>) {
       return this.storage.get(StorageKeys.userData).then((data) => {
         console.log('DATA', data)
-        let access_token:string = 'bearer ' + data.access_token;
+        let access_token:string = 'Bearer ' + data.access_token;
         let auth_token: { header_name: string, header_value: string } = {
             header_name: "Authorization", 
             header_value: access_token
         };
 
         let opt = new RequestOptions({headers: this.authHeader(auth_token)})
-        let dataReq = this.createRoundsRequest(holes);
-
-
+        console.log('holes', holes);
+        console.log('getCourse', this.settings.courseId);
         let req = {
-          user_id: 2,
+          user_id: data.userId.toString(),
           tee: this.settings.selectedTee,
           startedAt: '',
-          courseId: 2,
-          //data: dataReq,
+          courseId: this.settings.courseId.toString(),
           data: this.createRoundsRequest(holes)
         };
         
@@ -176,7 +177,7 @@ export class ApiService {
     return this.http.post(ACCESS_URL, creds, { headers: header})
       .timeout(10000)
       .toPromise()
-      .then(res => res.json(), err => Promise.reject('error')
+      .then(res => res.json(), err => Promise.reject(err)
     );
   }
 
@@ -197,8 +198,8 @@ export class ApiService {
           hole_id: player.hole_id,
           score: player.strokes,
           putts: player.putts,
-          startedAt: player.startAt || '',
-          finishedAt: player.finishedAt || '',
+          startedAt: '', // format these to server data
+          finishedAt: '', // format these to server date
           isFairway: player.fairway,
           isGir: player.gir,
           isSandSave: player.sandSave,
@@ -209,6 +210,10 @@ export class ApiService {
     });
 
     return bulkActions;
+  }
+
+  private copyOptions () {
+    return _.merge(this.options, {});
   }
 
 }

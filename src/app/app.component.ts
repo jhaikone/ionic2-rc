@@ -7,6 +7,7 @@ import { ScoreViewPage } from '../pages/score-view/score-view-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
 import { DashboardPage } from '../pages/dashboard/dashboard-page';
 import { LoginPage } from '../pages/login/login';
+import { Keyboard } from 'ionic-native';
 
 
 @Component({
@@ -24,6 +25,10 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+
+      if (platform.is('ios') || platform.is('android')) {
+        Keyboard.disableScroll(true);
+      }
     });
   }
 }

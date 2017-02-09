@@ -48,6 +48,7 @@ export class InformationPage  {
   public finishRound () {
     //TODO: add loader
     this.apiService.setRounds(this.player.scoreCard.holes).then((res) => {
+      console.log('LÄPI MEN', res);
       this.navController.popToRoot();
     }, (err) => {
       console.log('HANDLE ERROR', err);
