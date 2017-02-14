@@ -1,3 +1,4 @@
+import { UserDataInterface } from './user-data-interface';
 export enum DirectionEnum {
   Next,
   Previous
@@ -17,7 +18,8 @@ export class StorageKeys {
    * userId
    * username
    **/
-  static get userData() { return "userData" }
+  static get userData() { return "userData" };
+  static get login() { return 'login '};
 }
 
 

@@ -51,4 +51,9 @@ export class ScoreCardPage  {
     this.viewCtrl.dismiss();
   }
 
+  getScore(from) {
+    let score = this.scoreCardService.getScore(from, 0) - this.getTotal(from);
+    return score > 0 ? '+' +score : score;
+  }
+
 }

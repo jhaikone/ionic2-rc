@@ -1,13 +1,10 @@
-
-<ion-content class="no-overflow">
+<ion-content class="no-overflow" *ngIf="!isLoggedIn">
 
   <div class="background-image"></div>
 
+      <ion-title text-center class="logo" [style.height.px]="height*0.35"><span class="shadow light font-large" ion-text>Logo</span></ion-title>
 
- 
-      <ion-title text-center class="logo"><span class="shadow light font-large" ion-text>Logo</span></ion-title>
-
-      <form [formGroup]="loginForm" (ngSumbit)="signIn($event)" class="login-container">
+      <form [formGroup]="loginForm" (ngSumbit)="signIn($event)" class="login-container" [style.height.px]="height*0.30">
         
         <div text-center class="margin-auto width-80">
           <ion-item class="transparent">
@@ -30,12 +27,12 @@
       
       </form>
 
-      <div class="social-logins relative text-background padding-vertical border-top dark">
+      <div class="social-logins relative text-background padding-vertical border-top dark" [style.height.px]="height*0.35">
 
         <ion-row text-center class="center-vertical margin-auto width-80">
-              <ion-col class="no-padding"><div class="animate progress line shadow extra-light"></div></ion-col> 
+              <ion-col class="no-padding"><div [style.width]="lineWidth +'%'" [style.margin-left]="marginLeft +'%'" class="animate margin line shadow extra-light"></div></ion-col> 
               <ion-col class="no-padding" class="no-wrap" text-center><span color="background" class="shadow extra-light" >Kirjaudu käyttäen</span></ion-col> 
-              <ion-col class="no-padding"><div class="line shadow extra-light"></div></ion-col>    
+              <ion-col class="no-padding"><div [style.width]="lineWidth +'%'" class="animate progress line shadow extra-light"></div></ion-col>    
         </ion-row> 
     
       
@@ -55,8 +52,8 @@
           </div>
         </ion-row>
         
-        <div text-right class="width-80 margin-auto">
-          <button clear color="menu-title" class="no-padding" (click)="signUp()" ion-button>Uusi käyttäjä? Luo tili</button>
+        <div class="signup-container" text-right>
+          <button clear color="menu-title" class="no-padding width-40 font-xxsmall" (click)="signUp()" ion-button>Uusi käyttäjä? Luo tili</button>
         </div>
       
 

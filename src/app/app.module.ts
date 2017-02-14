@@ -1,3 +1,7 @@
+
+import { MenuPage } from './../pages/menu/menu';
+import { SignUpConfirmationPage } from '../pages/sign-up/sign-up-confirmation/sign-up-confirmation';
+import { ModalService } from '../providers/modal-service';
 import { SignUpPage } from './../pages/sign-up/sign-up';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler  } from 'ionic-angular';
@@ -27,6 +31,7 @@ import { ApiService } from '../providers/api-service';
 import { ScoreCardService } from '../providers/score-card-service';
 import { LoginService } from '../providers/login-service';
 import { ToasterService } from './../providers/toaster-service';
+import { ErrorService } from './../providers/error-service';
 
 
 import  { Settings } from '../providers/settings';
@@ -34,6 +39,7 @@ import { Helper } from '../providers/helper';
 
 import { HoleComponent } from '../components/directives/hole/hole.component';
 import { PanComponent } from '../components/directives/gestures/pan';
+import { GiantList } from '../components/directives/giant-list/giant-list';
 
 import { FromServerTime } from '../pipes/from-server-time';
 
@@ -52,7 +58,10 @@ import { FromServerTime } from '../pipes/from-server-time';
     CoursePage,
     DashboardPage,
     SignUpPage,
+    MenuPage,
+    SignUpConfirmationPage,
     HoleComponent,
+    GiantList,
     PanComponent,
     FromServerTime
   ],
@@ -68,8 +77,8 @@ import { FromServerTime } from '../pipes/from-server-time';
           },
           android : {
             // These options are available in ionic-angular@2.0.0-beta.2 and up.
-            scrollAssist: false,    // Valid options appear to be [true, false]
-            autoFocusAssist: false  // Valid options appear to be ['instant', 'delay', false]
+            scrollAssist: false,    // Valid options appear to be [true, true]
+            autoFocusAssist: 'instant'  // Valid options appear to be ['instant', 'delay', false]
           }
           // http://ionicframework.com/docs/v2/api/config/Config/)
         }
@@ -89,7 +98,9 @@ import { FromServerTime } from '../pipes/from-server-time';
     CourseSelectPage,
     CoursePage,
     DashboardPage,
-    SignUpPage
+    SignUpPage,
+    SignUpConfirmationPage,
+    MenuPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -103,7 +114,9 @@ import { FromServerTime } from '../pipes/from-server-time';
     LoginService,
     Settings,
     Helper,
-    ToasterService
+    ToasterService,
+    ModalService,
+    ErrorService
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

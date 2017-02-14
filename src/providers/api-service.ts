@@ -1,3 +1,4 @@
+import { ErrorService } from './error-service';
 import { Settings } from './settings';
 import { StorageKeys } from '../environment/environment';
 import  { Injectable } from '@angular/core';
@@ -18,6 +19,7 @@ const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
 const ROUNDS_URL = 'https://api.backand.com:443/1/objects/rounds';
 const ACCESS_URL = 'https://api.backand.com:443/token';
 const SESSION_URL = 'https://api.backand.com:443/1/objects/sessions';
+const USER_URL = 'https://api.backand.com:443/1/objects/users';
 
 // security urls
 const SIGN_UP_URL = 'https://api.backand.com/1/user/signup'
@@ -34,7 +36,7 @@ export class ApiService {
   auth_token: { header_name: string, header_value: string } = { header_name: 'AnonymousToken', header_value: ANOM_TOKEN };
   options: RequestOptions;
 
-  constructor(private http: Http, private storage: Storage, private settings: Settings) {
+  constructor(private http: Http, private storage: Storage, private settings: Settings, private errorService: ErrorService) {
     console.log('Rounds', MOCK_ROUND_CARDS)
     this.options = new RequestOptions({headers: this.authHeader()})
   }
@@ -81,11 +83,24 @@ export class ApiService {
     let options = this.copyOptions();
     console.log('USERDATE', userData);
     options.search = this.createUrlSearchParams('parameters', {user_id: userData.userId});
-      return this.http.get(SESSION_QUERY_URL, options)
+    
+    return this.http.get(SESSION_QUERY_URL, options)
         .timeout(10000)
         .toPromise()
-        .then(res => res.json(), err => Promise.reject(err)
+        .then(res => res.json(), err => {
+          this.errorService.catch(err);
+        }
       );
+  }
+
+  async getUser(data) {
+    let options = this.copyOptions();
+    
+    return this.http.get(USER_URL+ '/'+data.userId, options)
+      .timeout(10000)
+      .toPromise()
+      .then(res => res.json(), err => Promise.reject(err)
+    );
   }
 
   getRound (round) {
@@ -143,19 +158,20 @@ export class ApiService {
   /**
   * this method is used to sign up users
   */
-  signUp () {
+  signUp (form) {
     let auth_token: { header_name: string, header_value: string } = { header_name: 'SignUpToken', header_value: SIGN_UP_TOKEN };
     let opt = new RequestOptions({headers: this.authHeader(auth_token)})
-
+ 
     let data = { 
-      "firstName": "Juuso",
-      "lastName": "Haikonen",
-      "email": TEST_USER_EMAIL,
-      "password": TEST_USER_PASSWORD,
-      "confirmPassword": TEST_USER_PASSWORD,
+      "email": form.email,
+      "password": form.password,
+      "confirmPassword": form.password,
+      "firstName": form.firstName,
+      "lastName": form.lastName,
+      "parameters": {"hcp": form.hcp, "club": form.club}
     };
-
-    return this.http.post(SIGN_UP_URL,data, opt)
+    
+    return this.http.post(SIGN_UP_URL, data, opt)
       .timeout(10000)
       .toPromise()
       .then(res => res.json(), err => Promise.reject('error')

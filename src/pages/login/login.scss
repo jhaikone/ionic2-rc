@@ -35,7 +35,7 @@ page-login {
     bottom: 0;
 
     background-image: url("../../assets/img/dashboard/background1.jpg");
-    background-size: cover;
+    background-size: 270% auto;
     background-repeat: no-repeat;
     
     filter        : blur(0px);
@@ -45,10 +45,6 @@ page-login {
   }
 
   .logo {
-    position: absolute;
-    top: 25%;
-    left: 0;
-    right: 0;
     span {
       color: #ccc5bb;
     }
@@ -56,18 +52,11 @@ page-login {
   }
 
   .login-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 50%;
-    top: 50%;
+   // height: 33%;
   }
 
   .social-logins {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    //height: 33%;
   }
 
   .register-button {
@@ -77,5 +66,13 @@ page-login {
   .line {
     background: white;
     height: 1px;
+  }
+
+  .signup-container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: -8%;
+    right: 0;
   }
 }

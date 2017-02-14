@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar text-center>
+      <ion-title>Tarkista tiedot!</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <ion-row><ion-col width-50><span ion-text color="tertiary">Etunimi:</span></ion-col><ion-col width-50 text-right><span>{{navParams.data.firstName}}</span></ion-col></ion-row>
+            <ion-row *ngIf="navParams.data.lastName"><ion-col width-50><span color="tertiary">Sukunimi:</span></ion-col><ion-col width-50 text-right><span>{{navParams.data.lastName}}</span></ion-col></ion-row>
+            <ion-row><ion-col width-50><span ion-text color="tertiary">Pelitasoitus:</span></ion-col><ion-col width-50 text-right><span>{{navParams.data.hcp}}</span></ion-col></ion-row>
+            <ion-row *ngIf="navParams.data.club"><ion-col width-100><span ion-text color="tertiary">Jäsenseura:</span></ion-col></ion-row>
+            <ion-row *ngIf="navParams.data.club"><ion-col width-100><span>{{navParams.data.club}}</span></ion-col></ion-row>
+            <ion-row class="border-top"><ion-col width-100><span ion-text color="tertiary">Sähköpostiosoite:</span></ion-col></ion-row>
+            <ion-row><ion-col width-100><span>{{navParams.data.email || '-'}}</span></ion-col></ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <button full primary ion-button (click)="signUp()">Hyväksy</button> 
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <button ion-button clear primary icon-only (click)="close()"><ion-icon name="arrow-back"></ion-icon>Peruuta</button>
+    </ion-toolbar>
+</ion-footer>

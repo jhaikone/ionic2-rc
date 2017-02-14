@@ -1,3 +1,8 @@
+import { LoginPage } from './../login/login';
+import { ToasterService } from './../../providers/toaster-service';
+import { UserDataInterface } from '../../environment/user-data-interface';
+import { StorageKeys } from './../../environment/environment';
+import { Storage } from '@ionic/storage';
 
 import { Component } from '@angular/core';
 import { AlertController, NavController, LoadingController } from 'ionic-angular';
@@ -19,45 +24,60 @@ import { ScoreCardPage } from '../score-card/score-card-page';
 export class DashboardPage {
 
   rounds: Array<any> = [];
+  user: UserDataInterface;
 
-  constructor(
+  constructor (
     private navController: NavController,
     private alertController: AlertController,
     private loadingController: LoadingController,
     private playerService: PlayerService,
     private apiService: ApiService,
     private scoreCardService: ScoreCardService,
-    private helper: Helper
+    private helper: Helper,
+    private storage: Storage,
+    private toasterService: ToasterService
   ) {
-    this.apiService.getRounds().then( (response) => {
-      this.rounds = response;
-      console.log('rounds', this.rounds);
-      
-    });
+      this.getRounds();
   }
 
-  ionViewDidLoad() {
-    console.log('Hello DashboardPage Pag');
+  private async getRounds() {
+    this.rounds = await this.apiService.getRounds();
+    console.log('rounds', this.rounds);
+  }
+
+  /*
+  test () {
+    let a = [];
+
+    for (let i = 0; i < 505; i++) {
+      a.push(
+        {
+          course_id:1,
+          id:3,
+          name:"Helsinki City Golf - Paloheinä",
+          putts:Math.random().toFixed(1),
+          score:Math.random().toFixed(1),
+          startedAt:"",
+          tee:"red",
+          user_id:2
+        }
+      );
+    }
+
+    return a;
+  
+  }
+  */
+
+  async ionViewWillEnter() {
+   this.user = await this.storage.get(StorageKeys.userData);
   }
 
   startRound () {
     this.navController.push(CourseSelectPage, {});
   }
 
-  getRound(selected) {
-    let loader = this.loadingController.create(
-      { content: "Haetaan tulosta..." }
-    );
-
-    loader.present();
-    this.scoreCardService.prepareCard(selected, true).then(() => {
-      loader.dismiss();
-      this.navController.push(ScoreCardPage, {});
-    });
-
-  }
-
-  showClubPrompt() {
+  showClubPrompt () {
     let prompt = this.alertController.create({
       title: 'Aseta jäsenseura',
       inputs: [
@@ -65,7 +85,7 @@ export class DashboardPage {
           type: 'text',
           placeholder: 'Seura',
           name: 'club',
-          value: this.playerService.club
+          value: this.user.club
         },
       ],
       buttons: [
@@ -77,11 +97,9 @@ export class DashboardPage {
         },
         {
           text: 'Tallenna',
-          handler: data => {
-            if (data.club === "") {
-              this.playerService.club = false;
-            }
-            this.playerService.club = data.club;
+          handler:async data => {
+            this.user.club = data.club;
+            await this.storage.set(StorageKeys.userData, this.user);
           }
         }
       ]
@@ -90,7 +108,7 @@ export class DashboardPage {
     prompt.present();
   }
 
-  showPrompt() {
+  showPrompt () {
   let prompt = this.alertController.create({
     title: 'Aseta pelitasoitus',
     message: 'Pelitasoitus ei voi olla suurempi kuin 54.',
@@ -99,7 +117,7 @@ export class DashboardPage {
         type: 'number',
         placeholder: 'Pelitasoitus',
         name: 'hcp',
-        value: this.playerService.hcp
+        value: this.user.hcp.toString()
       },
     ],
     buttons: [
@@ -111,12 +129,13 @@ export class DashboardPage {
       },
       {
         text: 'Tallenna',
-        handler: data => {
+        handler:async data => {
           let hcp = this.helper.round(data.hcp, 1);
           if (Number(hcp) > 54) {
             return false;
           }
-          this.playerService.hcp = hcp;
+          this.user.hcp = Number(hcp);
+          await this.storage.set(StorageKeys.userData, this.user);
         }
       }
     ]

@@ -1,0 +1,34 @@
+giantlist {
+
+ .list-button {
+     font-size: 12px;
+
+     &.border {
+        border: 1px solid map-get($colors, 'extra-light');
+        border-radius: 100%;
+     }
+
+
+     &.active {
+         border-color: map-get($colors, 'primary');
+     }
+ }
+
+ .button-container {
+     width: 300px;
+
+     button {
+         max-width: 32px;
+     }
+ }
+
+ .page-container {
+     height: 0;
+     width: 236px;
+ }
+
+ .hide {
+    display: none;
+ }
+
+}

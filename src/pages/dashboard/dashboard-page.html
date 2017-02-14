@@ -1,19 +1,19 @@
 <ion-header>
-  <ion-toolbar text-center>
-    <button ion-button clear (click)="showClubPrompt()">
+  <ion-navbar text-center hideBackButton>
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    <button class="center-absolute" ion-button clear (click)="showClubPrompt()">
+
       <ion-grid>
         <ion-col>
-          <div><span class="custom-ion-title">{{playerService.name}}</span></div>
+          <div><span class="custom-ion-title">{{user?.fullName}}</span></div>
           <div class="font-small">
-            <span class="font-xsmall">{{playerService.club || 'Aseta jäsenyys'}}</span>
+            <span class="font-xsmall">{{user?.club || 'Aseta jäsenyys'}}</span>
           </div>
         </ion-col>
       </ion-grid>
     </button>
-  </ion-toolbar>
+  </ion-navbar>
 </ion-header>
-
-
 
 <ion-content padding>
 
@@ -24,7 +24,7 @@
         <img class="portrait" src="assets/img/dashboard/portrait.jpg"/>
         <div class="circle">
           <button ion-button icon-only clear (click)="showPrompt()">
-            <a ion-text class="font-small" color="primary">{{playerService.hcp}}</a>
+            <a ion-text class="font-small" color="primary">{{user?.hcp}}</a>
           </button>
         </div>
       </div>
@@ -43,25 +43,7 @@
 
   </ion-row>
 
-  <ion-list>
-      <button *ngFor="let round of rounds" ion-item (click)="getRound(round)" class="list-item">
-        <ion-row>
-          <ion-col width-40>
-            <div><span class="course-label">{{round.name}}</span></div>
-            <div><span class="font-xsmall" >{{round.startedAt | fromServerTime}}</span></div>
-          </ion-col>
-          <ion-col width-20 text-center>
-            <div><span class="font-xsmall">Tulos</span></div>
-            <div><a ion-text class="font-avarage" color="primary">{{round.score}}</a></div>
-          </ion-col>
-          <ion-col width-20 text-center>
-            <div><span class="font-xsmall">Putit</span></div>
-            <div><a ion-text class="font-avarage" color="primary">{{round.putts}}</a></div>
-          </ion-col>
-        </ion-row>
-      </button>
-
-  </ion-list>
+  <giantlist [data]="rounds"></giantlist>
 
 </ion-content>
 

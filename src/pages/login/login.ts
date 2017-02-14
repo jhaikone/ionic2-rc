@@ -13,6 +13,8 @@ import { DashboardPage } from '../dashboard/dashboard-page';
 
 import { FormBuilder, Validators } from '@angular/forms';
 
+import _ from 'lodash';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -21,6 +23,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginPage {
 
   loading: any;
+  height: number = 0;
+  lineWidth:number = 0;
+  marginLeft: number = 100;
+  page: any = DashboardPage;
+  isLoggedIn: boolean;
 
   public loginForm:any = this.formBuilder.group({
     email: ["", Validators.required],
@@ -35,19 +42,24 @@ export class LoginPage {
     private formBuilder: FormBuilder,
     private toasterService: ToasterService
     ) {
+      console.log('bodyu', document.body.clientHeight)
+      this.height = document.body.clientHeight;
   }
 
-  ionViewDidLoad() {
-    /*
-    this.storage.remove(StorageKeys.userData);
-    this.storage.get(StorageKeys.userData).then((data) => {
-      if (data) {
-        //this.navCtrl.setRoot(DashboardPage);
-      } else {
-        this.signIn();
-      }
-    });
-    */
+  async ionViewCanEnter() {
+    
+    let data = await this.storage.get(StorageKeys.userData);
+    if (data) {
+      this.navCtrl.setRoot(DashboardPage)
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
+  }
+
+  async ionViewDidEnter() {
+    this.lineWidth = 100;
+    this.marginLeft = 0;
   }
 
   private async signIn ($event) {
@@ -65,9 +77,11 @@ export class LoginPage {
     try {
       let data = await this.apiService.signIn(this.loginForm.value.email, this.loginForm.value.password);
       this.loading.dismiss();
-      await this.storage.set(StorageKeys.userData, data);
+      let user = await this.apiService.getUser(data);
+      await this.storage.set(StorageKeys.userData, _.merge(data, user));
       this.navCtrl.setRoot(DashboardPage);
     } catch (error) {
+      console.log('err', error)
       this.loading.dismiss();
       this.toasterService.error(error);
     

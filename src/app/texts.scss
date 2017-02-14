@@ -86,6 +86,10 @@ html, ion-content, ion-item, ion-title {
   font-size: map-get($fonts, 'xsmall');
 }
 
+.font-xxsmall {
+  font-size: map-get($fonts, 'xxsmall');
+}
+
 .text-inset {
   background-color: #565656;
  color: transparent;
