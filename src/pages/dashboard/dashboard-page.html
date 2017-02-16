@@ -21,7 +21,7 @@
 
   <div class="portrait-content" text-center>
       <div class="container">
-        <img class="portrait" src="assets/img/dashboard/portrait.jpg"/>
+        <div class="portrait"><div class="portrait-image"></div></div>
         <div class="circle">
           <button ion-button icon-only clear (click)="showPrompt()">
             <a ion-text class="font-small" color="primary">{{user?.hcp}}</a>
@@ -33,12 +33,12 @@
   <ion-row class="relative">
     <ion-col width-50 text-center class="border-right">
       <div><span class="font-small">Ennätyskierro</span></div>
-      <div><a ion-text class="font-large" color="primary">81</a></div>
+      <div><a ion-text class="font-large" color="primary">{{recordRound?.score}}</a></div>
     </ion-col>
 
     <ion-col width-50 text-center>
       <div><span class="font-small">Keskiarvo</span></div>
-      <div><a ion-text class="font-large" color="primary">94</a></div>
+      <div><a ion-text class="font-large" color="primary">{{avarageScore}}</a></div>
     </ion-col>
 
   </ion-row>

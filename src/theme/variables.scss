@@ -40,9 +40,10 @@ $colors: (
   tertiary: #4e7d94,
   tertiary-text: #9cbfd0,
   danger:     #f53d3d,
-  light-danger: #ffb5a6,
+  light-danger: #bb6969,
   light:      #a7a7a7,
   dark:       #1d1d1d,
+  light-dark: #444444,
   favorite:   #69BB7B,
   background: #fff,
   extra-light: #e2e2e2,
@@ -63,6 +64,7 @@ $fonts: (
   big: 38px,
   moderate: 30px,
   avarage: 22px,
+  table-label: 18px,
   small: 16px,
   xsmall: 14px,
   xxsmall: 12px,
@@ -103,6 +105,17 @@ $navbar-ios-background:                   color($colors, dark);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+.custom-component-background {
+  background: rgba(255,255,255,1);
+  background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+  background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
 }
 
 .swiper-pagination-bullet-active {

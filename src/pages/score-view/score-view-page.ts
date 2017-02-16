@@ -32,11 +32,11 @@ export class ScoreViewPage {
   holes: any;
 
   constructor (
-    private holeService: HoleService, 
+    public holeService: HoleService, 
     private nav: NavController, 
     private modalController: ModalController,
     private scoreCardService: ScoreCardService, 
-    private settings: Settings,
+    public settings: Settings,
     private helper: Helper
   ) {
     console.log('settings', settings);

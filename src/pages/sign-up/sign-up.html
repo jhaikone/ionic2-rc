@@ -9,7 +9,7 @@
   <ion-slides [pager]="true" [paginationType]="'bullet'" (ionSlideDidChange)="validateSlideChange($event)">
 
     <ion-slide >
-      <form [formGroup]="signupForm" (ngSumbit)="signIn($event)">
+      <form [formGroup]="signupForm">
           <ion-item>
              <ion-label color="tertiary" stacked>Etunimi *</ion-label>
             <ion-input (focus)="isKeyboardOpen = true" (blur)="isKeyboardOpen = false" color="dark" formControlName="firstName" ion-text type="text" placeholder="Tiger"></ion-input>

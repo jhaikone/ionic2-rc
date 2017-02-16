@@ -9,7 +9,7 @@ import { NavParams, ViewController } from 'ionic-angular';
 
 export class SignUpConfirmationPage {
 
-  constructor(private navParams: NavParams, private viewCtrl: ViewController) {
+  constructor(public navParams: NavParams, private viewCtrl: ViewController) {
       console.log('nav', this.navParams);
   }
 

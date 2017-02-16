@@ -1,8 +1,9 @@
+import { UserDataInterface } from '../environment/user-data-interface';
 import { ErrorService } from './error-service';
 import { Settings } from './settings';
 import { StorageKeys } from '../environment/environment';
-import  { Injectable } from '@angular/core';
-import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
 import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
@@ -36,7 +37,12 @@ export class ApiService {
   auth_token: { header_name: string, header_value: string } = { header_name: 'AnonymousToken', header_value: ANOM_TOKEN };
   options: RequestOptions;
 
-  constructor(private http: Http, private storage: Storage, private settings: Settings, private errorService: ErrorService) {
+  constructor(
+    private http: Http, 
+    private storage: Storage, 
+    private settings: Settings, 
+    private errorService: ErrorService
+  ) {
     console.log('Rounds', MOCK_ROUND_CARDS)
     this.options = new RequestOptions({headers: this.authHeader()})
   }
@@ -114,6 +120,17 @@ export class ApiService {
     );
   }
 
+  updateUser(update: Object, userData: UserDataInterface) {
+    return this.http.put(USER_URL + '/'+userData.userId, update, this.options)
+      .timeout(10000)
+      .toPromise()
+      .then(async res => {
+        await this.storage.set(StorageKeys.userData, _.merge(userData, update));
+        return res;
+      }, err => this.errorService.catch(err)
+    );
+  }
+
   setRounds (holes: Array<any>) {
       return this.storage.get(StorageKeys.userData).then((data) => {
         console.log('DATA', data)
@@ -142,9 +159,7 @@ export class ApiService {
           .then(res => res.json(), err => Promise.reject(err)
         );
       })
-
-      
-    }
+  }
   
   getAccessToken () {
     return this.http.get(ACCESS_URL, this.options)

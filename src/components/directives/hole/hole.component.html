@@ -1,34 +1,28 @@
-<div>
+<section *ngIf="holeService.playerMode === 'singleplayer'" class="custom-component-background padding-top">
 
-  <section *ngIf="holeService.playerMode === 'singleplayer'">
+      <section class="border-bottom">
+        <ion-label text-center color="extra-light" class="score font-big hole-title">Väylä {{holeService.getIndex()+1}}</ion-label>
 
-    <ion-card>
-        <section class="margin-vertical circle">
 
-          <div text-center class="border-bottom padding-bottom"><span class="score font-big hole-title primary">Väylä {{holeService.getIndex()+1}}</span></div>
+        <ion-row>
 
-          <ion-row>
+          <ion-col width-33 text-center>
+            <div><a ion-text color="light" class="font-xsmall">Par</a></div>
+            <div><a ion-text color="light">{{holeService.getPar()}}</a></div>
+          </ion-col>
 
-            <ion-col width-33 text-center class="border-right">
-              <div><a ion-text color="light" class="font-xsmall">Par</a></div>
-              <div><a ion-text color="light">{{holeService.getPar()}}</a></div>
-            </ion-col>
+          <ion-col width-33 text-center>
+            <div><a ion-text color="light" class="font-xsmall">Pituus</a></div>
+            <div><a ion-text color="light">{{holeService.getDistance()}}m</a></div>
+          </ion-col>
 
-            <ion-col width-33 text-center class="border-right">
-              <div><a ion-text color="light" class="font-xsmall">Pituus</a></div>
-              <div><a ion-text color="light">{{holeService.getDistance()}}</a></div>
-            </ion-col>
+          <ion-col width-33 text-center>
+            <div><a ion-text color="light" class="font-xsmall">HCP</a></div>
+            <div><a ion-text color="light">{{holeService.getHcp()}}</a></div>
+          </ion-col>
 
-            <ion-col width-33 text-center>
-              <div><a ion-text color="light" class="font-xsmall">HCP</a></div>
-              <div><a ion-text color="light">{{holeService.getHcp()}}</a></div>
-            </ion-col>
-
-          </ion-row>
-
-        </section>
-    </ion-card>
-
+        </ion-row>
+      </section>
 
      <ion-item>
        <ion-label class="animate color" [ngClass]="{'secondary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
@@ -43,7 +37,7 @@
          <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
        </ion-item>
 
-       <ion-item *ngFor="let input of inputs; let i = index" no-lines>
+       <ion-item *ngFor="let input of inputs; let i = index">
 
         <ion-label class="width-70">{{input.label}}</ion-label>
 
@@ -92,5 +86,3 @@
 
      </ion-grid>
    </section>
-
-</div>

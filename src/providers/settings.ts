@@ -11,6 +11,8 @@ export class Settings {
   players: Array<any> = [];
   _friendsHcp: Number = 36;
 
+  reloadRounds: boolean = false;
+
 
   constructor(public helper: Helper) {
     console.log('Hello Settings Provider', this.players);

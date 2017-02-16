@@ -18,7 +18,7 @@ page-dashboard-page {
     top: 0;
     bottom: 0;
 
-    background-image: url("../../assets/img/dashboard/background1.jpg");
+    background-image: url("../assets/img/dashboard/background-small.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -66,9 +66,11 @@ page-dashboard-page {
     border-radius: 50%;
     border: 2px solid white;
   }
-
-  .portrait img {
+  .portrait-image {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     width: auto;
     height: 100%;
+    background-image: url("../assets/img/dashboard/portrait.jpg");
   }
 }

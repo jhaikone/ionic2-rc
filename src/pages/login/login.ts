@@ -4,7 +4,7 @@ import { InformationPage } from '../information/information-page';
 import { StorageKeys } from '../../environment/environment';
 
 import { ApiService } from '../../providers/api-service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GooglePlus } from 'ionic-native';
@@ -20,7 +20,7 @@ import _ from 'lodash';
   templateUrl: 'login.html'
 })
 
-export class LoginPage {
+export class LoginPage implements OnInit {
 
   loading: any;
   height: number = 0;
@@ -43,7 +43,10 @@ export class LoginPage {
     private toasterService: ToasterService
     ) {
       console.log('bodyu', document.body.clientHeight)
-      this.height = document.body.clientHeight;
+  }
+
+  ngOnInit() {
+    this.height = document.body.clientHeight;
   }
 
   async ionViewCanEnter() {
@@ -103,31 +106,44 @@ export class LoginPage {
     }
   }
 
-  private facebookLogin () {
+  facebookLogin () {
     //TODO: implement facebook login here
   }
 
-  private googleLogin () {
+  async googleLogin () {
     this.loading = this.loadingController.create({
       content: 'Kirjaudutaan sisään...'
     });
 
     this.loading.present();
 
-    GooglePlus.login({
-      'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-      'webClientId': APP_ID, // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-      'offline': true
-    })
-    .then( (user) => {
-      console.log('userdata', user)
+    try {
+      let googleData = await GooglePlus.login({
+        'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+        'webClientId': APP_ID, // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+        'offline': true
+      });
+
+      let userData = {
+        access_token: googleData.serverAuthCode,
+        imageUrl: googleData.imageUrl,
+        userId: googleData.userId,
+        email: googleData.email,
+        fullName: googleData.displayName,
+        lastName: googleData.familyName,
+        firstName: googleData.givenName,
+        hcp: 36
+      }
+      console.log('cropped from google', userData);
+      await this.storage.set(StorageKeys.userData, userData);
       this.loading.dismiss();
-      this.navCtrl.push(DashboardPage);
-    }, (error) => {
+      this.navCtrl.setRoot(DashboardPage);
+    } catch (error) {
       console.log('erro', error);
       this.loading.dismiss();
       this.toasterService.invalid(error);
-    });
+    }
+
   }
 
 }

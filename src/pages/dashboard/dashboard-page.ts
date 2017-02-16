@@ -1,3 +1,5 @@
+import { Settings } from './../../providers/settings';
+import { RoundInterface } from './../../environment/round-interface';
 import { LoginPage } from './../login/login';
 import { ToasterService } from './../../providers/toaster-service';
 import { UserDataInterface } from '../../environment/user-data-interface';
@@ -23,8 +25,20 @@ import { ScoreCardPage } from '../score-card/score-card-page';
 
 export class DashboardPage {
 
-  rounds: Array<any> = [];
+  rounds: Array<RoundInterface> = [];
   user: UserDataInterface;
+  recordRound: RoundInterface = {
+    course_id: null,
+    id: null,
+    name: null,
+    putts:null,
+    score:0,
+    startedAt: null,
+    tee:null,
+    user_id: null,
+    fullRound: false
+  };
+  avarageScore: number = 0;
 
   constructor (
     private navController: NavController,
@@ -35,7 +49,8 @@ export class DashboardPage {
     private scoreCardService: ScoreCardService,
     private helper: Helper,
     private storage: Storage,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private settings: Settings
   ) {
       this.getRounds();
   }
@@ -43,6 +58,32 @@ export class DashboardPage {
   private async getRounds() {
     this.rounds = await this.apiService.getRounds();
     console.log('rounds', this.rounds);
+    this.recordRound = this.findRecordRound();
+    this.settings.reloadRounds = false;
+  }
+
+  ionViewDidEnter() {
+    if (this.settings.reloadRounds) {
+      this.getRounds();
+    }
+  }
+
+  findRecordRound () {
+    this.avarageScore = 0;
+    let i = 0;
+    return this.rounds.filter((round) => {
+      if (round.fullRound) {
+        i++;
+        this.avarageScore += round.score;
+        this.avarageScore = Math.ceil(this.avarageScore / i);
+        return true
+      } else {
+        return false;
+      }
+     
+    }).reduce(function(prev, current) {
+      return (prev.score < current.score) ? prev : current
+    })
   }
 
   /*
@@ -98,8 +139,7 @@ export class DashboardPage {
         {
           text: 'Tallenna',
           handler:async data => {
-            this.user.club = data.club;
-            await this.storage.set(StorageKeys.userData, this.user);
+            await this.apiService.updateUser({club: data.club}, this.user); 
           }
         }
       ]
@@ -134,8 +174,7 @@ export class DashboardPage {
           if (Number(hcp) > 54) {
             return false;
           }
-          this.user.hcp = Number(hcp);
-          await this.storage.set(StorageKeys.userData, this.user);
+          await this.apiService.updateUser({hcp: Number(hcp)}, this.user);   
         }
       }
     ]

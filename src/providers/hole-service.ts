@@ -29,6 +29,7 @@ export class HoleService {
           session_id: 3,
           putts: 2,
           penalties: 0,
+          sands: 0,
           drive: 1,
           fairway: true,
           gir: false,

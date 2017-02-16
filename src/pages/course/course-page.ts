@@ -36,7 +36,7 @@ export class CoursePage {
     private loadingController: LoadingController,
     private scoreCardService: ScoreCardService,
     private helper: Helper,
-    private settings: Settings,
+    public settings: Settings,
     private apiService: ApiService,
     
 

@@ -1,3 +1,4 @@
+import { Settings } from '../../providers/settings';
 import { StorageKeys } from '../../environment/environment';
 import { DashboardPage } from '../dashboard/dashboard-page';
 import { ApiService } from '../../providers/api-service';
@@ -28,9 +29,10 @@ export class InformationPage  {
     private storageService: StorageService, 
     private storage: Storage,
     private modalController: ModalController, 
-    private scoreCardService: ScoreCardService, 
+    public scoreCardService: ScoreCardService, 
     private navController: NavController,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private settings: Settings
   ) {
 
     this.information = holeService.getInformation();
@@ -49,6 +51,7 @@ export class InformationPage  {
     //TODO: add loader
     this.apiService.setRounds(this.player.scoreCard.holes).then((res) => {
       console.log('LÄPI MEN', res);
+      this.settings.reloadRounds = true;
       this.navController.popToRoot();
     }, (err) => {
       console.log('HANDLE ERROR', err);

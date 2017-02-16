@@ -11,22 +11,6 @@ page-login {
   }
          
   .background-image {
-    /*
-    position: absolute;
-    top: 0;
-    left:0 ;
-    right: 0;
-    bottom: 0;
-    background-image: url("../../assets/img/login/login.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(10px);
-    */
     position: absolute;
     width: 100%;
     left:0;
@@ -34,7 +18,7 @@ page-login {
     top: 0;
     bottom: 0;
 
-    background-image: url("../../assets/img/dashboard/background1.jpg");
+    background-image: url('../assets/img/dashboard/background1.jpg');
     background-size: 270% auto;
     background-repeat: no-repeat;
     

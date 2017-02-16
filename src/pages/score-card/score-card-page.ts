@@ -51,6 +51,14 @@ export class ScoreCardPage  {
     this.viewCtrl.dismiss();
   }
 
+  getTotalScore () {
+    let total = 0;
+    this.holes.forEach((hole) => {
+      total += hole.score;
+    });
+    return total;
+  }
+
   getScore(from) {
     let score = this.scoreCardService.getScore(from, 0) - this.getTotal(from);
     return score > 0 ? '+' +score : score;

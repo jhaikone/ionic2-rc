@@ -20,6 +20,7 @@ export class SignUpPage {
   @ViewChild(Slides) slides: Slides;
 
   errorMessage: string = "Täytä puuttuvat kentät: ";
+  isKeyboardOpen:boolean;
 
   public signupForm: any = this.formBuilder.group({
     firstName: ["", Validators.required],

@@ -34,7 +34,7 @@ export class MyApp {
       StatusBar.styleDefault();
       this.errorService.setRootPage(LoginPage);
       if (platform.is('ios') || platform.is('android')) {
-        Keyboard.disableScroll(false);
+        Keyboard.disableScroll(true);
       }
     });
   }

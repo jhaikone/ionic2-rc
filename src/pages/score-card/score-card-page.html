@@ -11,59 +11,56 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
-    <ion-card-header text-center ion-text color="light">Etuysi </ion-card-header>
-    <ion-card-content text-center>
+<ion-content padding>
+    <div *ngIf="frontNine.length> 0">
 
-      <section *ngIf="frontNine.length > 0">
-        <ion-row>
-          <ion-col *ngFor="let hole of frontNine" width-10><a ion-text color="light">{{hole.order}}</a></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><a ion-text color="light">Out</a></ion-col>
-        </ion-row>
+      <ion-row text-center class="header-row"> 
+        <ion-col *ngFor="let hole of frontNine"><a ion-text color="light">{{hole.order}}</a></ion-col>
+        <ion-col class="border-left"><span class="font-xxsmall" ion-text color="light">Out</span></ion-col>
+      </ion-row>
 
-        <ion-row  class="secondary border-bottom">
-          <ion-col *ngFor="let hole of frontNine" width-10>{{hole.par}}</ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('front')}}</span></ion-col>
-        </ion-row>
+      <ion-row text-center class="border-bottom">
+        <ion-col *ngFor="let hole of frontNine">{{hole.par}}</ion-col>
+        <ion-col class="border-left"><span>{{getTotal('front')}}</span></ion-col>
+      </ion-row>
 
-        <ion-row class="primary">
-          <ion-col width-10 *ngFor="let hole of frontNine"><span class="score-mark {{getClassName(hole)}}">{{hole.score}}</span></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
-        </ion-row>
-      </section>
-      <ion-label text-center ion-text color="primary" class="font-big">{{getScore('front')}}</ion-label>
-    </ion-card-content>
+      <ion-row class="border-bottom">
+        <ion-col text-center *ngFor="let hole of frontNine"><span class="score-mark {{getClassName(hole)}}">{{hole.score}}</span></ion-col>
+        <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
+      </ion-row>
 
-  </ion-card>
+       <ion-row text-right ion-text class="table-info-container center-vertical">
+        <ion-col>Etuysi:</ion-col>
+        <ion-col text-center width-10 ion-text color="primary">{{getScore('front')}}</ion-col>
+      </ion-row>
 
-  <ion-card *ngIf="backNine.length > 0">
-    <ion-card-header text-center ion-text color="light">Takaysi </ion-card-header>
+    </div>
 
-    <ion-card-content text-center>
+    <div text-center *ngIf="backNine.length > 0">
 
-      <section>
-        <ion-row color="light">
-          <ion-col class="no-wrap" *ngFor="let hole of backNine" width-10><a ion-text color="light">{{hole.order}}</a></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><a ion-text color="light">In</a></ion-col>
-        </ion-row>
+      <ion-row text-center class="header-row">
+        <ion-col *ngFor="let hole of backNine"><a ion-text color="light">{{hole.order}}</a></ion-col>
+        <ion-col  class="border-left no-wrap"><a ion-text color="light">In</a></ion-col>
+      </ion-row>
 
-        <ion-row class="secondary border-bottom">
-          <ion-col *ngFor="let hole of backNine" width-10><span>{{hole.par}}</span></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span>{{getTotal('back')}}</span></ion-col>
-        </ion-row>
+      <ion-row class="border-bottom">
+        <ion-col *ngFor="let hole of backNine"><span>{{hole.par}}</span></ion-col>
+        <ion-col  class="border-left no-wrap"><span>{{getTotal('back')}}</span></ion-col>
+      </ion-row>
 
-        <ion-row class="primary">
-          <ion-col *ngFor="let hole of backNine; let i = index" width-10><span class="score-mark {{getClassName(hole)}}"> {{hole.score}}</span></ion-col>
-          <ion-col width-10 class="border-left no-wrap"><span>{{scoreCardService.getScore('back', 0)}}</span></ion-col>
-        </ion-row>
-      </section>
+      <ion-row class="border-bottom">
+        <ion-col *ngFor="let hole of backNine; let i = index"><span class="score-mark {{getClassName(hole)}}"> {{hole.score}}</span></ion-col>
+        <ion-col  class="border-left no-wrap"><span>{{scoreCardService.getScore('back', 0)}}</span></ion-col>
+      </ion-row>
 
-      <ion-label text-center ion-text color="primary" class="font-big">{{getScore('back')}}</ion-label>
+      <ion-row text-right ion-text class="table-info-container center-vertical">
+        <ion-col>Takaysi:</ion-col>
+        <ion-col text-center width-10 ion-text color="primary">{{getScore('back')}}</ion-col>
+      </ion-row>
+    </div>
 
-    </ion-card-content>
+    <div padding text-center><span ion-text color="primary" class="score font-extra-big">{{getTotalScore()}}</span></div>
 
-  </ion-card>
 </ion-content>
 
 <ion-footer>
