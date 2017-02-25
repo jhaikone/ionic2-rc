@@ -90,6 +90,14 @@ html, ion-content, ion-item, ion-title {
   font-size: map-get($fonts, 'xxsmall');
 }
 
+.stacked-label {
+  font-size: map-get($fonts, 'stackedLabel');
+}
+
+.text-overline {
+  text-decoration: line-through;
+}
+
 .text-inset {
   background-color: #565656;
  color: transparent;

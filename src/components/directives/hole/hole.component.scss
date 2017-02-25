@@ -10,4 +10,13 @@ hole {
     height: map-get($sizes, roundLarge) !important;
   }
 
+  .score-background {
+    background: -webkit-linear-gradient(to left, #94BB69, #428250);
+    background: linear-gradient(to left, #94BB69, #428250);
+  }
+
+  .clear-margin {
+    margin-top: -12px;
+  }
+
 }

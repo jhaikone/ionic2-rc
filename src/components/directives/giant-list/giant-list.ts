@@ -24,11 +24,11 @@ const PAGE_SIZE: number = 50;
             </ion-col>
             <ion-col width-20 text-center>
                 <div><span class="font-xsmall">Tulos</span></div>
-                <div><a ion-text class="font-avarage" color="primary">{{round.score}}</a></div>
+                <div><a ion-text class="font-avarage" [ngClass]="{'text-overline': !round.validRound}" color="primary">{{round.score}}</a></div>
             </ion-col>
             <ion-col width-20 text-center>
                 <div><span class="font-xsmall">Putit</span></div>
-                <div><a ion-text class="font-avarage" color="primary">{{round.putts}}</a></div>
+                <div><a ion-text class="font-avarage" [ngClass]="{'text-overline': !round.validRound}" color="primary">{{round.putts}}</a></div>
             </ion-col>
             </ion-row>
         </button>

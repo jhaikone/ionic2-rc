@@ -42,8 +42,7 @@ export class ScoreViewPage {
     console.log('settings', settings);
     this.holes = this.holeService.getHoles();
     this.model = this.holeService.getResults();
-    this.setTimeStamp('startAt');
-    this.scoreCardService.getCourse().time = this.holeService.getResult().singlePlayer.startAt;
+    this.setTimeStamp('startedAt');
   }
 
   showAchievements() {
@@ -63,9 +62,17 @@ export class ScoreViewPage {
     });
   }
 
+  hasMultiplayers () {
+    return this.settings.multiplayer;
+  }
+
   endRound() {
-    console.log('results', this.holeService.getResults());
     this.setTimeStamp('finishedAt');
+    if (this.settings.isBogeyPlay()) {
+      this.clearResults();
+    }
+    console.log('results', this.holeService.getResults());
+    this.scoreCardService.setCardByIndex(this.holeService.getResults().holes);
     this.nav.push(InformationPage, {});
   }
 
@@ -74,6 +81,21 @@ export class ScoreViewPage {
     if (model[key]) return;
 
     model[key] = this.helper.timeNow();
+  }
+
+  private clearResults () {
+    console.log('awdawdawd', this.holeService.getResults());
+    this.holeService.getResults().holes.forEach((hole) => {
+      if (hole.singlePlayer.noResult) {
+        hole.singlePlayer.fairway = false;
+        hole.singlePlayer.strokes = 0;
+        hole.singlePlayer.putts = 0;
+        hole.singlePlayer.sands = 0;
+        hole.singlePlayer.penalties = 0;
+        hole.singlePlayer.gir = false;
+        hole.singlePlayer.sandSave = false;
+      }
+    });
   }
 
 

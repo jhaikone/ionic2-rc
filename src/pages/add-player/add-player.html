@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar text-left>
+      <ion-buttons end>
+          <button color="primary" ion-button clear icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+      <ion-title text-center>Syötä tiedot</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item class="margin-bottom">
+      <ion-label color="tertiary" stacked>Nimi</ion-label>
+      <ion-input [(ngModel)]="player.name" placeholder="Tiger Woods"></ion-input>
+    </ion-item>
+
+    <ion-row class="margin-top">
+      <ion-col text-left ion-text color="tertiary" class="hcp-label-left"><span class="stacked-label">Tasoitus</span></ion-col>
+      <ion-col text-right class="hcp-label-right"><ion-badge color="tertiary">{{player.hcp}}</ion-badge></ion-col>
+    </ion-row>
+
+    <ion-item >
+      <ion-range min="0" max="54" [(ngModel)]="player.hcp" color="tertiary" pin="true">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>54</ion-label>
+      </ion-range>
+    </ion-item>
+
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar text-center>
+    <button ion-button (click)="addPlayer()">Hyväksy</button>
+  </ion-toolbar>
+</ion-footer>

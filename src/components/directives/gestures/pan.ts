@@ -8,6 +8,10 @@ import { DirectionEnum } from '../../../environment/environment';
 
 declare const Hammer: any;
 
+const BLACK_LIST_ELEMENTS: Array<string> = [
+  'button-inner'
+];
+
 @Directive({
   selector: '[pan]'
 })
@@ -27,7 +31,8 @@ export class PanComponent implements OnInit, OnDestroy {
     stopPropagation: true,
     preventDefault: true,
     invokeApply: false,
-    direction:  Hammer.DIRECTION_HORIZONTAL
+    direction:  Hammer.DIRECTION_HORIZONTAL,
+    threshold: 10
   };
 
   constructor(elementRef: ElementRef, public holeService: HoleService, public renderer: Renderer, public helper: Helper) {
@@ -35,6 +40,10 @@ export class PanComponent implements OnInit, OnDestroy {
     this.holeService.holeChanged$.subscribe(event => this.onHoleChange(event));
     this.index = holeService.getIndex();
     this.holeCount = holeService.getHoles().length;
+  }
+
+  nonDraggableItem (event) {
+    return event.target && BLACK_LIST_ELEMENTS.indexOf(event.target.className) > -1;
   }
 
   ngOnInit() {
@@ -57,12 +66,15 @@ export class PanComponent implements OnInit, OnDestroy {
     this.panGesture.listen();
 
     this.panGesture.on('panstart', event => {
+      if  (this.nonDraggableItem(event)) return;
+
       this.lockPanHorizontal = Math.abs(event.deltaY) > 20;
       this.direction = event.deltaX < 0 ? DirectionEnum.Next : DirectionEnum.Previous;
       this.renderer.setElementClass(this.element, 'animate-swipe', false);
     })
 
     this.panGesture.on('panleft panright', event => {
+        if  (this.nonDraggableItem(event)) return;
         if (this.lockPanHorizontal) return;
 
         if (this.hasNext() || this.hasPrevious()) {
@@ -75,7 +87,7 @@ export class PanComponent implements OnInit, OnDestroy {
     })
 
     this.panGesture.on('panend', event => {
-      if (this.lockPanHorizontal) return;
+      if (this.lockPanHorizontal || this.nonDraggableItem(event)) return;
       this.snapPosition = 0;
 
       if (this.snappable() && (Math.abs(event.deltaX) > 100 || Math.abs(event.overallVelocityX) > 0.5)) {
@@ -107,7 +119,7 @@ export class PanComponent implements OnInit, OnDestroy {
       this.holeService.setIndex(index-1);
     } else  {
       this.holeService.setIndex(index+1);
-      this.setTimeStamp('startAt');
+      this.setTimeStamp('startedAt');
     }
 
     this.holeService.playerMode = 'singleplayer';

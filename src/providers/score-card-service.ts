@@ -1,3 +1,4 @@
+import { Settings } from './settings';
 import { Injectable } from '@angular/core';
 
 import { ApiService } from './api-service';
@@ -23,7 +24,7 @@ export class ScoreCardService {
   course:any = {};
   parList = [];
 
-  constructor(public apiService: ApiService, public helper: Helper) {
+  constructor(public apiService: ApiService, public helper: Helper, private settings: Settings) {
     console.log('Hello ScoreCardService Provider');
   }
 
@@ -31,12 +32,41 @@ export class ScoreCardService {
     return this.scoreCard;
   }
 
-  setCardByIndex(card, index) {
-    this.scoreCard[index] = card;
+  setCardByIndex(holes) {
+    let card = [];
+ 
+    for (let i = 0; i < holes.length; i++) {
+      card.push({
+        order: i+1,
+        par: this.parList[i],
+        score: holes[i].singlePlayer.strokes,
+        startedAt: holes[i].singlePlayer.startedAt
+      });
+    }
+
+    this.scoreCard[0] = card;
+
+    if (holes[0].multiplayers.length) {
+      this.setMultiplayerCards(holes);
+    }
   }
 
-  setScoreToCardAt(score, index) {
-    this.scoreCard[index].push(score);
+  private setMultiplayerCards (holes) {
+    let holeIndex = 0;
+    for (let hole of holes) {
+      for (let i = 0; i < hole.multiplayers.length; i++) {
+
+        this.scoreCard[i+1].push({
+          order: holeIndex+1,
+          par: this.parList[i],
+          score: hole.multiplayers[i].strokes,
+          hcp: hole.multiplayers[i].hcp,
+          name: hole.multiplayers[i].name
+        });
+      }
+      holeIndex++;
+    }
+    console.log('now', this.scoreCard);
   }
 
   getScore(from, index) {
@@ -61,7 +91,6 @@ export class ScoreCardService {
       return this.apiService.getRound(course).then((data:any) => {
         console.log('data', data);
           
-        //this.populateParList(data.course.holes);
         this.scoreCard[0] = data;
       })
     }
@@ -88,6 +117,15 @@ export class ScoreCardService {
       total += value.score;
     })
     return total;
+  }
+
+  getMultiplayerCards () {
+    if (!this.hasMultiplayers()) return [];
+    return [this.scoreCard[1], this.scoreCard[2], this.scoreCard[3]];
+  }
+
+  hasMultiplayers() {
+    return this.scoreCard[1].length || this.scoreCard[2].length || this.scoreCard[3].length;
   }
 
 }

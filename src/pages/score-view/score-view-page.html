@@ -1,32 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-row class="custom-ion-title">
-      <ion-col offset-66 width-33 text-right>
-          <button ion-button icon-only clear color="primary" (click)="showAchievements()"><ion-icon name="trophy"></ion-icon></button>
-      </ion-col>
-    </ion-row>
 
-  </ion-toolbar>
-
-</ion-header>
 
 <ion-content>
+  
+  <!--<div [ngClass]="{'tab-margin' : hasMultiplayers()}" class="background-image"></div>-->
 
-  <div padding *ngIf="settings.multiplayer">
-    <ion-segment [(ngModel)]="holeService.playerMode">
-      <ion-segment-button value="singleplayer">
-        Pelaaja
-      </ion-segment-button>
-      <ion-segment-button value="multiplayer">
-        Kaverit
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+  
+
+  <ion-segment [(ngModel)]="holeService.playerMode" *ngIf="settings.multiplayer">
+    <ion-segment-button value="singleplayer">
+      Pelaaja
+    </ion-segment-button>
+    <ion-segment-button value="multiplayer">
+      Kaverit
+    </ion-segment-button>
+  </ion-segment>
 
   <div class="carousel-wrap" pan>
-
-    <hole holeChange="holeChangeEvent" id="floating-content-0"></hole>
-    <hole holeChange="holeChangeEvent" id="floating-content-1"></hole>
+ 
+    <hole id="floating-content-0"></hole>
+    <hole id="floating-content-1"></hole>
     <hole id="floating-content-2"></hole>
 
   </div>

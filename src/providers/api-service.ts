@@ -1,3 +1,4 @@
+import { FromServerTime } from './../pipes/from-server-time';
 import { UserDataInterface } from '../environment/user-data-interface';
 import { ErrorService } from './error-service';
 import { Settings } from './settings';
@@ -41,7 +42,8 @@ export class ApiService {
     private http: Http, 
     private storage: Storage, 
     private settings: Settings, 
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private fromServerTime: FromServerTime
   ) {
     console.log('Rounds', MOCK_ROUND_CARDS)
     this.options = new RequestOptions({headers: this.authHeader()})
@@ -111,8 +113,11 @@ export class ApiService {
 
   getRound (round) {
     console.log('gettin', round);
+    
     let options = this.copyOptions();
+    
     options.search = this.createUrlSearchParams('parameters', {session_id: round.id});
+    console.log('options', options);
     return this.http.get(SCORE_CARD_QUERY_URL, options)
       .timeout(10000)
       .toPromise()
@@ -143,12 +148,18 @@ export class ApiService {
         let opt = new RequestOptions({headers: this.authHeader(auth_token)})
         console.log('holes', holes);
         console.log('getCourse', this.settings.courseId);
+        let bulks = this.createRoundsRequest(holes);
+        console.log('bulks', bulks);
+        let invalid = bulks.some((bulk) => bulk.data.score === 0);
+        console.log('invalid', invalid)
         let req = {
           user_id: data.userId.toString(),
           tee: this.settings.selectedTee,
-          startedAt: '',
+          startedAt: bulks[0].data.startedAt,
           courseId: this.settings.courseId.toString(),
-          data: this.createRoundsRequest(holes)
+          validRound: !invalid,
+          fullRound: this.settings.fullRound,
+          data: bulks
         };
         
         console.log('isArray', req);
@@ -229,8 +240,8 @@ export class ApiService {
           hole_id: player.hole_id,
           score: player.strokes,
           putts: player.putts,
-          startedAt: '', // format these to server data
-          finishedAt: '', // format these to server date
+          startedAt: this.fromServerTime.toServerTime(player.startedAt), // format these to server data
+          finishedAt: this.fromServerTime.toServerTime(player.finishedAt), // format these to server date
           isFairway: player.fairway,
           isGir: player.gir,
           isSandSave: player.sandSave,

@@ -1,88 +1,90 @@
-<section *ngIf="holeService.playerMode === 'singleplayer'" class="custom-component-background padding-top">
 
-      <section class="border-bottom">
-        <ion-label text-center color="extra-light" class="score font-big hole-title">Väylä {{holeService.getIndex()+1}}</ion-label>
+<div class="score-background border-bottom" padding [ngClass]="{'clear-margin': !hasMultiplayer()}">
+    
+    <ion-label text-center color="extra-light">{{course.name}}</ion-label>
+    <ion-label text-center color="extra-light" class="font-big">Väylä {{holeService.getIndex()+1}}</ion-label>
+
+    <ion-row>
+
+      <ion-col width-33 text-center>
+        <div><a ion-text color="extra-light" class="font-xsmall">Par</a></div>
+        <div><a ion-text color="extra-light">{{holeService.getPar()}}</a></div>
+      </ion-col>
+
+      <ion-col width-33 text-center>
+        <div><a ion-text color="extra-light" class="font-xsmall">Pituus</a></div>
+        <div><a ion-text color="extra-light">{{holeService.getDistance()}}m</a></div>
+      </ion-col>
+
+      <ion-col width-33 text-center>
+        <div><a ion-text color="extra-light" class="font-xsmall">HCP</a></div>
+        <div><a ion-text color="extra-light">{{holeService.getHcp()}}</a></div>
+      </ion-col>
+
+    </ion-row>
+
+</div>
+
+<ng-container *ngIf="holeService.playerMode === 'singleplayer'">
+
+  <ion-item>
+    <ion-label class="animate color" [ngClass]="{'secondary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
+    <ion-toggle class="secondary" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
+  </ion-item>
+
+  <ng-container *ngIf="!holeService.getResult().singlePlayer.noResult">
+
+    <ion-item>
+      <ion-label class="animate color" [ngClass]="{'primary': holeService.getResult().singlePlayer.fairway}">Avaus väylällä</ion-label>
+      <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngFor="let input of inputs; let i = index">
+
+      <ion-label color="tertiary" class="width-70">{{input.label}}</ion-label>
+
+      <ion-label class="width-20" align="center"
+          class="{{input.cssClasses}}"
+          [ngClass]="{'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"
+      > {{holeService.getResult().singlePlayer[input.key]}}
+      </ion-label>
+
+      <button item-right ion-button round (click)="decrease(input.key)"><ion-icon name="remove"></ion-icon></button>
+      <button item-right ion-button round (click)="increase(input.key)"><ion-icon name="add"></ion-icon></button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="animate color" color="tertiary" [ngClass]="{'primary': holeService.getResult().singlePlayer.gir}">GiR-osuma</ion-label>
+      <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.gir"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="animate color" color="tertiary" [ngClass]="{'primary': holeService.getResult().singlePlayer.sandSave}">Hiekkapelastus</ion-label>
+      <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.sandSave"></ion-toggle>
+    </ion-item>
+
+  </ng-container>
+
+</ng-container>
+
+<ng-container *ngIf="holeService.playerMode === 'multiplayer'">
+  <ion-row *ngFor="let multiplayer of holeService.getResult().multiplayers">
+    <ion-item>
+      <ion-label color="tertiary" class="width-70">{{multiplayer.name}}</ion-label>
+
+      <ion-label
+          color="primary"
+          class="width-20 animate font" 
+          align="center"
+          [ngClass]="{'font-avarage': multiplayer.strokes >= 9, 'font-big': multiplayer.strokes < 9}"
+      > {{multiplayer.strokes}}
+      </ion-label>
+
+      <button item-right ion-button round (click)="(multiplayer.strokes = multiplayer.strokes > 1 ? multiplayer.strokes-1 : multiplayer.strokes)"><ion-icon name="remove"></ion-icon></button>
+      <button item-right ion-button round (click)="(multiplayer.strokes = multiplayer.strokes+1)"><ion-icon name="add"></ion-icon></button>
+    </ion-item>
+</ion-row>
+</ng-container>
 
 
-        <ion-row>
-
-          <ion-col width-33 text-center>
-            <div><a ion-text color="light" class="font-xsmall">Par</a></div>
-            <div><a ion-text color="light">{{holeService.getPar()}}</a></div>
-          </ion-col>
-
-          <ion-col width-33 text-center>
-            <div><a ion-text color="light" class="font-xsmall">Pituus</a></div>
-            <div><a ion-text color="light">{{holeService.getDistance()}}m</a></div>
-          </ion-col>
-
-          <ion-col width-33 text-center>
-            <div><a ion-text color="light" class="font-xsmall">HCP</a></div>
-            <div><a ion-text color="light">{{holeService.getHcp()}}</a></div>
-          </ion-col>
-
-        </ion-row>
-      </section>
-
-     <ion-item>
-       <ion-label class="animate color" [ngClass]="{'secondary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
-       <ion-toggle class="secondary" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
-     </ion-item>
-
-
-     <section *ngIf="!holeService.getResult().singlePlayer.noResult">
-
-       <ion-item>
-         <ion-label class="animate color" [ngClass]="{'primary': holeService.getResult().singlePlayer.fairway}">Avaus väylällä</ion-label>
-         <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
-       </ion-item>
-
-       <ion-item *ngFor="let input of inputs; let i = index">
-
-        <ion-label class="width-70">{{input.label}}</ion-label>
-
-        <ion-label class="width-20" align="center"
-             class="{{input.cssClasses}}"
-             [ngClass]="{'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"
-         > {{holeService.getResult().singlePlayer[input.key]}}
-       </ion-label>
-
-        <button item-right ion-button round (click)="decrease(input.key)"><ion-icon name="remove"></ion-icon></button>
-        <button item-right ion-button round (click)="increase(input.key)"><ion-icon name="add"></ion-icon></button>
-       </ion-item>
-
-       <ion-item>
-         <ion-label class="animate color" [ngClass]="{'primary': holeService.getResult().singlePlayer.gir}">GiR-osuma</ion-label>
-         <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.gir"></ion-toggle>
-       </ion-item>
-
-       <ion-item>
-         <ion-label class="animate color" [ngClass]="{'primary': holeService.getResult().singlePlayer.sandSave}">Hiekkapelastus</ion-label>
-         <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.sandSave"></ion-toggle>
-       </ion-item>
-
-     </section>
-
-  </section>
-
-    <section *ngIf="holeService.playerMode === 'multiplayer'">
-      <ion-grid *ngFor="let multiplayer of holeService.getResult().multiplayers">
-
-       <ion-row class="content">
-
-         <ion-col width-40 class="ellipsis">{{multiplayer.name}}</ion-col>
-         <ion-col end width-10 color="primary" class="text-right">
-           <span>{{multiplayer.strokes}}</span>
-         </ion-col>
-
-         <ion-col width-50>
-           <ion-buttons end>
-             <button ion-button round (click)="(multiplayer.strokes = multiplayer.strokes > 1 ? multiplayer.strokes-1 : multiplayer.strokes)" type="button"><ion-icon name="remove"></ion-icon></button>
-             <button ion-button round (click)="(multiplayer.strokes = multiplayer.strokes+1)"><ion-icon name="add"></ion-icon></button>
-           </ion-buttons>
-         </ion-col>
-
-       </ion-row>
-
-     </ion-grid>
-   </section>
+  

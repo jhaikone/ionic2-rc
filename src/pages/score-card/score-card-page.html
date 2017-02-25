@@ -12,6 +12,7 @@
 </ion-header>
 
 <ion-content padding>
+  
     <div *ngIf="frontNine.length> 0">
 
       <ion-row text-center class="header-row"> 
@@ -25,7 +26,7 @@
       </ion-row>
 
       <ion-row class="border-bottom">
-        <ion-col text-center *ngFor="let hole of frontNine"><span class="score-mark {{getClassName(hole)}}">{{hole.score}}</span></ion-col>
+        <ion-col text-center *ngFor="let hole of frontNine"><span class="score-mark {{getClassName(hole)}}">{{hole.score || '-'}}</span></ion-col>
         <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
       </ion-row>
 
@@ -49,7 +50,7 @@
       </ion-row>
 
       <ion-row class="border-bottom">
-        <ion-col *ngFor="let hole of backNine; let i = index"><span class="score-mark {{getClassName(hole)}}"> {{hole.score}}</span></ion-col>
+        <ion-col *ngFor="let hole of backNine; let i = index"><span class="score-mark {{getClassName(hole)}}"> {{hole.score || '-'}}</span></ion-col>
         <ion-col  class="border-left no-wrap"><span>{{scoreCardService.getScore('back', 0)}}</span></ion-col>
       </ion-row>
 
@@ -59,7 +60,61 @@
       </ion-row>
     </div>
 
-    <div padding text-center><span ion-text color="primary" class="score font-extra-big">{{getTotalScore()}}</span></div>
+    <div padding text-center><span ion-text color="primary" class="score font-extra-big" [ngClass]="{'border-bottom': multiplayers.length}">{{getTotalScore() || ''}}</span></div>
+
+    
+
+
+<ng-container *ngFor="let player of multiplayers; let i = index">
+
+  <ion-label>{{getPlayerName(player)}}</ion-label>
+
+  <ion-row text-center class="header-row"> 
+    <ion-col *ngFor="let hole of getFrontNine(i)"><a ion-text color="light">{{hole.order}}</a></ion-col>
+    <ion-col class="border-left"><span class="font-xxsmall" ion-text color="light">Out</span></ion-col>
+  </ion-row>
+
+  <ion-row text-center class="border-bottom">
+    <ion-col *ngFor="let hole of getFrontNine(i)">{{hole.par}}</ion-col>
+    <ion-col class="border-left"><span>{{getTotal('front', getMultiplayerHoles(i))}}</span></ion-col>
+  </ion-row>
+
+  <ion-row class="border-bottom">
+    <ion-col text-center *ngFor="let hole of getFrontNine(i)"><span class="score-mark {{getClassName(hole)}}">{{hole.score || '-'}}</span></ion-col>
+    <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', i)}}</span></ion-col>
+  </ion-row>
+
+    <ion-row text-right ion-text class="table-info-container center-vertical">
+    <ion-col>Etuysi:</ion-col>
+    <ion-col text-center width-10 ion-text color="primary">{{getScore('front', getMultiplayerHoles(i))}}</ion-col>
+  </ion-row>
+
+  <ng-container text-center *ngIf="getBackNine(i).length > 0">
+
+    <ion-row text-center class="header-row">
+      <ion-col *ngFor="let hole of getBackNine(i)"><a ion-text color="light">{{hole.order}}</a></ion-col>
+      <ion-col  class="border-left no-wrap"><a ion-text color="light">In</a></ion-col>
+    </ion-row>
+
+    <ion-row class="border-bottom">
+      <ion-col *ngFor="let hole of getBackNine(i)"><span>{{hole.par}}</span></ion-col>
+      <ion-col  class="border-left no-wrap"><span>{{getTotal('back', i)}}</span></ion-col>
+    </ion-row>
+
+    <ion-row class="border-bottom">
+      <ion-col *ngFor="let hole of getBackNine(i)"><span class="score-mark {{getClassName(hole)}}"> {{hole.score || '-'}}</span></ion-col>
+      <ion-col  class="border-left no-wrap"><span>{{scoreCardService.getScore('back', i)}}</span></ion-col>
+    </ion-row>
+
+    <ion-row text-right ion-text class="table-info-container center-vertical">
+      <ion-col>Takaysi:</ion-col>
+      <ion-col text-center width-10 ion-text color="primary">{{getScore('back', getMultiplayerHoles(i))}}</ion-col>
+    </ion-row>
+  </ng-container>
+
+  <div padding text-center><span ion-text color="primary" class="score font-extra-big border-bottom">{{getTotalScore(getMultiplayerHoles(i)) || ''}}</span></div>
+
+</ng-container>
 
 </ion-content>
 

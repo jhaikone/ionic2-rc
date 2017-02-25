@@ -1,3 +1,5 @@
+import { UserDataPage } from '../user-data/user-data';
+import { FromServerTime } from './../../pipes/from-server-time';
 import { Settings } from './../../providers/settings';
 import { RoundInterface } from './../../environment/round-interface';
 import { LoginPage } from './../login/login';
@@ -7,7 +9,7 @@ import { StorageKeys } from './../../environment/environment';
 import { Storage } from '@ionic/storage';
 
 import { Component } from '@angular/core';
-import { AlertController, NavController, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, ModalController } from 'ionic-angular';
 
 import { PlayerService } from '../../providers/player-service';
 import { ApiService } from '../../providers/api-service';
@@ -36,21 +38,23 @@ export class DashboardPage {
     startedAt: null,
     tee:null,
     user_id: null,
-    fullRound: false
+    fullRound: false,
+    validRound: false
   };
   avarageScore: number = 0;
 
   constructor (
     private navController: NavController,
     private alertController: AlertController,
-    private loadingController: LoadingController,
     private playerService: PlayerService,
     private apiService: ApiService,
     private scoreCardService: ScoreCardService,
     private helper: Helper,
     private storage: Storage,
     private toasterService: ToasterService,
-    private settings: Settings
+    private settings: Settings,
+    private fromServerTime: FromServerTime,
+    private modalController: ModalController
   ) {
       this.getRounds();
   }
@@ -60,6 +64,7 @@ export class DashboardPage {
     console.log('rounds', this.rounds);
     this.recordRound = this.findRecordRound();
     this.settings.reloadRounds = false;
+    this.fromServerTime.toServerTime(this.helper.timeNow());
   }
 
   ionViewDidEnter() {
@@ -71,8 +76,8 @@ export class DashboardPage {
   findRecordRound () {
     this.avarageScore = 0;
     let i = 0;
-    return this.rounds.filter((round) => {
-      if (round.fullRound) {
+    let validRounds = this.rounds.filter((round) => {
+      if (round.fullRound && round.validRound) {
         i++;
         this.avarageScore += round.score;
         this.avarageScore = Math.ceil(this.avarageScore / i);
@@ -81,9 +86,17 @@ export class DashboardPage {
         return false;
       }
      
-    }).reduce(function(prev, current) {
-      return (prev.score < current.score) ? prev : current
-    })
+    });
+
+    if (validRounds.length) {
+      return validRounds.reduce((prev, current) => {
+        return (prev.score < current.score) ? prev : current
+      })
+    } else {
+      return this.recordRound;
+    }
+    
+
   }
 
   /*
@@ -119,68 +132,13 @@ export class DashboardPage {
   }
 
   showClubPrompt () {
-    let prompt = this.alertController.create({
-      title: 'Aseta jäsenseura',
-      inputs: [
-        {
-          type: 'text',
-          placeholder: 'Seura',
-          name: 'club',
-          value: this.user.club
-        },
-      ],
-      buttons: [
-        {
-          text: 'Peruuta',
-          handler: data => {
-            console.log('Cancel clicked', data);
-          }
-        },
-        {
-          text: 'Tallenna',
-          handler:async data => {
-            await this.apiService.updateUser({club: data.club}, this.user); 
-          }
-        }
-      ]
-    });
-
-    prompt.present();
+    let modal = this.modalController.create(UserDataPage, {label: 'seura', user: this.user, value: this.user.club})
+    modal.present();
   }
 
   showPrompt () {
-  let prompt = this.alertController.create({
-    title: 'Aseta pelitasoitus',
-    message: 'Pelitasoitus ei voi olla suurempi kuin 54.',
-    inputs: [
-      {
-        type: 'number',
-        placeholder: 'Pelitasoitus',
-        name: 'hcp',
-        value: this.user.hcp.toString()
-      },
-    ],
-    buttons: [
-      {
-        text: 'Peruuta',
-        handler: data => {
-          console.log('Cancel clicked', data);
-        }
-      },
-      {
-        text: 'Tallenna',
-        handler:async data => {
-          let hcp = this.helper.round(data.hcp, 1);
-          if (Number(hcp) > 54) {
-            return false;
-          }
-          await this.apiService.updateUser({hcp: Number(hcp)}, this.user);   
-        }
-      }
-    ]
-  });
-
-  prompt.present();
-}
+    let modal = this.modalController.create(UserDataPage, {label: 'hcp', user: this.user, value: this.user.hcp.toString()})
+    modal.present();
+  }
 
 }

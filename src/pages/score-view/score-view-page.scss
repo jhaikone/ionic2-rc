@@ -1,3 +1,28 @@
+.ios {
+  page-score-view {
+    .tab-margin {
+      margin-top: 58px;
+    }
+    
+    .background-image {
+      height: 138px;
+    }
+  }
+
+}
+
+.md {
+  page-score-view {
+    
+    .tab-margin {
+      margin-top: 68px;
+    }
+    .background-image {
+      height: 142px;
+    }
+  }
+}
+
 page-score-view {
   .tab-highlight {
     -webkit-transition: -webkit-transform 0.2s ease-in-out;
@@ -9,6 +34,24 @@ page-score-view {
     &.multiplayer {
       transform: translate3d(50vw,0, 0);
     }
+  }
+   
+  .background-image {
+    position: absolute;
+    width: 100%;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+
+    background: url("../assets/img/round/round_small.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    filter        : blur(4px);
+    -moz-filter   : blur(4px);
+    -webkit-filter: blur(4px);
+    -o-filter     : blur(4px);
   }
 
   .margin-top-large {
@@ -43,6 +86,7 @@ page-score-view {
     height: 100%;
     text-align: center;
     width: 100%;
+    background: none;
   }
 
   .slide-content {

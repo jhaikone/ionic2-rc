@@ -4,7 +4,7 @@ import { InformationPage } from '../information/information-page';
 import { StorageKeys } from '../../environment/environment';
 
 import { ApiService } from '../../providers/api-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GooglePlus } from 'ionic-native';
@@ -20,10 +20,10 @@ import _ from 'lodash';
   templateUrl: 'login.html'
 })
 
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   loading: any;
-  height: number = 0;
+  height: number;
   lineWidth:number = 0;
   marginLeft: number = 100;
   page: any = DashboardPage;
@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
       console.log('bodyu', document.body.clientHeight)
   }
 
-  ngOnInit() {
+  ionViewDidLoad () {
     this.height = document.body.clientHeight;
   }
 

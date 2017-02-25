@@ -1,0 +1,35 @@
+page-user-data {
+    
+    .align-bottom {
+        bottom: 25%;
+    }
+
+    .align-top {
+        top: 25%;
+    }
+
+}
+
+.md { 
+    page-user-data {
+        .hcp-label-left {
+            padding-left: 16px;
+        }
+
+        .hcp-label-right {
+            padding-right: 10px;
+        }
+    }
+}
+
+.ios { 
+    page-user-data {
+        .hcp-label-left {
+            padding-left: 18px;
+        }
+
+        .hcp-label-right {
+            padding-right: 18px;
+        }
+    }
+}

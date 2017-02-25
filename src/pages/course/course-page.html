@@ -5,12 +5,11 @@
 
 </ion-header>
 
-
-<ion-content padding [ngClass]="{'hide-footer-margin': isKeyboardOpen}">
+<ion-content padding>
 
 <ion-list radio-group [(ngModel)]="settings.selectedTee">
-  <ion-list-header>
-    Valitse tii
+  <ion-list-header class="no-margin border-bottom">
+    <span ion-text color="tertiary">Valitse tii</span>
   </ion-list-header>
 
   <ion-item *ngFor="let tee of teeList; let i = index" class="list-item">
@@ -19,47 +18,23 @@
   </ion-item>
 </ion-list>
 
+<button (click)="addPlayer()" ion-button clear primary icon-left [disabled]="getPlayers().length >= 3">
+  <ion-icon name="add"></ion-icon> Lisää pelaaja
+</button>
+
+
 <ion-list>
-
-  <ion-item>
-    <ion-label class="animate color" [ngClass]="{'primary': settings.multiplayer}">Moninpeli</ion-label>
-    <ion-toggle color="primary" [(ngModel)]="settings.multiplayer"></ion-toggle>
+  <ion-item *ngFor="let player of getPlayers()">
+    <button (click)="editPlayer(player)" item-left ion-button clear icon-only><ion-icon name="open"></ion-icon></button>
+    {{player.name}} hcp: {{player.hcp}}
+    <button (click)="removePlayer(player)" item-right clear ion-button icon-only><ion-icon name="remove"></ion-icon></button>
   </ion-item>
-
-  <span *ngIf="settings.multiplayer">
-    <div [ngClass]="{'list-item-last': l===true}" *ngFor="let friend of friends; let i = index; let l = last">
-      <ion-row>
-        <ion-item class="width-50">
-          <ion-label color="{{friend.name ? 'primary' : 'light'}}" stacked>Pelaaja {{i+2}}</ion-label>
-          <ion-input
-            type="text"
-            [(ngModel)]="friend.name"
-            (focus)="isKeyboardOpen = true"
-            (blur)="initHCP(friend); isKeyboardOpen = false"
-          >
-          </ion-input>
-        </ion-item>
-        <ion-item class="width-50">
-          <ion-label color="{{friend.hcp ? 'primary' : 'light'}}" stacked>HCP</ion-label>
-          <ion-input
-            [(ngModel)]="friend.hcp"
-            (focus)="isKeyboardOpen = true"
-            (blur)="trimHcp($event, friend); isKeyboardOpen = false"
-            (keypress)="validateHcp($event, friend.hcp)"
-          >
-          </ion-input>
-        </ion-item>
-      </ion-row>
-    </div>
-  </span>
-
 </ion-list>
 
 </ion-content>
 
-<ion-footer class="animate height" [ngClass]="{'hide-footer': isKeyboardOpen}">
+<ion-footer>
   <ion-navbar text-right>
-
       <button class="width-70" color="primary" (click)="startRound()" ion-button>
         Pelaa
         <!-- <ion-icon name="arrow-forward" item-left></ion-icon> -->

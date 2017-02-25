@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar text-left>
+      <ion-buttons end>
+          <button color="primary" ion-button clear icon-only (click)="closeDialog()"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+      <ion-title text-center>Syötä uusi {{navParams.data.label}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <div class="align-bottom" *ngIf="navParams.data.label === 'hcp'">
+
+      <ion-row>
+        <ion-col text-left ion-text color="tertiary" class="hcp-label-left"><span class="stacked-label">Tasoitus</span></ion-col>
+        <ion-col text-right class="hcp-label-right"><ion-badge color="tertiary">{{hcp}}</ion-badge></ion-col>
+      </ion-row>
+
+      <ion-item>
+        <ion-range min="0" max="54" [(ngModel)]="hcp" color="tertiary" pin="true">
+          <ion-label range-left>0</ion-label>
+          <ion-label range-right>54</ion-label>
+        </ion-range>
+      </ion-item>
+
+    </div>
+
+
+     <div class="align-top"  *ngIf="navParams.data.label !== 'hcp'">
+      <ion-item *ngIf="navParams.data.label === 'seura'">
+        <ion-label color="tertiary" stacked>Aseta uusi seura</ion-label>
+        <ion-input [(ngModel)]="club" placeholder="Helsinki City Golf"></ion-input>
+      </ion-item>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar text-center>
+    <button ion-button (click)="update()">Aseta {{navParams.data.label}}</button>
+  </ion-toolbar>
+</ion-footer>

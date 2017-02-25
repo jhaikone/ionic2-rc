@@ -1,4 +1,5 @@
-
+import { AddPlayerPage } from './../pages/add-player/add-player';
+import { UserDataPage } from './../pages/user-data/user-data';
 import { MenuPage } from './../pages/menu/menu';
 import { SignUpConfirmationPage } from '../pages/sign-up/sign-up-confirmation/sign-up-confirmation';
 import { ModalService } from '../providers/modal-service';
@@ -60,6 +61,8 @@ import { FromServerTime } from '../pipes/from-server-time';
     SignUpPage,
     MenuPage,
     SignUpConfirmationPage,
+    UserDataPage,
+    AddPlayerPage,
     HoleComponent,
     GiantList,
     PanComponent,
@@ -100,7 +103,9 @@ import { FromServerTime } from '../pipes/from-server-time';
     DashboardPage,
     SignUpPage,
     SignUpConfirmationPage,
-    MenuPage
+    MenuPage,
+    UserDataPage,
+    AddPlayerPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -116,7 +121,8 @@ import { FromServerTime } from '../pipes/from-server-time';
     Helper,
     ToasterService,
     ModalService,
-    ErrorService
+    ErrorService,
+    FromServerTime
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

@@ -1,5 +1,8 @@
+import { AddPlayerPage } from '../add-player/add-player';
+import { PlayerService } from './../../providers/player-service';
+import { player } from './../../providers/player-service';
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, ModalController } from 'ionic-angular';
 
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
@@ -38,7 +41,8 @@ export class CoursePage {
     private helper: Helper,
     public settings: Settings,
     private apiService: ApiService,
-    
+    private playerService: PlayerService,
+    private modalCtrl: ModalController
 
   ) {
     this.course = scoreCardService.getCourse();
@@ -81,14 +85,8 @@ export class CoursePage {
   }
 
   startRound() {
-    this.settings.setPlayers(this.helper.cleanArrayBy(this.friends, 'name'));
-
-    if (this.settings.getPlayers().length === 0 && this.settings.multiplayer === true) {
-      this.showConfirmationDialog();
-    } else {
-      this.goToScoreViewPage();
-    }
-
+    this.settings.setPlayers(this.playerService.getPlayers());
+    this.goToScoreViewPage();
   }
 
   initTeeList() {
@@ -113,47 +111,31 @@ export class CoursePage {
 
   }
 
-  initHCP (friend) {
-    if (this.isNameSet(friend)) {
-        friend.hcp = this.settings.friendsHcp;
-    }
-  }
-
-  validateHcp(event, hcp) {
-    let newHcp = hcp + event.key;
-    let dotIndex = newHcp.indexOf('.');
-    let decimalPrecision = 0;
-
-    if (dotIndex > -1) {
-      decimalPrecision = newHcp.substr(dotIndex+1).length;
-    }
-
-    if (this.isInvalidHcp(hcp, newHcp, decimalPrecision)) {
-      event.preventDefault();
-    }
-  }
-
-  trimHcp($event, friend) {
-    friend.hcp = Number(friend.hcp);
-  }
-
-  private isNameSet(friend) {
-    return this.helper.isNotEmpty(friend) && friend.name !== '';
-  }
-
-  private goToScoreViewPage () {
+  private async goToScoreViewPage () {
     this.loader.present();
-    this.apiService.getHoles(this.course.id).then((res) => {
-      this.loader.dismiss();
-      this.scoreCardService.setHoles(res.data);
-      this.navController.push(ScoreViewPage, {});
-    })
-
+    let res = await this.apiService.getHoles(this.course.id);
+    this.loader.dismiss();
+    this.scoreCardService.setHoles(res.data);
+    this.navController.push(ScoreViewPage, {});
   }
 
-  private isInvalidHcp(hcp, newHcp, decimalPrecision) {
-    return !NUMBER_PATTERN.test(newHcp) || decimalPrecision > 1 || Number(hcp) === 54 || Number(newHcp) > 54;
+  addPlayer () {
+    let newPlayer: player =  {name: '', hcp: 36, id: null};
+    let modal = this.modalCtrl.create(AddPlayerPage, {player: newPlayer});
+    modal.present();
   }
 
+  editPlayer (player) {
+    let modal = this.modalCtrl.create(AddPlayerPage, {player: player});
+    modal.present();
+  }
+
+  removePlayer (player: player) {
+    this.playerService.remove(player);
+  }
+
+  getPlayers () {
+    return this.playerService.getPlayers();
+  }
 
 }

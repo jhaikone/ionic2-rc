@@ -1,26 +1,32 @@
 score-card-view {
- .minus {
-   color: color($colors, background-light);
-   background: color($colors, primary);
-   padding: 3px;
- }
+  
+  .minus {
+    color: color($colors, background-light);
+    background: color($colors, primary);
+    padding: 3px;
+  }
 
- .plus {
-   color: color($colors, background-light);
-   background: color($colors, light-danger);
-   padding: 3px;
- }
+  .plus {
+    color: color($colors, background-light);
+    background: color($colors, light-danger);
+    padding: 3px;
+  }
 
- .header-row {
-   background: color($colors, light-dark);
- }
+  .header-row {
+    background: color($colors, light-dark);
+  }
 
- .table-title {
-   padding: 5px;
- }
+  .table-title {
+    padding: 5px;
+  }
 
- .table-info-container {
-   height: 40px;
- }
+  .table-info-container {
+    height: 40px;
+  }
+
+  .no-result {
+    color: color($colors, danger);
+    padding: 3px;
+  }
 
 }

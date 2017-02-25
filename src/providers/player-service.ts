@@ -1,44 +1,60 @@
+import { Settings } from './settings';
 import { Injectable } from '@angular/core';
 
-import { MOCK_PLAYER } from '../mock/mock';
 
-/*
-  Generated class for the PlayerService provider.
+export interface player {
+  name: string,
+  hcp: number,
+  id: number
+};
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+
 @Injectable()
 export class PlayerService {
 
-  player: any = MOCK_PLAYER;
+  players: Array<player> = [];
 
-  constructor() {
-    console.log('Hello PlayerService Provider');
+  constructor(private settings: Settings) {}
+
+  add (player: player) {
+    console.log('player', player);
+    if (player.id === null || player.id === undefined) {
+      player.id = this.players.length;
+      this.players.push(player);
+      this.settings.multiplayer = true;
+
+    } else {
+      console.log('start finding');
+      let found = this.findPlayer(player);
+      console.log('found', found);
+      found = player;
+    }
   }
 
-  get name() {
-    return this.player.name;
+   findPlayer(player: player) {
+    return this.players.find((p) => {
+      return p.id === player.id;
+    });
   }
 
-  get hcp() {
-    return this.player.hcp;
+  remove (player: player) {
+    let index = this.players.indexOf(this.findPlayer(player));
+    if (index > -1) {
+      this.players.splice(index, 1);
+    }
+    this.settings.multiplayer = this.hasPlayers();
   }
 
-  get club () {
-    return this.player.club;
+  getPlayers () {
+    return this.players;
   }
 
-  set name(name) {
-    this.player.name = name;
+  hasPlayers () {
+    return this.players.length > 0;
   }
 
-  set hcp(hcp) {
-    this.player.hcp = hcp;
-  }
-
-  set club (club) {
-    this.player.club = club;
+  playerCount () {
+    return Number(this.players.length);
   }
 
 }

@@ -175,15 +175,12 @@ export class HoleService {
       information.player.sandSaves = information.player.sandSaves + hole.singlePlayer.sandSave ? 1 : 0;
       information.player.penalties = information.player.penalties + hole.singlePlayer.penalties;
 
-      this.scoreCardService.setScoreToCardAt(hole.singlePlayer.strokes, 0);
-
       this.updateStatistics(information, statistics, hole, holeIndex);
 
       holeIndex++;
 
       for (let i = 0; i < information.friends.length; i++) {
         information.friends[i].score = information.friends[i].score + hole.multiplayers[i].strokes;
-        this.scoreCardService.setScoreToCardAt(hole.multiplayers[i].strokes, i+1);
       }
 
     }

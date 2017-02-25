@@ -1,5 +1,9 @@
-import { Component, ElementRef,ChangeDetectorRef } from '@angular/core';
+import { Settings } from '../../../providers/settings';
+import { ScoreCardService } from './../../../providers/score-card-service';
+import { Component, ElementRef, ChangeDetectorRef, NgZone  } from '@angular/core';
 import { HoleService } from '../../../providers/hole-service';
+
+import _ from 'lodash';
 
 @Component({
   selector: 'hole',
@@ -8,7 +12,7 @@ import { HoleService } from '../../../providers/hole-service';
 
 export class HoleComponent {
 
-  kokeilu: any = 'testname';
+  course: any;
 
   inputs: Array<Object> = [
     {label: 'Lyönnit', key: 'strokes', cssClasses: 'animate font primary strokes'},
@@ -18,7 +22,22 @@ export class HoleComponent {
   ];
 
 
-  constructor(public holeService: HoleService, public elRef: ElementRef) {}
+  constructor(
+    public holeService: HoleService, 
+    public elRef: ElementRef,
+    private scoreCardService: ScoreCardService,
+    private zone: NgZone,
+    private settings: Settings
+  ) {
+    this.course = this.scoreCardService.getCourse();
+    console.log('course', this.course);
+    console.log('zone', this.zone);
+    //this.zone.detectChanges();
+  }
+
+  hasMultiplayer() {
+    return this.settings.multiplayer;
+  }
 
   increase (key) {
       this.singlePlayer[key]++;
@@ -71,6 +90,10 @@ export class HoleComponent {
 
   private get singlePlayer () {
     return this.holeService.getResult().singlePlayer;
+  }
+
+  private set singlePlayer (player) {
+    this.holeService.getResult().singlePlayer = player;
   }
 
   private calculateTotal() {

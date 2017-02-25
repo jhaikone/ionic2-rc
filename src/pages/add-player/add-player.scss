@@ -1,0 +1,29 @@
+page-add-player {
+    .align-bottom {
+        bottom: 25%;
+    }
+}
+
+.md { 
+    page-add-player{
+        .hcp-label-left {
+            padding-left: 16px;
+        }
+
+        .hcp-label-right {
+            padding-right: 10px;
+        }
+    }
+}
+
+.ios { 
+    page-add-player{
+        .hcp-label-left {
+            padding-left: 14px;
+        }
+
+        .hcp-label-right {
+            padding-right: 18px;
+        }
+    }
+}

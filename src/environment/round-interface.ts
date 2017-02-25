@@ -7,5 +7,6 @@ export interface RoundInterface {
     startedAt: string
     tee:string
     user_id: number,
-    fullRound: boolean
+    fullRound: boolean,
+    validRound
 }
