@@ -1,6 +1,6 @@
 import { Settings } from '../../../providers/settings';
 import { ScoreCardService } from './../../../providers/score-card-service';
-import { Component, ElementRef, ChangeDetectorRef, NgZone  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HoleService } from '../../../providers/hole-service';
 
 import _ from 'lodash';
@@ -24,15 +24,10 @@ export class HoleComponent {
 
   constructor(
     public holeService: HoleService, 
-    public elRef: ElementRef,
     private scoreCardService: ScoreCardService,
-    private zone: NgZone,
     private settings: Settings
   ) {
     this.course = this.scoreCardService.getCourse();
-    console.log('course', this.course);
-    console.log('zone', this.zone);
-    //this.zone.detectChanges();
   }
 
   hasMultiplayer() {

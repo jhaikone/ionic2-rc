@@ -1,3 +1,4 @@
+import { Settings } from './../../providers/settings';
 import { SignUpPage } from '../sign-up/sign-up';
 import { ToasterService } from '../../providers/toaster-service';
 import { InformationPage } from '../information/information-page';
@@ -40,7 +41,8 @@ export class LoginPage {
     private loadingController: LoadingController, 
     private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private settings: Settings
     ) {
       console.log('bodyu', document.body.clientHeight)
   }
@@ -52,12 +54,15 @@ export class LoginPage {
   async ionViewCanEnter() {
     
     let data = await this.storage.get(StorageKeys.userData);
+    
     if (data) {
       this.navCtrl.setRoot(DashboardPage)
       this.isLoggedIn = true;
     } else {
       this.isLoggedIn = false;
+      this.settings.reloadRounds = true;
     }
+
   }
 
   async ionViewDidEnter() {

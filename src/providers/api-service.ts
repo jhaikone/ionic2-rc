@@ -1,3 +1,4 @@
+import { LoadingController } from 'ionic-angular';
 import { FromServerTime } from './../pipes/from-server-time';
 import { UserDataInterface } from '../environment/user-data-interface';
 import { ErrorService } from './error-service';
@@ -43,9 +44,9 @@ export class ApiService {
     private storage: Storage, 
     private settings: Settings, 
     private errorService: ErrorService,
+    private loadingCtrl: LoadingController,
     private fromServerTime: FromServerTime
   ) {
-    console.log('Rounds', MOCK_ROUND_CARDS)
     this.options = new RequestOptions({headers: this.authHeader()})
   }
 
@@ -68,9 +69,23 @@ export class ApiService {
     let options = this.copyOptions();
     options.search = this.createUrlSearchParams('filter', [{ "fieldName": "course_id", "operator": "in", "value": id }]);
 
+    let loader = this.loadingCtrl.create(
+      { content: "Valmistellaan peliä..." }
+    );
+
+    loader.present();
+
     return this.http.get(HOLES_URL, options)
      .toPromise()
-     .then(res => res.json(), err => console.log(err));
+     .then(res => {
+        loader.dismiss();
+        return res.json();
+      }, 
+      (err) => {
+        console.log(err);
+        loader.dismiss();
+        this.errorService.catch(err);
+      });
   }
 
   getRoundData (course) {
@@ -118,21 +133,31 @@ export class ApiService {
     
     options.search = this.createUrlSearchParams('parameters', {session_id: round.id});
     console.log('options', options);
+
+    let loader = this.loadingCtrl.create(
+          { content: "Haetaan kierrosta..." }
+    );
+
+    loader.present ();
     return this.http.get(SCORE_CARD_QUERY_URL, options)
       .timeout(10000)
       .toPromise()
-      .then(res => res.json(), err => Promise.reject(err)
+      .then( (res) => {
+        loader.dismiss();
+        return res.json()
+      }, (err) => {
+        loader.dismiss();
+        this.errorService.catch(err)
+      }
     );
   }
 
-  updateUser(update: Object, userData: UserDataInterface) {
-    return this.http.put(USER_URL + '/'+userData.userId, update, this.options)
+  async updateUser() {
+    let userData = await this.storage.get(StorageKeys.userData);
+    return this.http.put(USER_URL + '/'+userData.userId, userData, this.options)
       .timeout(10000)
       .toPromise()
-      .then(async res => {
-        await this.storage.set(StorageKeys.userData, _.merge(userData, update));
-        return res;
-      }, err => this.errorService.catch(err)
+      .then(res => res.json(), err => this.errorService.catch(err)
     );
   }
 

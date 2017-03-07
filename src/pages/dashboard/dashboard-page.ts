@@ -1,5 +1,4 @@
 import { UserDataPage } from '../user-data/user-data';
-import { FromServerTime } from './../../pipes/from-server-time';
 import { Settings } from './../../providers/settings';
 import { RoundInterface } from './../../environment/round-interface';
 import { LoginPage } from './../login/login';
@@ -33,10 +32,10 @@ export class DashboardPage {
     course_id: null,
     id: null,
     name: null,
-    putts:null,
-    score:0,
+    putts: null,
+    score: 0,
     startedAt: null,
-    tee:null,
+    tee: null,
     user_id: null,
     fullRound: false,
     validRound: false
@@ -53,24 +52,21 @@ export class DashboardPage {
     private storage: Storage,
     private toasterService: ToasterService,
     private settings: Settings,
-    private fromServerTime: FromServerTime,
     private modalController: ModalController
-  ) {
-      this.getRounds();
-  }
+  ) {}
 
   private async getRounds() {
-    this.rounds = await this.apiService.getRounds();
-    console.log('rounds', this.rounds);
+    this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() : await this.storage.get(StorageKeys.rounds) || [];
     this.recordRound = this.findRecordRound();
-    this.settings.reloadRounds = false;
-    this.fromServerTime.toServerTime(this.helper.timeNow());
+    if (this.settings.reloadRounds) {
+      this.settings.reloadRounds = false;
+    }
+    await this.storage.set(StorageKeys.rounds, this.rounds);
   }
 
   ionViewDidEnter() {
-    if (this.settings.reloadRounds) {
+      console.log('ion view did ENTERRR');
       this.getRounds();
-    }
   }
 
   findRecordRound () {

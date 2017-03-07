@@ -1,8 +1,9 @@
-import { ApiService } from '../../providers/api-service';
+import { StorageKeys } from './../../environment/environment';
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
-
+import _ from 'lodash';
 
 @Component({
   selector: 'page-user-data',
@@ -16,16 +17,13 @@ export class UserDataPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    private apiService: ApiService, 
     private viewCtrl: ViewController,
-    private loadingCtrl: LoadingController
+    private storage: Storage
   ) {}
 
   ionViewDidLoad() {
     if (this.navParams.data.label === 'hcp') {
       this.hcp = this.navParams.data.value;
-      console.log('thisnav', this.navParams)
-      console.log('hcp', this.hcp);
     } else {
       this.club = this.navParams.data.value;
     }
@@ -37,16 +35,8 @@ export class UserDataPage {
 
   async update () {
 
-    let req = this.navParams.data.label === 'hcp' ? {hcp: this.hcp} : {club: this.club};
-
-    let loader = this.loadingCtrl.create(
-      { content: "Tallennetaan..." }
-    );
-
-    loader.present ();
-    await this.apiService.updateUser(req, this.navParams.data.user);
-    loader.dismiss();
-    
+    let req = this.navParams.data.label === 'hcp' ? { hcp: this.hcp } : { club: this.club };
+    await this.storage.set(StorageKeys.userData, _.merge(this.navParams.data.user, req));
     this.closeDialog();
   }
 

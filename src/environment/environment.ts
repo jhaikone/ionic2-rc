@@ -20,6 +20,10 @@ export class StorageKeys {
    **/
   static get userData() { return "userData" };
   static get login() { return 'login '};
+  static get rounds () { return 'rounds' };
+  static get round () { return 'round' };
+  static get courses () { return 'courses' }
+  static get course () { return 'course' }
 }
 
 

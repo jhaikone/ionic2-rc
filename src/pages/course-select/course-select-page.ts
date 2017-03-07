@@ -1,3 +1,4 @@
+import { StorageKeys } from './../../environment/environment';
 import { Settings } from '../../providers/settings';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
@@ -7,8 +8,6 @@ import { CoursePage } from '../course/course-page';
 
 import { ApiService } from '../../providers/api-service';
 import { ScoreCardService } from '../../providers/score-card-service';
-
-const COURSES_KEY = 'courses';
 
 @Component( {
   templateUrl: 'course-select-page.html'
@@ -30,25 +29,22 @@ export class CourseSelectPage {
     this.initCourses();
   }
 
-  initCourses() {
-    this.storage.get(COURSES_KEY).then((res) => {
-      if (res && res.length > 0) {
-         this.courses = res;     
-      } else {
-        this.fetchCourses();
-      }
-    });
+  async initCourses() {
+    this.courses = await this.storage.get(StorageKeys.courses) || [];
+    if (this.courses.length === 0) {
+      this.fetchCourses();
+    }
   }
 
   courseSelected(course) {
     console.log('course', course)
-    this.scoreCardService.prepareCard(course, false);
+    this.scoreCardService.setCourse(course);
     this.settings.courseId = course.id;
     this.navController.push(CoursePage, {});
   }
 
   getItems(event) {
-    this.storage.get(COURSES_KEY).then((res) => {
+    this.storage.get(StorageKeys.courses).then((res) => {
       this.courses = res;
       this.filterCourses(event);
     })
@@ -65,7 +61,7 @@ export class CourseSelectPage {
       console.log('success', res.data );
       this.loadFailed = false;
       this.courses = res.data;
-      this.storage.set(COURSES_KEY, this.courses);
+      this.storage.set(StorageKeys.courses, this.courses);
       loader.dismiss();
     }, () => {
       console.log('error');

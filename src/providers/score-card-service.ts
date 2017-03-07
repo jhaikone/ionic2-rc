@@ -83,18 +83,12 @@ export class ScoreCardService {
     this.populateParList(this.course.holes);
   }
 
-  prepareCard(course, getRoundData:boolean) {
-    this.course = course;
-    console.log('courseeee', course);
-    
-    if (getRoundData) {
-      return this.apiService.getRound(course).then((data:any) => {
-        console.log('data', data);
-          
-        this.scoreCard[0] = data;
-      })
-    }
+  setSinglePlayerScoreCard (data) {
+    this.scoreCard[0] = data;
+  }
 
+  setCourse(course) {
+    this.course = course;
   }
 
   private populateParList (holes) {

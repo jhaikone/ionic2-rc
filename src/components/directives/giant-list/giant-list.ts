@@ -1,7 +1,10 @@
+import { ApiService } from './../../../providers/api-service';
+import { StorageKeys } from '../../../environment/environment';
+import { Storage } from '@ionic/storage';
 import { RoundInterface } from '../../../environment/round-interface';
 import { ScoreCardPage } from './../../../pages/score-card/score-card-page';
 import { ScoreCardService } from '../../../providers/score-card-service';
-import { LoadingController, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Component, Input, OnInit, ViewChild, Renderer, trigger, state, transition, animate, style, keyframes, OnChanges, SimpleChanges } from '@angular/core';
 
 const BUTTON_COUNT: number = 6;
@@ -10,10 +13,10 @@ const PAGE_SIZE: number = 50;
 @Component({
   selector: 'giantlist',
   template: `
-    <div *ngIf="getPageNumbers().length > 1" text-center class="button-container margin-auto center-horizontal"> 
-        <button (click)="prevPageBullet()" *ngIf="pageNavigation" class="list-button" color="light" ion-button clear icon-only> <ion-icon name="rewind"> </ion-icon> </button>
+    <div [hidden]="getPageNumbers().length <= 1" text-center class="button-container margin-auto center-horizontal"> 
+        <button (click)="prevPageBullet()" *ngIf="hasNavigation()" class="list-button" color="light" ion-button clear icon-only> <ion-icon name="rewind"> </ion-icon> </button>
         <div #pagecontainer class="page-container animate"><button [ngClass]="{'active': i === pageIndex}" class="list-button border" *ngFor="let icon of getPageNumbers(); let i = index" ion-button clear (click)="setPage(i)">{{i+1}}</button></div>
-        <button (click)="nextPageBullet()" *ngIf="pageNavigation" class="list-button" color="light" ion-button clear icon-only> <ion-icon name="fastforward"> </ion-icon> </button>
+        <button (click)="nextPageBullet()" *ngIf="hasNavigation()" class="list-button" color="light" ion-button clear icon-only> <ion-icon name="fastforward"> </ion-icon> </button>
     </div> 
     <ion-list>
         <button (@flyInOut.done)="doNext()" [@flyInOut]="'in'" *ngFor="let round of rounds" ion-item (click)="getRound(round)" class="list-item">
@@ -62,7 +65,6 @@ export class GiantList implements OnInit, OnChanges {
     rounds: Array<RoundInterface> = [];
     pageNavigation: boolean;
     buttons: HTMLCollection;
-    loading: boolean;
     next: number = 0;
 
     buttonIndex:number = 0;
@@ -71,9 +73,10 @@ export class GiantList implements OnInit, OnChanges {
 
     constructor(
         private renderer: Renderer, 
-        private loadingController: LoadingController, 
         private scoreCardService: ScoreCardService, 
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private storage: Storage,
+        private apiService: ApiService
     ) {}
 
     ngOnInit () {
@@ -95,23 +98,28 @@ export class GiantList implements OnInit, OnChanges {
         }
     }
 
-    getRound (selected) {
-        let loader = this.loadingController.create(
-            { content: "Haetaan kierrosta..." }
-        );
+    async getRound (selected) {
+        let round = await this.storage.get(this.getRoundId(selected)) || await this.apiService.getRound(selected);
+        if (round) {
+            await this.storage.set(this.getRoundId(selected), round);
+            this.scoreCardService.setSinglePlayerScoreCard(round);
+            this.scoreCardService.setCourse(selected);
+            this.navCtrl.push(ScoreCardPage, {});
+        }
+    }
 
-        loader.present ();
-        this.scoreCardService.prepareCard(selected, true).then(() => {
-        loader.dismiss();
-        this.navCtrl.push(ScoreCardPage, {});
-        });
-
+    private getRoundId (selected) {
+        return StorageKeys.round + '-' + selected.id;
     }
 
     getPageNumbers () {
         let pageCount = Math.ceil(this.data.length / PAGE_SIZE);
-        this.pageNavigation = pageCount > BUTTON_COUNT ? true : false;
-        return new Array(Math.ceil(this.data.length / PAGE_SIZE));
+        this.pageNavigation = pageCount < BUTTON_COUNT*PAGE_SIZE ? true : false;
+        return Array(Math.ceil(this.data.length / PAGE_SIZE));
+    }
+
+    hasNavigation() {
+        return this.data.length > BUTTON_COUNT*PAGE_SIZE;
     }
 
     setPage (i) {
@@ -120,22 +128,26 @@ export class GiantList implements OnInit, OnChanges {
     }
     
     nextPageBullet () {
-        if (this.buttonIndex+BUTTON_COUNT >= this.buttons.length) return;
+        if (!this.buttons || this.buttonIndex+BUTTON_COUNT >= this.buttons.length) return;
 
         this.hidePageBullet(true);
         this.buttonIndex++;
     }
 
     prevPageBullet () {
-        if (this.buttonIndex <= 0) return;
+        if (!this.buttons || this.buttonIndex <= 0) return;
 
         this.buttonIndex--;
         this.hidePageBullet(false);
     }
 
+    getButtons() {
+         
+    }
+
     doNext () {
-        if(this.next < this.data.length) {
-        this.rounds.push(this.data[this.next++]);
+        if (this.next < this.data.length && this.next < PAGE_SIZE) {
+            this.rounds.push(this.data[this.next++]);
         }
     }
 

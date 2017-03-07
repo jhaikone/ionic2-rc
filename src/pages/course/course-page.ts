@@ -1,8 +1,10 @@
+import { Storage } from '@ionic/storage';
+import { StorageKeys } from './../../environment/environment';
 import { AddPlayerPage } from '../add-player/add-player';
 import { PlayerService } from './../../providers/player-service';
 import { player } from './../../providers/player-service';
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
@@ -31,18 +33,17 @@ export class CoursePage {
   teeList: Array<any> = [];
   friends: Array<any>;
   isKeyboardOpen: boolean = false;
-  loader: any;
 
   constructor (
     private navController: NavController,
     private alertController: AlertController,
-    private loadingController: LoadingController,
     private scoreCardService: ScoreCardService,
     private helper: Helper,
     public settings: Settings,
     private apiService: ApiService,
     private playerService: PlayerService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storage: Storage
 
   ) {
     this.course = scoreCardService.getCourse();
@@ -50,9 +51,7 @@ export class CoursePage {
     this.friends = [ {}, {}, {} ];
     this.settings.multiplayer = false;
 
-    this.loader = this.loadingController.create(
-      { content: "Valmistellaan peliä..." }
-    );
+
   }
 
   ionViewDidLoad() {
@@ -112,11 +111,14 @@ export class CoursePage {
   }
 
   private async goToScoreViewPage () {
-    this.loader.present();
-    let res = await this.apiService.getHoles(this.course.id);
-    this.loader.dismiss();
-    this.scoreCardService.setHoles(res.data);
+    let response = await this.storage.get(this.getCourseId()) || await this.apiService.getHoles(this.course.id);
+    await this.storage.set(this.getCourseId(), response);
+    this.scoreCardService.setHoles(response.data);
     this.navController.push(ScoreViewPage, {});
+  }
+
+  private getCourseId () {
+      return StorageKeys.course + '-' + this.course.id;
   }
 
   addPlayer () {

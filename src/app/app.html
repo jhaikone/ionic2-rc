@@ -7,12 +7,14 @@
 
   <ion-content>
     <ion-list>
-        <ion-item>
-         <ion-icon name="log-out" item-left></ion-icon>
-        <button detail-none menuClose ion-item (click)="signOut()">
-       Kirjaudu ulos
-        </button>
-        </ion-item>
+
+      <button detail-none menuClose ion-item (click)="updateUserData()">
+        <ion-icon name="cloud-upload" item-left></ion-icon> Varmuuskopioi
+      </button>
+
+      <button detail-none menuClose ion-item (click)="signOut()">
+        <ion-icon name="log-out" item-left></ion-icon>  Kirjaudu ulos
+      </button>
   
     </ion-list>
   </ion-content>

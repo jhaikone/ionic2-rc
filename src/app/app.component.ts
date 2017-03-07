@@ -1,10 +1,11 @@
+import { ApiService } from '../providers/api-service';
 import { ErrorService } from '../providers/error-service';
 import { LoginPage } from './../pages/login/login';
 import { StorageKeys } from './../environment/environment';
 import { Storage } from '@ionic/storage';
 import { InformationPage } from '../pages/information/information-page';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, LoadingController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 import { ScoreViewPage } from '../pages/score-view/score-view-page';
@@ -27,7 +28,7 @@ export class MyApp {
   rootPage = LoginPage;
   // rootPage = DashboardPage;
 
-  constructor(platform: Platform, private storage: Storage, private errorService: ErrorService) {
+  constructor(platform: Platform, private storage: Storage, private errorService: ErrorService, private apiService: ApiService, private loadingCtrl: LoadingController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -42,6 +43,23 @@ export class MyApp {
   async signOut() {
     await this.storage.remove(StorageKeys.userData);
     this.nav.setRoot(LoginPage);
+  }
+
+  async updateUserData () {
+    let loader = this.loadingCtrl.create(
+      { content: "Tallennetaan..." }
+    );
+
+    loader.present();
+    
+    try {
+      await this.apiService.updateUser();
+      loader.dismiss();
+    } catch (error) {
+      loader.dismiss();
+    }
+   
+    
   }
 
 }
