@@ -36,7 +36,8 @@ export class ErrorService {
         break;
       }
       default: {
-        this.toasterService.invalid(error.statusText);
+        console.log('default', error);
+        this.toasterService.invalid(error);
       }
     }
     if (error.status == ERROR_TYPES.INTERNAL) {

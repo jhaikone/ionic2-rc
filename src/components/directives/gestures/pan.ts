@@ -21,6 +21,8 @@ export class PanComponent implements OnInit, OnDestroy {
   element: HTMLElement;
   panGesture: Gesture;
   direction: DirectionEnum;
+  private subscription;
+
 
   index: number = 0;
   holeCount: number = 0;
@@ -37,7 +39,8 @@ export class PanComponent implements OnInit, OnDestroy {
 
   constructor(elementRef: ElementRef, public holeService: HoleService, public renderer: Renderer, public helper: Helper) {
     this.element = elementRef.nativeElement;
-    this.holeService.holeChanged$.subscribe(event => this.onHoleChange(event));
+  
+    this.subscription = this.holeService.holeChanged$.subscribe(event => this.onHoleChange(event));
     this.index = holeService.getIndex();
     this.holeCount = holeService.getHoles().length;
   }
@@ -100,12 +103,12 @@ export class PanComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.panGesture.destroy();
   }
 
   private onHoleChange(event) {
     this.direction = event.direction;
-
     this.update();
   }
 
@@ -114,7 +117,7 @@ export class PanComponent implements OnInit, OnDestroy {
     this.calculateSnapPosition();
 
     let index = this.holeService.getIndex();
-
+    console.log('pan', index);
     if (this.hasPrevious()) {
       this.holeService.setIndex(index-1);
     } else  {

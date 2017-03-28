@@ -7,6 +7,8 @@ import { SignUpPage } from './../pages/sign-up/sign-up';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler  } from 'ionic-angular';
 
+import { BackandService } from '@backand/angular2-sdk';
+
 import { Storage } from '@ionic/storage';
 
 import { MyApp } from './app.component';
@@ -27,7 +29,7 @@ import { LoginPage } from '../pages/login/login';
 import { StorageService } from '../providers/storage-service';
 import { HoleService } from '../providers/hole-service';
 import { TrophyService } from '../providers/trophy-service';
-import { PlayerService } from '../providers/player-service';
+import { PlayerService } from '../providers/player-service'; 
 import { ApiService } from '../providers/api-service';
 import { ScoreCardService } from '../providers/score-card-service';
 import { LoginService } from '../providers/login-service';
@@ -122,7 +124,8 @@ import { FromServerTime } from '../pipes/from-server-time';
     ToasterService,
     ModalService,
     ErrorService,
-    FromServerTime
+    FromServerTime,
+    BackandService
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

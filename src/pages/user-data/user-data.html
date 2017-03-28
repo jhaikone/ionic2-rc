@@ -11,6 +11,8 @@
 
 <ion-content>
 
+    <div [ngClass]="background" class="background-image"></div>
+
     <div class="align-bottom" *ngIf="navParams.data.label === 'hcp'">
 
       <ion-row>
@@ -27,11 +29,10 @@
 
     </div>
 
-
-     <div class="align-top"  *ngIf="navParams.data.label !== 'hcp'">
-      <ion-item *ngIf="navParams.data.label === 'seura'">
-        <ion-label color="tertiary" stacked>Aseta uusi seura</ion-label>
-        <ion-input [(ngModel)]="club" placeholder="Helsinki City Golf"></ion-input>
+     <div class="align-bottom" [ngClass]="{'absolute-bottom': isKeyboardOpen}"  *ngIf="navParams.data.label !== 'hcp'">
+      <ion-item *ngIf="navParams.data.label === 'seura'"> 
+        <ion-label color="tertiary" stacked>Seura</ion-label>
+        <ion-input (focus)="isKeyboardOpen = true" (blur)="isKeyboardOpen = false" [(ngModel)]="club" placeholder="Helsinki City Golf"></ion-input>
       </ion-item>
     </div>
 

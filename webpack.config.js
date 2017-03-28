@@ -14,6 +14,7 @@ module.exports = {
   plugins: [
     new DefinePlugin({
       ANOM_TOKEN: JSON.stringify(process.env.ANOM_TOKEN),
+      MASTER_TOKEN: JSON.stringify(process.env.MASTER_TOKEN),
       SIGN_UP_TOKEN: JSON.stringify(process.env.SIGN_UP_TOKEN),
       APP_ID: JSON.stringify(process.env.APP_ID),
       APP_NAME: JSON.stringify(process.env.APP_NAME),

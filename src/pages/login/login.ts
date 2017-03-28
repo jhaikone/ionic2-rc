@@ -1,3 +1,4 @@
+import { Helper } from './../../providers/helper';
 import { Settings } from './../../providers/settings';
 import { SignUpPage } from '../sign-up/sign-up';
 import { ToasterService } from '../../providers/toaster-service';
@@ -6,7 +7,7 @@ import { StorageKeys } from '../../environment/environment';
 
 import { ApiService } from '../../providers/api-service';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GooglePlus } from 'ionic-native';
 
@@ -24,7 +25,7 @@ import _ from 'lodash';
 export class LoginPage {
 
   loading: any;
-  height: number;
+  height: number = 320;
   lineWidth:number = 0;
   marginLeft: number = 100;
   page: any = DashboardPage;
@@ -42,20 +43,35 @@ export class LoginPage {
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private toasterService: ToasterService,
-    private settings: Settings
+    private settings: Settings,
+    private helper: Helper,
+    private platform: Platform
     ) {
-      console.log('bodyu', document.body.clientHeight)
-  }
+    }
 
   ionViewDidLoad () {
-    this.height = document.body.clientHeight;
+      setTimeout(() => {
+        this.height = this.platform.height();
+        if (this.height === 0) {
+          this.height = 320;
+        }
+        console.log('platfrom', this.platform);
+        console.log('height', this.height);
+      }, 10);
   }
 
   async ionViewCanEnter() {
-    
+     
     let data = await this.storage.get(StorageKeys.userData);
-    
+    await this.storage.set(StorageKeys.versions, {courses: 1.01, holes: 1.01});
     if (data) {
+      let update = await this.doUpdates();
+      if (update) {
+        console.log('doing updates')
+        //await this.apiService.checkUpdates();
+      }
+      let versions = await this.storage.get(StorageKeys.versions);
+      console.log('update versions::::', versions);
       this.navCtrl.setRoot(DashboardPage)
       this.isLoggedIn = true;
     } else {
@@ -64,6 +80,19 @@ export class LoginPage {
     }
 
   }
+
+  async doUpdates() {
+    let updated = await this.storage.get(StorageKeys.updated);
+    if (updated) {
+      console.log('updated', this.helper.isWithinWeek(updated));
+      return !this.helper.isWithinWeek(updated);
+    } else {
+      await this.storage.set(StorageKeys.updated, new Date());
+      console.log('returning true', updated)
+      return true;
+    }
+  }
+  
 
   async ionViewDidEnter() {
     this.lineWidth = 100;
@@ -88,7 +117,8 @@ export class LoginPage {
       let user = await this.apiService.getUser(data);
       await this.storage.set(StorageKeys.userData, _.merge(data, user));
       this.navCtrl.setRoot(DashboardPage);
-    } catch (error) {
+    } 
+    catch (error) {
       console.log('err', error)
       this.loading.dismiss();
       this.toasterService.error(error);
@@ -111,8 +141,17 @@ export class LoginPage {
     }
   }
 
-  facebookLogin () {
+  async facebookLogin () {
     //TODO: implement facebook login here
+    let user = await this.apiService.registerGoogleUser({
+      givenName: 'Jack',
+      familyName: 'MockHaawdikonen',
+      email: 'mockkiaaaa@kehiin.com',
+      hcp: 36,
+      imageUrl: 'awdw22daw',
+      userId: '6456346346346346346'
+    });
+    console.log('user', user)
   }
 
   async googleLogin () {
@@ -129,18 +168,21 @@ export class LoginPage {
         'offline': true
       });
 
-      let userData = {
-        access_token: googleData.serverAuthCode,
-        imageUrl: googleData.imageUrl,
-        userId: googleData.userId,
-        email: googleData.email,
-        fullName: googleData.displayName,
-        lastName: googleData.familyName,
-        firstName: googleData.givenName,
-        hcp: 36
-      }
-      console.log('cropped from google', userData);
-      await this.storage.set(StorageKeys.userData, userData);
+      console.log('googleData', googleData);
+
+      let user = await this.apiService.registerGoogleUser(googleData);
+
+      console.log('user', user);
+
+      user.fullName = googleData.displayName;
+      //user.access_token = googleData.serverAuthCode;
+      user.access_token = googleData.idToken;
+      user.userId = user.id.toString();
+
+      console.log('upodaaa', user);
+
+      await this.storage.set(StorageKeys.userData, user);
+
       this.loading.dismiss();
       this.navCtrl.setRoot(DashboardPage);
     } catch (error) {

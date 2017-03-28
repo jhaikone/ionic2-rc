@@ -35,11 +35,10 @@
               <ion-col class="no-padding"><div [style.width]="lineWidth +'%'" class="animate progress line shadow extra-light"></div></ion-col>    
         </ion-row> 
     
-      
         <ion-row>
           <div text-center class="width-100">
 
-            <button class="width-40" color="facebook" icon-left ion-button>
+            <button (click)="facebookLogin()" class="width-40" color="facebook" icon-left ion-button>
               <ion-icon name="logo-facebook"></ion-icon>
               Facebook
             </button>

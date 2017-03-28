@@ -8,15 +8,26 @@
   <ion-content>
     <ion-list>
 
-      <button detail-none menuClose ion-item (click)="updateUserData()">
-        <ion-icon name="cloud-upload" item-left></ion-icon> Varmuuskopioi
+      <button detail-none menuClose ion-item (click)="updateClub()">
+        <ion-icon name="document" item-left></ion-icon> Aseta seura
       </button>
 
-      <button detail-none menuClose ion-item (click)="signOut()">
-        <ion-icon name="log-out" item-left></ion-icon>  Kirjaudu ulos
+      <button detail-none menuClose ion-item (click)="updateHCP()">
+        <ion-icon name="options" item-left></ion-icon> Aseta pelitasoitus
       </button>
-  
+
+      <button [disabled]="hoursLeft" detail-none menuClose ion-item (click)="updateUserData()">
+        <ion-icon name="cloud-upload" item-left></ion-icon> Varmuuskopioi <span *ngIf="hoursLeft">{{hoursLeft}}h</span>
+      </button>
+
     </ion-list>
+
+    <ion-list>
+      <button class="sign-out-button" detail-none menuClose ion-item (click)="signOut()">
+        <ion-icon name="power" item-left></ion-icon>  Kirjaudu ulos
+      </button>
+    </ion-list>
+
   </ion-content>
 
 </ion-menu>

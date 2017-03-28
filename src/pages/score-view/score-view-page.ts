@@ -51,9 +51,15 @@ export class ScoreViewPage {
   }
 
   next() {
+    console.log('index', this.holeService.index);
     this.holeService.holeChanged$.emit({
       direction: DirectionEnum.Next
     });
+  }
+
+  quitRound () {
+    this.holeService.clear();
+    this.nav.popToRoot();
   }
 
   previous() {
@@ -67,6 +73,7 @@ export class ScoreViewPage {
   }
 
   endRound() {
+    this.settings.confirmPop = false;
     this.setTimeStamp('finishedAt');
     if (this.settings.isBogeyPlay()) {
       this.clearResults();

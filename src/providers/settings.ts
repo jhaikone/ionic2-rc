@@ -1,3 +1,4 @@
+import { UserDataInterface } from './../environment/user-data-interface';
 import { Injectable } from '@angular/core';
 
 import { Helper } from './helper';
@@ -21,6 +22,10 @@ export class Settings {
   players: Array<any> = [];
   _friendsHcp: Number = 36;
   fullRound: boolean = true;
+  user: UserDataInterface;
+  confirmPop: boolean = false;
+
+  controller: any;
 
   activedGameMode: GameMode = GameModes.find(mode => mode.id === 'bogey');
 
@@ -38,12 +43,28 @@ export class Settings {
     this.players = players;
   }
 
+  setUser(user: UserDataInterface) {
+    this.user = user;
+  }
+
+  getUser () {
+    return this.user;
+  }
+
   getPlayers () {
     return this.players;
   }
 
   get friendsHcp () {
     return this._friendsHcp;
+  }
+
+  setViewController(controller: any) {
+    this.controller = controller;
+  }
+
+  getViewController() {
+    return this.controller || { isOverlay: false, dismiss: () => {} };
   }
 
   isBogeyPlay () {

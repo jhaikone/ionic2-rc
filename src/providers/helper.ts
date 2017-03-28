@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import _ from 'lodash';
 
+import moment from 'moment';
+
 @Injectable()
 export class Helper {
 
@@ -60,6 +62,11 @@ export class Helper {
 
   timeNow () {
     return Math.round(+new Date()/1000);
+  }
+
+  isWithinWeek (reference: Date, compare: Date = new Date()) {
+    let weekAgo = moment(compare).clone().subtract('7', 'days').startOf('day');
+    return moment(reference).isAfter(weekAgo);
   }
 
 }

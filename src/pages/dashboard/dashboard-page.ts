@@ -56,7 +56,7 @@ export class DashboardPage {
   ) {}
 
   private async getRounds() {
-    this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() : await this.storage.get(StorageKeys.rounds) || [];
+    this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() || [] : await this.storage.get(StorageKeys.rounds) || [];
     this.recordRound = this.findRecordRound();
     if (this.settings.reloadRounds) {
       this.settings.reloadRounds = false;
@@ -121,6 +121,7 @@ export class DashboardPage {
 
   async ionViewWillEnter() {
    this.user = await this.storage.get(StorageKeys.userData);
+   this.settings.setUser(this.user);
   }
 
   startRound () {

@@ -53,18 +53,17 @@ export class ScoreCardService {
 
   private setMultiplayerCards (holes) {
     let holeIndex = 0;
-    for (let hole of holes) {
-      for (let i = 0; i < hole.multiplayers.length; i++) {
+    for (let holeIndex = 0; holeIndex < holes.length; holeIndex++) {
+      for (let i = 0; i < holes[holeIndex].multiplayers.length; i++) {
 
         this.scoreCard[i+1].push({
           order: holeIndex+1,
-          par: this.parList[i],
-          score: hole.multiplayers[i].strokes,
-          hcp: hole.multiplayers[i].hcp,
-          name: hole.multiplayers[i].name
+          par: this.parList[holeIndex],
+          score: holes[holeIndex].multiplayers[i].strokes,
+          hcp: holes[holeIndex].multiplayers[i].hcp,
+          name: holes[holeIndex].multiplayers[i].name
         });
       }
-      holeIndex++;
     }
     console.log('now', this.scoreCard);
   }

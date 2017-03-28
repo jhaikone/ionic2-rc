@@ -2,7 +2,6 @@ import { MOCK_COURSES } from '../mock/mock';
 import  { Injectable, EventEmitter } from '@angular/core';
 
 import  { ApiService } from './api-service';
-import  { ScoreCardService } from './score-card-service';
 import { Settings } from './settings';
 
 @Injectable()
@@ -16,17 +15,23 @@ export class HoleService {
   holes: Array<any> = [];
   playerMode: any = 'singleplayer';
 
-  constructor(private apiService: ApiService, private scoreCardService: ScoreCardService, private settings: Settings) {
-    this.holes = scoreCardService.getCourse().holes;
-   // this.holes = MOCK_COURSES[0].holes;
-    let i = 34;
-    this.holes.map((holes, index) => {
-      let random = Math.floor(Math.random() * 6) + 2;
+  constructor(private apiService: ApiService, private settings: Settings) {
+
+  }
+
+  clear () {
+    this.holes.length = 0;
+    this.index = 0;
+  }
+
+  initHoles(holes) {
+    this.holes = holes;
+    this.holes.map((hole, index) => {
       let object = {
         singlePlayer: {
           strokes: this.getParAt(index),
-          hole_id: i,
-          session_id: 3,
+          hole_id: hole.id,
+          session_id: null,
           putts: 2,
           penalties: 0,
           sands: 0,
@@ -49,7 +54,6 @@ export class HoleService {
       });
 
       this.model.holes[index] = object;
-      i++;
 
     });
   }
@@ -62,17 +66,6 @@ export class HoleService {
     return total;
   }
 
-  setHoles(holes) {
-    this.holes = holes;
-  }
-
-  getFrontNinePar() {
-    return this.getParTotal(0, 9);
-  }
-
-  getBackNinePar() {
-    return this.getParTotal(9, 17);
-  }
 
   getIndex() {
     return this.index;
@@ -80,19 +73,6 @@ export class HoleService {
 
   setIndex(newIndex) {
     this.index = newIndex;
-  }
-
-  getModel() {
-    return this.model[this.index];
-  }
-
-  getResultAt(index) {
-    if(index === -1 || index > this.model.holes.length-1) return {};
-    return this.model.holes[index].singlePlayer;
-  }
-
-  getMultiPlayerResultAt(index) {
-    return this.model.holes[this.index].multiplayers;
   }
 
   getResults() {
@@ -119,11 +99,11 @@ export class HoleService {
     return this.holes[this.index][this.settings.selectedTee];
   }
 
-  getParAt(index) {
+  private getParAt(index) {
     return this.holes[index].par;
   }
 
-  createScoreObject() {
+  private createScoreObject() {
     return {amount: 0, holes: []};
   }
 

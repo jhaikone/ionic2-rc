@@ -22,8 +22,12 @@ export class StorageKeys {
   static get login() { return 'login '};
   static get rounds () { return 'rounds' };
   static get round () { return 'round' };
-  static get courses () { return 'courses' }
-  static get course () { return 'course' }
+  static get courses () { return 'courses' };
+  static get course () { return 'course' };
+  static get updated() {return 'updated'};
+  static get versions() {return 'versions'};
+  static get hole() { return 'hole' };
+  static get updatedUser () { return 'updatedUser'};
 }
 
 

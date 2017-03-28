@@ -1,7 +1,9 @@
 <ion-header>
   <ion-navbar text-center hideBackButton>
     <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    <button class="center-absolute" ion-button clear (click)="showClubPrompt()">
+    <div class="center-absolute">
+      <button class="full-height"  ion-button clear (click)="showClubPrompt()">
+
 
       <ion-grid>
         <ion-col>
@@ -12,6 +14,7 @@
         </ion-col>
       </ion-grid>
     </button>
+        </div>
   </ion-navbar>
 </ion-header>
 

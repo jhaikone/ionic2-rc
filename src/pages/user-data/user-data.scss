@@ -1,4 +1,32 @@
 page-user-data {
+
+
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 190px;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    filter        : blur(1px);
+    -moz-filter   : blur(1px);
+    -webkit-filter: blur(1px);
+    -o-filter     : blur(1px);
+
+    &.hcp {
+        background-image: url("../assets/img/userdata/hcp_small.jpg");
+    }
+
+    &.club {
+        background-image: url("../assets/img/userdata/club_small.jpg");
+    }
+
+  }
     
     .align-bottom {
         bottom: 25%;
@@ -8,8 +36,12 @@ page-user-data {
         top: 25%;
     }
 
-}
+    .absolute-bottom {
+        bottom: 0;
+    }
 
+}
+ 
 .md { 
     page-user-data {
         .hcp-label-left {

@@ -1,3 +1,5 @@
+import { StorageKeys } from '../../environment/environment';
+import { Storage } from '@ionic/storage';
 import { player } from './../../providers/player-service';
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
@@ -20,20 +22,27 @@ export class ScoreCardPage  {
   backNine: Array<any>;
   player: Object;
   parList: Array<any>;
+  user: any;
 
   constructor (
     public viewCtrl : ViewController,
     public scoreCardService: ScoreCardService,
     apiService: ApiService,
-    public helper: Helper
+    public helper: Helper,
+    private storage: Storage
   ) {
 
     this.holes = scoreCardService.getCard()[0];
     this.multiplayers = scoreCardService.getMultiplayerCards();
-    console.log('multipolaerrrrrrrrrrrr', this.multiplayers);
     this.frontNine = helper.fromToArray(0, 9, this.holes);
     this.backNine = helper.fromToArray(9, 17, this.holes);
+
+    this.initUser();
   }
+
+  private async initUser () {
+    this.user = this.multiplayers.length ? await this.storage.get(StorageKeys.userData) : {};
+  } 
 
   getFrontNine (index) {
     return this.helper.fromToArray(0, 9, this.multiplayers[index]);
@@ -89,6 +98,15 @@ export class ScoreCardPage  {
     }
     let score = this.scoreCardService.getScore(from, 0) - this.getTotal(from);
     return score > 0 ? '+' +score : score;
+  }
+
+  private getPar() {
+    return this.getTotal('front') + this.getTotal('back');
+  }
+
+  getResult() {
+    let total = this.getTotalScore() - this.getPar();
+    return total > 0 ? '+' +total : total; 
   }
 
   private isInvalidRound (holes = this.holes) {

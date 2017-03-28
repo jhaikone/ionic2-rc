@@ -1,3 +1,4 @@
+import { Helper } from './helper';
 import { LoadingController } from 'ionic-angular';
 import { FromServerTime } from './../pipes/from-server-time';
 import { UserDataInterface } from '../environment/user-data-interface';
@@ -7,6 +8,8 @@ import { StorageKeys } from '../environment/environment';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 import { Storage } from '@ionic/storage';
+
+import { BackandService } from '@backand/angular2-sdk';
 
 import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
 
@@ -23,13 +26,15 @@ const ROUNDS_URL = 'https://api.backand.com:443/1/objects/rounds';
 const ACCESS_URL = 'https://api.backand.com:443/token';
 const SESSION_URL = 'https://api.backand.com:443/1/objects/sessions';
 const USER_URL = 'https://api.backand.com:443/1/objects/users';
+const UPDATE_URL = 'https://api.backand.com:443/1/objects/updates';
 
 // security urls
 const SIGN_UP_URL = 'https://api.backand.com/1/user/signup'
 
 // custom query urls
 const SCORE_CARD_QUERY_URL = 'https://api.backand.com/1/query/data/score_card';
-const SESSION_QUERY_URL = 'https://api.backand.com/1/query/data/round_ids'
+const SESSION_QUERY_URL = 'https://api.backand.com/1/query/data/round_ids';
+const USER_EMAIL_QUERY_URL = 'https://api.backand.com/1/query/data/user_email';
 
 
 @Injectable()
@@ -45,9 +50,16 @@ export class ApiService {
     private settings: Settings, 
     private errorService: ErrorService,
     private loadingCtrl: LoadingController,
-    private fromServerTime: FromServerTime
+    private fromServerTime: FromServerTime,
+    private helper: Helper,
+    private backandService: BackandService
   ) {
-    this.options = new RequestOptions({headers: this.authHeader()})
+    console.log('BACKANDSERVICE', this.backandService)
+    this.options = new RequestOptions({headers: this.authHeader()});
+    this.backandService.init({
+      appName: APP_NAME,
+      anonymousToken: ANOM_TOKEN
+    })
   }
 
   private authHeader(authToken:{ header_name: string, header_value: string } = this.auth_token, contentType:String = 'application/json') {
@@ -58,14 +70,44 @@ export class ApiService {
   }
 
   getCourses () {
+    /*
    return this.http.get(COURSES_URL, this.options)
       .timeout(10000)
       .toPromise()
-      .then(res => res.json(), err => Promise.reject('error')
-    );
+      .then(res => res.json(), err => Promise.reject(err)
+    ); */
+    return this.backandService.object.getList('courses').then((res) => {
+      console.log('NEW backandservice', res)
+      return res;
+    }, (err) => this.errorService.catch(err));
   }
 
-  getHoles (id) {
+  async checkUpdates () {
+    let loader = this.loadingCtrl.create(
+      { content: "Tarkistetaan päivityksiä..." }
+    );
+
+    loader.present();
+
+    return this.http.get(UPDATE_URL + '/1', this.options)
+     .toPromise()
+     .then(async res => {
+        let response = res.json();
+        console.log('UPDATE VERSIONS', response);
+        await this.storage.set(StorageKeys.versions, response);
+        loader.dismiss();
+        return response;
+      }, 
+      (err) => {
+        console.log(err);
+        loader.dismiss();
+        this.errorService.catch(err);
+      });
+  }
+
+
+
+  async getHoles (id) {
     let options = this.copyOptions();
     options.search = this.createUrlSearchParams('filter', [{ "fieldName": "course_id", "operator": "in", "value": id }]);
 
@@ -77,24 +119,19 @@ export class ApiService {
 
     return this.http.get(HOLES_URL, options)
      .toPromise()
-     .then(res => {
+     .then(async res => {
         loader.dismiss();
-        return res.json();
+        let response = res.json();
+        let versions = await this.storage.get(StorageKeys.versions);
+        let holeData = { updated: versions.holes, data: response.data };
+        await this.storage.set(StorageKeys.course + '-' + id, holeData)
+        return holeData;
       }, 
       (err) => {
         console.log(err);
         loader.dismiss();
         this.errorService.catch(err);
       });
-  }
-
-  getRoundData (course) {
-    let gettingCourse = new Promise((resolve, reject) => resolve(MOCK_COURSES[0]));
-    let gettingScore = new Promise((resolve, reject) => resolve(MOCK_ROUND_CARDS[1]));
-
-    return Promise.all([gettingCourse, gettingScore]).then(value => {
-      return {course: value[0], score: value[1]};
-    });
   }
 
   getCourseData (id) {
@@ -154,10 +191,11 @@ export class ApiService {
 
   async updateUser() {
     let userData = await this.storage.get(StorageKeys.userData);
+    console.log('uiserCDate', userData);
     return this.http.put(USER_URL + '/'+userData.userId, userData, this.options)
       .timeout(10000)
       .toPromise()
-      .then(res => res.json(), err => this.errorService.catch(err)
+      .then(res => res, err => this.errorService.catch(err)
     );
   }
 
@@ -227,6 +265,87 @@ export class ApiService {
       .toPromise()
       .then(res => res.json(), err => Promise.reject('error')
     );
+  }
+
+  googleSignIn (googleData) {
+    let auth_token: { header_name: string, header_value: string } = { header_name: 'MasterToken', header_value: MASTER_TOKEN };
+    let opt = new RequestOptions({headers: this.authHeader(auth_token)})
+ 
+    let data = { 
+      "email": googleData.email,
+      "password": googleData.userId,
+      "confirmPassword": googleData.userId,
+      "firstName": googleData.firstName,
+      "lastName": googleData.lastName,
+      "parameters": {"hcp": 36, "club": "", "imageUrl": googleData.imageUrl}
+    };
+    
+    return this.http.post(ACCESS_URL, data, opt)
+      .timeout(10000)
+      .toPromise()
+      .then(res => res.json(), err => this.errorService.catch(err)
+    );
+  }
+
+  mockMe () {
+    let auth_token: { header_name: string, header_value: string } = { header_name: 'MasterToken', header_value: MASTER_TOKEN };
+    let opt = new RequestOptions({headers: this.authHeader(auth_token,'application/x-www-form-urlencoded')})
+ 
+    let data = { 
+      "email": 'uus@mail.com',
+      "password": 1235535321312312522312,
+      "confirmPassword": 1235535321312312522312,
+      "firstName": 'mokkaus',
+      "lastName": 'facebook',
+      "parameters": {"hcp": 36, "club": "", "imageUrl": 'awdawdawd'}
+    };
+    
+    let header = new Headers();
+    header.append('Content-Type', "application/x-www-form-urlencoded");
+    header.append('header_name', "MasterToken");
+    header.append('header_value', MASTER_TOKEN);
+
+    return this.http.post(ACCESS_URL, data, {headers: header})
+      .timeout(10000)
+      .toPromise()
+      .then(res => res.json(), err => this.errorService.catch(err)
+    );
+  }
+
+  ByEmail  (email) {
+    return this.backandService.query.get('user_email', { email: email }).then((res)=> {
+      return res.data;
+    }, err => this.errorService.catch(err));
+  }
+
+  async registerGoogleUser(data) {
+    let users = await this.backandService.query.get('google_user', { google_id: data.userId }).then((res)=> {
+      return res.data;
+    }, err => this.errorService.catch(err));
+
+    console.log('users', users);
+
+    if (users.length) {
+      return this.backandService.object.getOne('users', users[0].user_id).then((res)=> {
+        return res.data;
+      }, err => this.errorService.catch(err));
+    }
+
+    return this.backandService.object.create(
+      'users', 
+      {
+        firstName: data.givenName,
+        lastName: data.familyName,
+        hcp: 36,
+        club: '',
+        email: data.email,
+        imageUrl: data.imageUrl
+      },
+      { returnObject:  true },
+      { google_id: data.userId, sync: true }
+      ).then((res)=> {
+      return res.data;
+    }, err => this.errorService.catch(err));
   }
 
   /**

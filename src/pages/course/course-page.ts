@@ -1,3 +1,4 @@
+import { HoleService } from '../../providers/hole-service';
 import { Storage } from '@ionic/storage';
 import { StorageKeys } from './../../environment/environment';
 import { AddPlayerPage } from '../add-player/add-player';
@@ -43,7 +44,8 @@ export class CoursePage {
     private apiService: ApiService,
     private playerService: PlayerService,
     private modalCtrl: ModalController,
-    private storage: Storage
+    private storage: Storage,
+    private holeService: HoleService
 
   ) {
     this.course = scoreCardService.getCourse();
@@ -110,10 +112,25 @@ export class CoursePage {
 
   }
 
+  private async fetchHoles () {
+    return this.apiService.getHoles(this.course.id);
+  }
+
   private async goToScoreViewPage () {
-    let response = await this.storage.get(this.getCourseId()) || await this.apiService.getHoles(this.course.id);
-    await this.storage.set(this.getCourseId(), response);
+    this.settings.confirmPop = true;
+    let versions = await this.storage.get(StorageKeys.versions);
+    
+    let response = await this.storage.get(this.getCourseId());
+
+    if (!versions || !response || versions.holes > response.updated) {
+      response = {};
+      response = await this.fetchHoles();
+    }
+  
+    console.log('res', response);
+
     this.scoreCardService.setHoles(response.data);
+    this.holeService.initHoles(response.data);
     this.navController.push(ScoreViewPage, {});
   }
 
