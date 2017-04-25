@@ -1,5 +1,9 @@
+import { StorageKeys } from '../environment/environment';
+import { ScoreCardPage } from './../pages/score-card/score-card-page';
+import { NavController } from 'ionic-angular';
 import { Settings } from './settings';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 import { ApiService } from './api-service';
 import { Helper } from './helper';
@@ -24,7 +28,12 @@ export class ScoreCardService {
   course:any = {};
   parList = [];
 
-  constructor(public apiService: ApiService, public helper: Helper, private settings: Settings) {
+  constructor(
+    private apiService: ApiService, 
+    private helper: Helper, 
+    private settings: Settings,
+    private storage: Storage,
+  ) {
     console.log('Hello ScoreCardService Provider');
   }
 
@@ -119,6 +128,19 @@ export class ScoreCardService {
 
   hasMultiplayers() {
     return this.scoreCard[1].length || this.scoreCard[2].length || this.scoreCard[3].length;
+  }
+
+  async initRound (selected) {
+    let round = await this.storage.get(this.getRoundId(selected)) || await this.apiService.getRound(selected);
+    if (round) {
+        await this.storage.set(this.getRoundId(selected), round);
+        this.setSinglePlayerScoreCard(round);
+        this.setCourse(selected);
+    }
+  }
+
+  private getRoundId (selected) {
+    return StorageKeys.round + '-' + selected.id;
   }
 
 }

@@ -26,51 +26,52 @@ page-dashboard-page {
     -moz-filter   : blur(1px);
     -webkit-filter: blur(1px);
     -o-filter     : blur(1px);
+    z-index: -1;
   }
 
-  .portrait-content {
-    width: 100%;
+  // .portrait-content {
+  //   width: 100%;
 
-    .container {
-      position: relative;
-      margin: auto;
-      width: 200px;
-      height: 200px;
-    }
-  }
+  //   .container {
+  //     position: relative;
+  //     margin: auto;
+  //     width: 200px;
+  //     height: 200px;
+  //   }
+  // }
 
-  .circle {
-    position: absolute;
-    right: 0;
-    top: 70%;
-    width: map-get($elements, small-circle);
-    height: map-get($elements, small-circle);
-    background: color($colors, background-light);
-    border-radius: 50%;
-    border: 1px solid map-get($colors, light);
-    text-align: center;
+  // .circle {
+  //   position: absolute;
+  //   right: 0;
+  //   top: 70%;
+  //   width: map-get($elements, small-circle);
+  //   height: map-get($elements, small-circle);
+  //   background: color($colors, background-light);
+  //   border-radius: 50%;
+  //   border: 1px solid map-get($colors, light);
+  //   text-align: center;
 
-    button {
-      height: map-get($elements, small-circle);
-      margin: 0;
-    }
-  }
+  //   button {
+  //     height: map-get($elements, small-circle);
+  //     margin: 0;
+  //   }
+  // }
 
-  .portrait {
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    position: relative;
+  // .portrait {
+  //   width: 100%;
+  //   height: 100%;
+  //   display: inline-block;
+  //   position: relative;
 
-    overflow: hidden;
-    border-radius: 50%;
-    border: 2px solid white;
-  }
-  .portrait-image {
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    width: auto;
-    height: 100%;
-    background-image: url("../assets/img/dashboard/portrait.jpg");
-  }
+  //   overflow: hidden;
+  //   border-radius: 50%;
+  //   border: 2px solid white;
+  // }
+  // .portrait-image {
+  //   background-size: 100% 100%;
+  //   background-repeat: no-repeat;
+  //   width: auto;
+  //   height: 100%;
+  //   background-image: url("../assets/img/dashboard/portrait.jpg");
+  // }
 }

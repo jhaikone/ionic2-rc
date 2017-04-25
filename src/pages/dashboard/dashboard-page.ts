@@ -69,6 +69,11 @@ export class DashboardPage {
       this.getRounds();
   }
 
+  openRecordRound () {
+    this.scoreCardService.initRound(this.recordRound);
+    this.navController.push(ScoreCardPage, {});
+  }
+
   findRecordRound () {
     this.avarageScore = 0;
     let i = 0;
@@ -94,30 +99,6 @@ export class DashboardPage {
     
 
   }
-
-  /*
-  test () {
-    let a = [];
-
-    for (let i = 0; i < 505; i++) {
-      a.push(
-        {
-          course_id:1,
-          id:3,
-          name:"Helsinki City Golf - Paloheinä",
-          putts:Math.random().toFixed(1),
-          score:Math.random().toFixed(1),
-          startedAt:"",
-          tee:"red",
-          user_id:2
-        }
-      );
-    }
-
-    return a;
-  
-  }
-  */
 
   async ionViewWillEnter() {
    this.user = await this.storage.get(StorageKeys.userData);

@@ -99,17 +99,8 @@ export class GiantList implements OnInit, OnChanges {
     }
 
     async getRound (selected) {
-        let round = await this.storage.get(this.getRoundId(selected)) || await this.apiService.getRound(selected);
-        if (round) {
-            await this.storage.set(this.getRoundId(selected), round);
-            this.scoreCardService.setSinglePlayerScoreCard(round);
-            this.scoreCardService.setCourse(selected);
-            this.navCtrl.push(ScoreCardPage, {});
-        }
-    }
-
-    private getRoundId (selected) {
-        return StorageKeys.round + '-' + selected.id;
+        this.scoreCardService.initRound(selected);
+        this.navCtrl.push(ScoreCardPage, {});
     }
 
     getPageNumbers () {
@@ -139,10 +130,6 @@ export class GiantList implements OnInit, OnChanges {
 
         this.buttonIndex--;
         this.hidePageBullet(false);
-    }
-
-    getButtons() {
-         
     }
 
     doNext () {

@@ -141,19 +141,6 @@ export class LoginPage {
     }
   }
 
-  async facebookLogin () {
-    //TODO: implement facebook login here
-    let user = await this.apiService.registerGoogleUser({
-      givenName: 'Jack',
-      familyName: 'MockHaawdikonen',
-      email: 'mockkiaaaa@kehiin.com',
-      hcp: 36,
-      imageUrl: 'awdw22daw',
-      userId: '6456346346346346346'
-    });
-    console.log('user', user)
-  }
-
   async googleLogin () {
     this.loading = this.loadingController.create({
       content: 'Kirjaudutaan sisään...'

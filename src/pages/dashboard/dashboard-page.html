@@ -22,22 +22,14 @@
 
   <div class="background-image"></div>
   
-
-  <div class="portrait-content" text-center>
-      <div class="container">
-        <div class="portrait"><div class="portrait-image"></div></div>
-        <div class="circle">
-          <button ion-button icon-only clear (click)="showPrompt()">
-            <a ion-text class="font-small" color="primary">{{user?.hcp}}</a>
-          </button>
-        </div>
-      </div>
-  </div>
+  <imagesnapper></imagesnapper>
+  
 
   <ion-row class="relative">
     <ion-col width-50 text-center class="border-right">
       <div><span class="font-small">Ennätyskierro</span></div>
-      <div><a ion-text class="font-large" color="primary">{{recordRound?.score}}</a></div>
+      <!--<div><a ion-text class="font-large" color="primary">{{recordRound?.score}}</a></div>-->
+      <button (click)="openRecordRound()" ion-button clear color="primary"><span class="font-large">{{recordRound?.score}}</span></button>
     </ion-col>
 
     <ion-col width-50 text-center>

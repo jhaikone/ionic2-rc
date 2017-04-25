@@ -140,6 +140,7 @@ export class ApiService {
 
   async getRounds () {
     let userData = await this.storage.get(StorageKeys.userData);
+    console.log('getting rounds with data', userData);
     let options = this.copyOptions();
     console.log('USERDATE', userData);
     options.search = this.createUrlSearchParams('parameters', {user_id: userData.userId});

@@ -1,3 +1,4 @@
+import { ImageSnapper } from './../components/directives/image-snapper/image-snapper';
 import { AddPlayerPage } from './../pages/add-player/add-player';
 import { UserDataPage } from './../pages/user-data/user-data';
 import { MenuPage } from './../pages/menu/menu';
@@ -67,6 +68,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     AddPlayerPage,
     HoleComponent,
     GiantList,
+    ImageSnapper,
     PanComponent,
     FromServerTime
   ],
