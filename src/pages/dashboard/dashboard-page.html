@@ -1,12 +1,15 @@
 <ion-header>
-  <ion-navbar text-center hideBackButton>
+  <ion-navbar hideBackButton text-center>
     <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    <div>
-      <button class="full-height" ion-button clear (click)="showClubPrompt()">
-          <span class="custom-ion-title">{{user?.fullName}}</span>
-          <span class="font-xsmall">{{user?.club || 'Aseta jäsenyys'}}</span> 
-    </button>
+
+      <div class="padding-button-right">
+        <div><span class="custom-ion-title">{{user?.fullName}}</span></div>
+    
+        <div (click)="showClubPrompt()">
+          <span class="font-xsmall primary">{{user?.club || 'Aseta jäsenyys'}}</span> 
         </div>
+      </div>
+
   </ion-navbar>
 </ion-header>
 

@@ -1,3 +1,4 @@
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera } from '@ionic-native/camera';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -142,7 +143,8 @@ import { FromServerTime } from '../pipes/from-server-time';
     StatusBar,
     GooglePlus,
     Camera,
-    ImagePicker
+    ImagePicker,
+    SplashScreen
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent

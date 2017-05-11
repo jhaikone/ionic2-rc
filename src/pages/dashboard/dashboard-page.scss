@@ -4,6 +4,10 @@ page-dashboard-page {
     position: relative;
   }
 
+  .padding-button-right {
+    padding-right: 36px;
+  }
+
   .course-label {
     font-size: map-get($fonts, small);
     white-space: normal;

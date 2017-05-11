@@ -24,6 +24,6 @@
     "rewriteTsconfig": false
   },
   "config": {
-    "ionic_webpack": "webpack.config.js"
+    "ionic_webpack": "config/webpack.config.js"
   }
 }

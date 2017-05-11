@@ -1,3 +1,4 @@
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { HoleService } from './../providers/hole-service';
 import { Settings } from './../providers/settings';
 import { UserDataPage } from './../pages/user-data/user-data';
@@ -45,18 +46,21 @@ export class MyApp {
     private alertController: AlertController,
     private holeService: HoleService,
     private statusBar: StatusBar,
-    private keyboard: Keyboard
+    private keyboard: Keyboard,
+    private splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      splashScreen.hide();
       console.log('PLATFORM', platform)
       this.errorService.setRootPage(LoginPage);
       if (platform.is('ios') || platform.is('android')) {
         keyboard.disableScroll(true);
       }
       this.platform.registerBackButtonAction ( () => this.doHardwareBackButtonAction() );
+      
       this.cloudSaveEnabled();
     });
   }

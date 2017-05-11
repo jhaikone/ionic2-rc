@@ -59,6 +59,8 @@ export class DashboardPage {
     let dash = await this.storage.get(StorageKeys.rounds);
     console.log('thiis', this)
     console.log('dash', dash)
+    
+
     this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() || [] : await this.storage.get(StorageKeys.rounds) || [];
     this.recordRound = this.findRecordRound();
     if (this.settings.reloadRounds) {
