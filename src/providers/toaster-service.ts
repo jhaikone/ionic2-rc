@@ -22,6 +22,7 @@ export class ToasterService {
   }
 
   error (response: any) {
+    console.log('ERRRRRROR', response);
     this.presentToast(this.formatResponse(response));
   }
 

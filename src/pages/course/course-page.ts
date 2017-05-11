@@ -62,25 +62,18 @@ export class CoursePage {
   }
 
   showConfirmationDialog() {
-    let alert = this.alertController.create({
-      title: 'Vahvistus',
-      message: 'Pelataanko ilman kavereita?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            // do nothing, stay at this page
-          }
-        },
-        {
-          text: 'Ok',
-          handler: () => {
-            this.settings.multiplayer = false;
-            this.goToScoreViewPage();
-          }
+    let alert = this.alertController.create()
+    
+    alert.setTitle('Vahvistus');
+    alert.setMessage('Pelataanko ilman kavereita');
+
+    alert.addButton('Ei');
+    alert.addButton({
+        text: 'Ok',
+        handler: () => {
+          this.settings.multiplayer = false;
+          this.goToScoreViewPage();
         }
-      ]
     });
 
     alert.present();

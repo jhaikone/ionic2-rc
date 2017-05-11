@@ -9,17 +9,18 @@ import { Storage } from '@ionic/storage';
 import { InformationPage } from '../pages/information/information-page';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, LoadingController, ModalController, AlertController, ViewController } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { ScoreViewPage } from '../pages/score-view/score-view-page';
 import { CourseSelectPage } from '../pages/course-select/course-select-page';
 import { DashboardPage } from '../pages/dashboard/dashboard-page';
 
-import { Keyboard } from 'ionic-native';
+import { Keyboard } from '@ionic-native/Keyboard';
 
 
 @Component({
-  templateUrl: 'app.html' 
+  templateUrl: 'app.html',
+  providers: [Keyboard]
 })
 export class MyApp {
 
@@ -42,16 +43,18 @@ export class MyApp {
     private modalController: ModalController,
     private settings: Settings,
     private alertController: AlertController,
-    private holeService: HoleService
+    private holeService: HoleService,
+    private statusBar: StatusBar,
+    private keyboard: Keyboard
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      statusBar.styleDefault();
       console.log('PLATFORM', platform)
       this.errorService.setRootPage(LoginPage);
       if (platform.is('ios') || platform.is('android')) {
-        Keyboard.disableScroll(true);
+        keyboard.disableScroll(true);
       }
       this.platform.registerBackButtonAction ( () => this.doHardwareBackButtonAction() );
       this.cloudSaveEnabled();
@@ -67,48 +70,42 @@ export class MyApp {
   
   }
 
-  private showQuitRoundAlert () {
-    let alert = this.alertController.create({
-        title: 'Lopeta kierros',
-        subTitle: 'Kierroksen tiedot menetetään, haluatko todella lopettaa kierroksen?',
-        buttons: [
-          {
-            text: 'En',
-            role: 'cancel'
-          },
-          {
-            text: 'Haluan',
-            handler: async () => {
-              await this.nav.popToRoot();
-              this.holeService.clear();
-              this.settings.confirmPop = false;
-            }
-          },
-        ]
-      });
+  private async showQuitRoundAlert () {
+    let alert = this.alertController.create();
 
-      alert.present();
+    alert.setTitle('Lopeta kierros');
+    alert.setSubTitle('Kierroksen tiedot menetetään, haluatko todella lopettaa kierroksen?');
+    
+    alert.addButton('En');
+
+    alert.addButton({
+      text: 'Haluan',
+      handler: data =>{
+          this.nav.popToRoot().then( () => {
+            this.holeService.clear();
+            this.settings.confirmPop = false;
+        });
+      }
+    })
+
+    alert.present();
   }
 
   private showQuitAppAlert () {
-    let alert = this.alertController.create({
-        title: 'Sulje GolfApp',
-        subTitle: 'Haluatko poistua ohjelmasta?',
-        buttons: [
-          {
-            text: 'En',
-            role: 'cancel'
-          },
-          {
-            text: 'Haluan',
-            handler: () => {
-              this.platform.exitApp();
-            }
-          },
-        ]
-      });
+    let alert = this.alertController.create();
 
-      alert.present();
+    alert.setTitle('Sulje GolfApp');
+    alert.setSubTitle('Haluatko poistua ohjelmasta?');
+
+    alert.addButton('En');
+    alert.addButton({
+      text: 'Haluan',
+      handler: () => {
+        this.platform.exitApp();
+      }
+    });
+
+    alert.present();
   }
 
   private goBack() {
@@ -120,8 +117,10 @@ export class MyApp {
   }
 
   async signOut() {
-    await this.storage.clear();
-    this.nav.setRoot(LoginPage);
+    await this.storage.clear().then(() => {
+      this.nav.setRoot(LoginPage);
+    });
+    
   }
 
   async updateHCP () {

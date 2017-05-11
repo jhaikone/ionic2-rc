@@ -6,7 +6,8 @@ import { UserDataPage } from './../../../pages/user-data/user-data';
 import { ModalController, AlertController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 
-import { Camera, CameraOptions, ImagePicker, ImagePickerOptions } from 'ionic-native';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
 @Component({
   selector: 'imagesnapper',
@@ -30,11 +31,11 @@ export class ImageSnapper {
 
     options: CameraOptions = {
       quality: 100,
-      destinationType: Camera.DestinationType.DATA_URL,
-      encodingType: Camera.EncodingType.JPEG,
-      mediaType: Camera.MediaType.PICTURE,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
-      cameraDirection: Camera.Direction.FRONT
+      cameraDirection: this.camera.Direction.FRONT
     };
 
     pickerOptions: ImagePickerOptions = {
@@ -45,9 +46,14 @@ export class ImageSnapper {
     user: UserDataInterface;
     base64Image: String = '../assets/img/dashboard/portrait_test.jpg';
 
-    constructor(private modalController: ModalController, private storage: Storage, private errorService: ErrorService, private alertController: AlertController) {
-      console.log('camera', Camera);
-    }
+    constructor(
+      private modalController: ModalController, 
+      private storage: Storage, 
+      private errorService: ErrorService, 
+      private alertController: AlertController,
+      private camera: Camera,
+      private imagePicker: ImagePicker
+    ) {}
     
 
     async ngOnInit () {
@@ -63,33 +69,35 @@ export class ImageSnapper {
     }
     
     async getPicture () {
-      let confirmSourceType = this.alertController.create({
-        title: 'Kuvan valinta',
-        message: 'Luodaanko uusi kuva vai käytetäänkö vanhaa kuvaa?',
-        buttons: [
-          {
+      let alert = this.alertController.create();
+
+      alert.setTitle('Kuvan valinta');
+      alert.setMessage('Luodaanko uusi kuva vai käytetäänkö vanhaa kuvaa?');
+      
+      alert.addButton({
             text: 'Uusi kuva',
             handler: () => {
-              this.options.sourceType = Camera.PictureSourceType.CAMERA;
+              this.options.sourceType = this.camera.PictureSourceType.CAMERA;
               this.takeImageByCamera();
             }
-          },
-            {
+          }
+      );
+
+      alert.addButton({
             text: 'Galleria',
             handler: () => {
-              this.options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+              this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
               this.takeImageByGallery();
             }
           }
-        ]
-      });
+      );
 
-      confirmSourceType.present();
+      alert.present();
     }
 
     async takeImageByCamera() {
       try {
-        let picture = await Camera.getPicture(this.options);
+        let picture = await this.camera.getPicture(this.options);
         this.base64Image = 'data:image/jpeg;base64,' + picture;
         this.user.imageUrl = this.base64Image;
         await this.storage.set(StorageKeys.userData, this.user);
@@ -101,14 +109,14 @@ export class ImageSnapper {
 
     async takeImageByGallery () {
       try {
-        let hasReadPermission = await ImagePicker.hasReadPermission();
+        let hasReadPermission = await this.imagePicker.hasReadPermission();
         console.log('hasRead', hasReadPermission);
         if (!hasReadPermission) {
-          let permission = await ImagePicker.requestReadPermission();
+          let permission = await this.imagePicker.requestReadPermission();
           console.log('has permission', permission);
         }
           
-        let picture = await ImagePicker.getPictures(this.pickerOptions);
+        let picture = await this.imagePicker.getPictures(this.pickerOptions);
         console.log('picture', picture);
         this.base64Image = picture;
         this.user.imageUrl = this.base64Image;

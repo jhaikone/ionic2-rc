@@ -9,7 +9,7 @@ import { ApiService } from '../../providers/api-service';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { GooglePlus } from 'ionic-native';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { DashboardPage } from '../dashboard/dashboard-page';
 
@@ -45,7 +45,8 @@ export class LoginPage {
     private toasterService: ToasterService,
     private settings: Settings,
     private helper: Helper,
-    private platform: Platform
+    private platform: Platform,
+    private googlePlus: GooglePlus
     ) {
     }
 
@@ -148,7 +149,7 @@ export class LoginPage {
     this.loading.present();
 
     try {
-      let googleData = await GooglePlus.login({
+      let googleData = await this.googlePlus.login({
         'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
         'webClientId': APP_ID, // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
         'offline': true

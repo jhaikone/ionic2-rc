@@ -1,3 +1,8 @@
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Camera } from '@ionic-native/camera';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Keyboard } from '@ionic-native/keyboard';
+import { StatusBar } from '@ionic-native/status-bar';
 import { ImageSnapper } from './../components/directives/image-snapper/image-snapper';
 import { AddPlayerPage } from './../pages/add-player/add-player';
 import { UserDataPage } from './../pages/user-data/user-data';
@@ -10,7 +15,10 @@ import { IonicApp, IonicModule, IonicErrorHandler  } from 'ionic-angular';
 
 import { BackandService } from '@backand/angular2-sdk';
 
-import { Storage } from '@ionic/storage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
@@ -73,6 +81,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     FromServerTime
   ],
   imports: [
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, 
     {
       backButtonText: 'Takaisin',
@@ -89,7 +98,10 @@ import { FromServerTime } from '../pipes/from-server-time';
           }
           // http://ionicframework.com/docs/v2/api/config/Config/)
         }
-    })
+    }), 
+    BrowserModule,
+    HttpModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -113,7 +125,6 @@ import { FromServerTime } from '../pipes/from-server-time';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    Storage,
     StorageService,
     TrophyService,
     HoleService,
@@ -127,7 +138,11 @@ import { FromServerTime } from '../pipes/from-server-time';
     ModalService,
     ErrorService,
     FromServerTime,
-    BackandService
+    BackandService,
+    StatusBar,
+    GooglePlus,
+    Camera,
+    ImagePicker
     // HoleService,
     // StorageServiceComponent,
     // TrophyServiceComponent
