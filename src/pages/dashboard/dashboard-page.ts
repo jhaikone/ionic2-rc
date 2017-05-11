@@ -18,7 +18,6 @@ import { Helper } from '../../providers/helper';
 import { CourseSelectPage } from '../course-select/course-select-page';
 import { ScoreCardPage } from '../score-card/score-card-page';
 
-
 @Component({
   selector: 'page-dashboard-page',
   templateUrl: 'dashboard-page.html',
@@ -53,9 +52,13 @@ export class DashboardPage {
     private toasterService: ToasterService,
     private settings: Settings,
     private modalController: ModalController
-  ) {}
+  ) {
+  }
 
   private async getRounds() {
+    let dash = await this.storage.get(StorageKeys.rounds);
+    console.log('thiis', this)
+    console.log('dash', dash)
     this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() || [] : await this.storage.get(StorageKeys.rounds) || [];
     this.recordRound = this.findRecordRound();
     if (this.settings.reloadRounds) {
@@ -102,6 +105,7 @@ export class DashboardPage {
 
   async ionViewWillEnter() {
    this.user = await this.storage.get(StorageKeys.userData);
+   console.log('user', this.user);
    this.settings.setUser(this.user);
   }
 

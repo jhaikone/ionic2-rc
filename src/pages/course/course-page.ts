@@ -34,6 +34,7 @@ export class CoursePage {
   teeList: Array<any> = [];
   friends: Array<any>;
   isKeyboardOpen: boolean = false;
+  playOption: String = 'full';
 
   constructor (
     private navController: NavController,
@@ -103,7 +104,7 @@ export class CoursePage {
     if (this.course.white) {
       this.teeList.push({key: 'white', metre: this.course.white, name: TEE_NAMES.white})
     }
-    if (this.course.black) {
+    if (this.course.black >= this.course.white ) {
       this.teeList.push({key: 'black', metre: this.course.black, name: TEE_NAMES.black})
     }
 

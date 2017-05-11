@@ -112,7 +112,11 @@ export class MyApp {
   }
 
   private goBack() {
-     this.nav.canGoBack() ? this.nav.pop : this.showQuitAppAlert();
+     this.nav.canGoBack() ? this.nav.pop() : this.showQuitAppAlert();
+  }
+
+  clearLocalStorage () {
+    this.storage.clear();
   }
 
   async signOut() {

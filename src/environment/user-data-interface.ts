@@ -12,4 +12,5 @@ export interface UserDataInterface {
     token_type: string;
     userId: string;
     username: string;
+    imageUrl: String;
 }

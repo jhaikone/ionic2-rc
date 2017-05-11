@@ -91,12 +91,12 @@
 
         <ion-row class="border-bottom">
           <ion-col text-center *ngFor="let hole of getFrontNine(i)"><span class="score-mark {{getClassName(hole)}}">{{hole.score || '-'}}</span></ion-col>
-          <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', i)}}</span></ion-col>
+          <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', i+1)}}</span></ion-col>
         </ion-row>
 
           <ion-row text-right ion-text class="table-info-container center-vertical">
           <ion-col>Etuysi:</ion-col>
-          <ion-col text-center width-10 ion-text color="primary">{{getScore('front', getMultiplayerHoles(i))}}</ion-col>
+          <ion-col text-center width-10 ion-text color="primary">{{getScore('front', i+1)}}</ion-col>
         </ion-row>
 
       </ng-container>
@@ -115,16 +115,21 @@
 
         <ion-row class="border-bottom">
           <ion-col *ngFor="let hole of getBackNine(i)"><span class="score-mark {{getClassName(hole)}}"> {{hole.score || '-'}}</span></ion-col>
-          <ion-col  class="border-left no-wrap"><span>{{scoreCardService.getScore('back', i)}}</span></ion-col>
+          <ion-col  class="border-left no-wrap"><span>{{scoreCardService.getScore('back', i+1)}}</span></ion-col>
         </ion-row>
 
         <ion-row text-right ion-text class="table-info-container center-vertical">
           <ion-col>Takaysi:</ion-col>
-          <ion-col text-center width-10 ion-text color="primary">{{getScore('back', getMultiplayerHoles(i))}}</ion-col>
+          <ion-col text-center width-10 ion-text color="primary">{{getScore('back', i+1)}}</ion-col>
         </ion-row>
       </ng-container>
 
-      <div padding text-center><span ion-text color="primary" class="score font-extra-big">{{getTotalScore(getMultiplayerHoles(i)) || ''}}</span></div>
+      <div padding text-center><span ion-text color="primary" class="score font-extra-big"></span></div>
+
+      <div text-right class="padding-horizontal">
+        <span ion-text color="primary" class="score font-large">{{getTotalScore(getMultiplayerHoles(i)) || ''}}</span>
+        <span class="font-xxsmall">({{getResult(getMultiplayerHoles(i))}})</span>
+      </div>
      
     </div>
 

@@ -1,5 +1,5 @@
+import { StorageKeys } from './../../../environment/environment';
 import { ErrorService } from './../../../providers/error-service';
-import { StorageKeys } from '../../../environment/environment';
 import { Storage } from '@ionic/storage';
 import { UserDataInterface } from '../../../environment/user-data-interface';
 import { UserDataPage } from './../../../pages/user-data/user-data';
@@ -12,10 +12,10 @@ import { Camera, CameraOptions, ImagePicker, ImagePickerOptions } from 'ionic-na
   selector: 'imagesnapper',
   template: `
     <div class="portrait-content" text-center>
-        <div class="container" (click)="getPicture()">
-          <div class="portrait"><img class="portrait-image" [src]="base64Image ? base64Image : '../assets/img/dashboard/portrait_test.jpg'"\></div>
+        <div class="container">
+          <div class="portrait" (click)="getPicture()"><img class="portrait-image" [src]="base64Image"\></div>
           <div class="circle">
-            <button ion-button icon-only clear (click)="showPrompt()">
+            <button ion-button icon-only clear (click)="showPrompt($event)">
               <a ion-text class="font-small" color="primary">{{user?.hcp}}</a>
             </button>
           </div>
@@ -52,9 +52,12 @@ export class ImageSnapper {
 
     async ngOnInit () {
         this.user = await this.storage.get(StorageKeys.userData) || {};
+        this.base64Image = this.user.imageUrl ? this.user.imageUrl : 'assets/img/dashboard/portrait_test.jpg';
     }
 
-    showPrompt () {
+    showPrompt ($event) {
+      console.log('event', $event);
+      $event.preventDefault();
       let modal = this.modalController.create(UserDataPage, {label: 'hcp', user: this.user, value: this.user.hcp.toString()})
       modal.present();
     }
@@ -88,7 +91,9 @@ export class ImageSnapper {
       try {
         let picture = await Camera.getPicture(this.options);
         this.base64Image = 'data:image/jpeg;base64,' + picture;
-        console.log('base', this.base64Image);
+        this.user.imageUrl = this.base64Image;
+        await this.storage.set(StorageKeys.userData, this.user);
+
       } catch (error) {
         this.errorService.catch(error);
       }
@@ -97,13 +102,17 @@ export class ImageSnapper {
     async takeImageByGallery () {
       try {
         let hasReadPermission = await ImagePicker.hasReadPermission();
+        console.log('hasRead', hasReadPermission);
         if (!hasReadPermission) {
           let permission = await ImagePicker.requestReadPermission();
+          console.log('has permission', permission);
         }
           
         let picture = await ImagePicker.getPictures(this.pickerOptions);
         console.log('picture', picture);
         this.base64Image = picture;
+        this.user.imageUrl = this.base64Image;
+        await this.storage.set(StorageKeys.userData, this.user);
 
       } catch (error) {
         this.errorService.catch(error);

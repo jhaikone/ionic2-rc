@@ -15,10 +15,10 @@ export class HoleComponent {
   course: any;
 
   inputs: Array<Object> = [
-    {label: 'Lyönnit', key: 'strokes', cssClasses: 'animate font primary strokes'},
-    {label: 'Putit', key: 'putts', cssClasses:'font-avarage'},
-    {label: 'Hiekkalyönnit', key: 'sands', cssClasses:'font-avarage'},
-    {label: 'Rangaistukset', key: 'penalties', cssClasses:'font-avarage'}
+    {label: 'Lyönnit', key: 'strokes', cssClasses: 'width-10 no-wrap animate font primary strokes'},
+    {label: 'Putit', key: 'putts', cssClasses:'width-10 no-wrap font-avarage'},
+    {label: 'Hiekkalyönnit', key: 'sands', cssClasses:'width-10 no-wrap font-avarage'},
+    {label: 'Rangaistukset', key: 'penalties', cssClasses:'width-10 no-wrap font-avarage'}
   ];
 
 

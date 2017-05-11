@@ -2,9 +2,10 @@
 <div class="score-background border-bottom" padding [ngClass]="{'clear-margin': !hasMultiplayer()}">
     
     <ion-label text-center color="extra-light">{{course.name}}</ion-label>
-    <ion-label text-center color="extra-light" class="font-big">Väylä {{holeService.getIndex()+1}}</ion-label>
+    <ion-label text-center color="extra-light" class="font-big">Väylä {{holeService.getHoleIndex()+1}}</ion-label>
 
     <ion-row>
+      
 
       <ion-col width-33 text-center>
         <div><a ion-text color="extra-light" class="font-xsmall">Par</a></div>
@@ -43,7 +44,7 @@
 
       <ion-col text-left class="width-45"> <span ion-text color="tertiary">{{input.label}}</span></ion-col>
 
-      <ion-col class="width-10" class="{{input.cssClasses}}" [ngClass]="{'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"> 
+      <ion-col class="{{input.cssClasses}}" [ngClass]="{'font-avarage': !isBig(input.key), 'font-big': (isBig(input.key))}"> 
         {{holeService.getResult().singlePlayer[input.key]}}
       </ion-col>
       

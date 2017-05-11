@@ -11,7 +11,13 @@ export interface GameMode {
 const GameModes: Array<GameMode> = [
     { id: 'bogey', name: 'Pistebogey' },
     { id: 'stroke', name: 'Lyöntipeli' }
-]
+];
+
+const PlayOptions = [
+  { name: 'Täysi kierros', key: 'full' },
+  { name: 'Etuysi', key: 'front' },
+  { name: 'Takaysi', key: 'back' }
+];
 
 @Injectable()
 export class Settings {
@@ -24,6 +30,7 @@ export class Settings {
   fullRound: boolean = true;
   user: UserDataInterface;
   confirmPop: boolean = false;
+  playOption: any;
 
   controller: any;
 
@@ -41,6 +48,15 @@ export class Settings {
 
   setPlayers (players) {
     this.players = players;
+  }
+
+  getPlayOptions () {
+    return PlayOptions;
+  }
+
+  setPlayOption (optionKey) {
+    this.playOption = optionKey;
+    this.fullRound = this.playOption === 'full';
   }
 
   setUser(user: UserDataInterface) {

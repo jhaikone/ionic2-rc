@@ -99,7 +99,7 @@ export class GiantList implements OnInit, OnChanges {
     }
 
     async getRound (selected) {
-        this.scoreCardService.initRound(selected);
+        await this.scoreCardService.initRound(selected);
         this.navCtrl.push(ScoreCardPage, {});
     }
 

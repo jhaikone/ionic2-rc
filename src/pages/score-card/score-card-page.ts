@@ -1,3 +1,4 @@
+import { Settings } from './../../providers/settings';
 import { StorageKeys } from '../../environment/environment';
 import { Storage } from '@ionic/storage';
 import { player } from './../../providers/player-service';
@@ -29,13 +30,17 @@ export class ScoreCardPage  {
     public scoreCardService: ScoreCardService,
     apiService: ApiService,
     public helper: Helper,
-    private storage: Storage
+    private storage: Storage,
+    private settings: Settings
   ) {
 
     this.holes = scoreCardService.getCard()[0];
     this.multiplayers = scoreCardService.getMultiplayerCards();
+    
+    console.log('holes', this.holes);
     this.frontNine = helper.fromToArray(0, 9, this.holes);
     this.backNine = helper.fromToArray(9, 17, this.holes);
+    console.log('this', this)
 
     this.initUser();
   }
@@ -92,11 +97,11 @@ export class ScoreCardPage  {
     return total;
   }
 
-  getScore(from) {
+  getScore(from, index = 0) {
     if (this.isInvalidRound()) {
       return '-';
     }
-    let score = this.scoreCardService.getScore(from, 0) - this.getTotal(from);
+    let score = this.scoreCardService.getScore(from, index) - this.getTotal(from);
     return score > 0 ? '+' +score : score;
   }
 
@@ -104,8 +109,8 @@ export class ScoreCardPage  {
     return this.getTotal('front') + this.getTotal('back');
   }
 
-  getResult() {
-    let total = this.getTotalScore() - this.getPar();
+  getResult(holes = this.holes) {
+    let total = this.getTotalScore(holes) - this.getPar();
     return total > 0 ? '+' +total : total; 
   }
 

@@ -61,7 +61,6 @@ export class LoginPage {
   }
 
   async ionViewCanEnter() {
-     
     let data = await this.storage.get(StorageKeys.userData);
     await this.storage.set(StorageKeys.versions, {courses: 1.01, holes: 1.01});
     if (data) {

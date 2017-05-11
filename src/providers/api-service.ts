@@ -76,7 +76,7 @@ export class ApiService {
       .toPromise()
       .then(res => res.json(), err => Promise.reject(err)
     ); */
-    return this.backandService.object.getList('courses').then((res) => {
+    return this.backandService.object.getList('courses', {pageSize: 200, sort: [ {"fieldName": "name", "order": "asc"} ]}).then((res) => {
       console.log('NEW backandservice', res)
       return res;
     }, (err) => this.errorService.catch(err));
@@ -286,37 +286,6 @@ export class ApiService {
       .toPromise()
       .then(res => res.json(), err => this.errorService.catch(err)
     );
-  }
-
-  mockMe () {
-    let auth_token: { header_name: string, header_value: string } = { header_name: 'MasterToken', header_value: MASTER_TOKEN };
-    let opt = new RequestOptions({headers: this.authHeader(auth_token,'application/x-www-form-urlencoded')})
- 
-    let data = { 
-      "email": 'uus@mail.com',
-      "password": 1235535321312312522312,
-      "confirmPassword": 1235535321312312522312,
-      "firstName": 'mokkaus',
-      "lastName": 'facebook',
-      "parameters": {"hcp": 36, "club": "", "imageUrl": 'awdawdawd'}
-    };
-    
-    let header = new Headers();
-    header.append('Content-Type', "application/x-www-form-urlencoded");
-    header.append('header_name', "MasterToken");
-    header.append('header_value', MASTER_TOKEN);
-
-    return this.http.post(ACCESS_URL, data, {headers: header})
-      .timeout(10000)
-      .toPromise()
-      .then(res => res.json(), err => this.errorService.catch(err)
-    );
-  }
-
-  ByEmail  (email) {
-    return this.backandService.query.get('user_email', { email: email }).then((res)=> {
-      return res.data;
-    }, err => this.errorService.catch(err));
   }
 
   async registerGoogleUser(data) {

@@ -42,12 +42,13 @@ export class ScoreCardService {
   }
 
   setCardByIndex(holes) {
+    console.log('holllllllllllllll', holes);
     let card = [];
  
     for (let i = 0; i < holes.length; i++) {
       card.push({
-        order: i+1,
-        par: this.parList[i],
+        order: holes[i].singlePlayer.order,
+        par: holes[i].singlePlayer.par,
         score: holes[i].singlePlayer.strokes,
         startedAt: holes[i].singlePlayer.startedAt
       });
@@ -66,8 +67,8 @@ export class ScoreCardService {
       for (let i = 0; i < holes[holeIndex].multiplayers.length; i++) {
 
         this.scoreCard[i+1].push({
-          order: holeIndex+1,
-          par: this.parList[holeIndex],
+          order: holes[holeIndex].singlePlayer.order,
+          par: holes[holeIndex].singlePlayer.par,
           score: holes[holeIndex].multiplayers[i].strokes,
           hcp: holes[holeIndex].multiplayers[i].hcp,
           name: holes[holeIndex].multiplayers[i].name
@@ -133,6 +134,7 @@ export class ScoreCardService {
   async initRound (selected) {
     let round = await this.storage.get(this.getRoundId(selected)) || await this.apiService.getRound(selected);
     if (round) {
+        console.log('round', round);
         await this.storage.set(this.getRoundId(selected), round);
         this.setSinglePlayerScoreCard(round);
         this.setCourse(selected);

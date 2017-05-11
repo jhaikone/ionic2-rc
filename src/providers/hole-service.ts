@@ -22,10 +22,27 @@ export class HoleService {
   clear () {
     this.holes.length = 0;
     this.index = 0;
+    this.model = {holes: []};
+    console.log('cleared', this);
   }
 
   initHoles(holes) {
     this.holes = holes;
+
+    let option = this.settings.playOption;
+
+    let i = option === 'front' ? 0 : 9; 
+
+  
+
+    if (option !== 'full') {
+      let i = option === 'front' ? 9 : 0; 
+      let endIndex = option === 'back' ? 9 : 17;
+      this.holes.splice(i, endIndex);
+    }
+ 
+    console.log('this', this);
+
     this.holes.map((hole, index) => {
       let object = {
         singlePlayer: {
@@ -39,6 +56,8 @@ export class HoleService {
           fairway: true,
           gir: false,
           sandSave: false,
+          order: hole.order,
+          par: hole.par
         },
         multiplayers: []
       };
@@ -69,6 +88,10 @@ export class HoleService {
 
   getIndex() {
     return this.index;
+  }
+
+  getHoleIndex () {
+    return this.settings.playOption === 'back' ? this.getIndex() + 9 : this.getIndex();
   }
 
   setIndex(newIndex) {

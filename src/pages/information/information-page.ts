@@ -52,6 +52,7 @@ export class InformationPage  {
     this.apiService.setRounds(this.player.scoreCard.holes).then((res) => {
       console.log('LÄPI MEN', res);
       this.settings.reloadRounds = true;
+      this.holeService.clear();
       this.navController.popToRoot();
     }, (err) => {
       console.log('HANDLE ERROR', err);
