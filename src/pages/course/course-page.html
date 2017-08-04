@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar text-center>
     <ion-title><a ion-text color="menu-title">{{course.name}}</a></ion-title>
   </ion-toolbar>
 
@@ -18,7 +18,7 @@
   </ion-item>
 </ion-list>
 
-<ion-list radio-group (ionChange)="settings.setPlayOption(playOption)" [(ngModel)]="playOption">
+<ion-list class="padding-top-2" radio-group (ionChange)="settings.setPlayOption(playOption)" [(ngModel)]="playOption">
   <ion-list-header class="no-margin border-bottom">
     <span ion-text color="tertiary">Valitse kierrospituus</span>
   </ion-list-header>

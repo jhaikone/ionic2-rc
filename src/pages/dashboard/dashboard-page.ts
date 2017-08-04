@@ -57,9 +57,6 @@ export class DashboardPage {
 
   private async getRounds() {
     let dash = await this.storage.get(StorageKeys.rounds);
-    console.log('thiis', this)
-    console.log('dash', dash)
-    
 
     this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() || [] : await this.storage.get(StorageKeys.rounds) || [];
     this.recordRound = this.findRecordRound();
@@ -70,22 +67,29 @@ export class DashboardPage {
   }
 
   ionViewDidEnter() {
-      console.log('ion view did ENTERRR');
       this.getRounds();
   }
 
   openRecordRound () {
-    this.scoreCardService.initRound(this.recordRound);
-    this.navController.push(ScoreCardPage, {});
+    if (this.recordRound.course_id !== null) {
+      this.scoreCardService.initRound(this.recordRound);
+      this.navController.push(ScoreCardPage, {});
+    }
+
   }
 
   findRecordRound () {
     this.avarageScore = 0;
     let i = 0;
     let validRounds = this.rounds.filter((round) => {
-      if (round.fullRound && round.validRound) {
+      if (round.validRound) {
         i++;
-        this.avarageScore += round.score;
+        
+        if (round.fullRound) {        
+          this.avarageScore += round.score;
+        } else {
+          this.avarageScore += round.score*2;
+        }
         this.avarageScore = Math.ceil(this.avarageScore / i);
         return true
       } else {
@@ -107,7 +111,6 @@ export class DashboardPage {
 
   async ionViewWillEnter() {
    this.user = await this.storage.get(StorageKeys.userData);
-   console.log('user', this.user);
    this.settings.setUser(this.user);
   }
 

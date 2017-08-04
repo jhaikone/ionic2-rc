@@ -27,7 +27,13 @@ export class ToasterService {
   }
 
   formatResponse (response) {
-    return JSON.parse(response._body).error_description;
+    if (!(response && response._body)) return {};
+    
+    let error = JSON.parse(response._body);
+    if (error.error_description) {
+      return error.error_description;
+    }
+    return error;
   }
 
   invalid(message) {

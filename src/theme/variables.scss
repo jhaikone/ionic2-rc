@@ -61,6 +61,7 @@ $colors: (
 $fonts: (
   extra-big: 100px,
   large: 50px,
+  large-s: 44px,
   big: 38px,
   moderate: 30px,
   avarage: 22px,
@@ -125,6 +126,12 @@ $navbar-ios-background:                   color($colors, dark);
 
 ion-card-title {
   color: $text-color !important;
+}
+
+.md {
+  ion-list-header {
+    background: map-get($colors, 'tab');
+  }
 }
 
 $bar-button-ios:                      color($colors, primary);

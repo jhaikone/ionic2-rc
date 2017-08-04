@@ -1,13 +1,9 @@
 <ion-header>
     <ion-toolbar text-center>
-      <ion-grid>
-        <ion-col>
-          <div><span class="custom-ion-title">{{scoreCardService.getCourse().name}}</span></div>
-          <div class="font-small">
-            <a ion-text color="background-light" class="font-xsmall">{{scoreCardService.getCourse().startedAt | fromServerTime}}</a>
-          </div>
-        </ion-col>
-      </ion-grid>
+      <div><span class="custom-ion-title">{{scoreCardService.getCourse().name}}</span></div>
+      <div class="font-small">
+        <span ion-text color="background-light" class="font-xsmall">{{scoreCardService.getCourse().startedAt | fromServerTime}}</span>
+      </div>
   </ion-toolbar>
 </ion-header>
 
@@ -34,10 +30,12 @@
         <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', 0)}}</span></ion-col>
       </ion-row>
 
-      <ion-row text-right ion-text class="table-info-container center-vertical">
-        <ion-col>Etuysi:</ion-col>
-        <ion-col text-center width-10 ion-text color="primary">{{getScore('front')}}</ion-col>
-      </ion-row>
+      <ion-grid class="table-info-container">
+        <ion-row>
+          <ion-col offset-5></ion-col>
+          <ion-col text-right col-6><span>Etuysi: </span><span ion-text class="primary">{{getScore('front')}}</span></ion-col>
+        </ion-row>
+      </ion-grid>
 
     </div>
 
@@ -64,8 +62,8 @@
       </ion-row>
     </div>
 
-    <div text-right class="padding-horizontal">
-      <span ion-text color="primary" class="score font-large">{{getTotalScore() || ''}}</span>
+    <div text-right class="padding">
+      <span ion-text color="primary" class="score font-large-s">{{getTotalScore() || ''}}</span>
       <span class="font-xxsmall">({{getResult()}})</span>
     </div>
     
@@ -94,10 +92,12 @@
           <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', i+1)}}</span></ion-col>
         </ion-row>
 
-          <ion-row text-right ion-text class="table-info-container center-vertical">
-          <ion-col>Etuysi:</ion-col>
-          <ion-col text-center width-10 ion-text color="primary">{{getScore('front', i+1)}}</ion-col>
+        <ion-row text-right ion-text class="table-info-container center-vertical">
+          <ion-col offset-6></ion-col>
+          <ion-col col-4>Etuysii:</ion-col>
+          <ion-col text-center col-2 ion-text color="primary">{{getScore('front', i+1)}}</ion-col>
         </ion-row>
+
 
       </ng-container>
 

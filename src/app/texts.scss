@@ -74,6 +74,10 @@ html, ion-content, ion-item, ion-title {
   font-size: map-get($fonts, 'large');
 }
 
+.font-large-s {
+  font-size: map-get($fonts, 'large-s');
+}
+
 .font-avarage {
   font-size: map-get($fonts, 'avarage');
 }

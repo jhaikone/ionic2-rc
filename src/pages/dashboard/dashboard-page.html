@@ -20,15 +20,16 @@
   <imagesnapper></imagesnapper>
 
   <ion-row class="relative">
+
     <ion-col width-50 text-center class="border-right">
-      <div><span class="font-small">Ennätyskierro</span></div>
+      <div><span class="font-small">Ennätyskierros</span></div>
       <!--<div><a ion-text class="font-large" color="primary">{{recordRound?.score}}</a></div>-->
-      <button (click)="openRecordRound()" ion-button clear color="primary"><span class="font-large">{{recordRound?.score}}</span></button>
+      <button class="record-button" (click)="openRecordRound()" ion-button clear color="primary"><span class="font-large">{{recordRound?.score || '-'}}</span></button>
     </ion-col>
 
     <ion-col width-50 text-center>
       <div><span class="font-small">Keskiarvo</span></div>
-      <div><a ion-text class="font-large" color="primary">{{avarageScore}}</a></div>
+      <button class="record-button" (click)="openRecordRound()" ion-button clear color="primary"><span class="font-large">{{avarageScore || '-'}} </span></button>
     </ion-col>
 
   </ion-row>

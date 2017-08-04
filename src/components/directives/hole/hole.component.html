@@ -30,14 +30,14 @@
 
   <ion-item>
     <ion-label class="animate color" color="tertiary" [ngClass]="{'primary': holeService.getResult().singlePlayer.noResult}">Pallo taskuun</ion-label>
-    <ion-toggle class="no-padding" [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
+    <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.noResult"></ion-toggle>
   </ion-item>
 
   <ng-container *ngIf="!holeService.getResult().singlePlayer.noResult">
 
     <ion-item>
       <ion-label class="animate color" color="tertiary" [ngClass]="{'primary': holeService.getResult().singlePlayer.fairway}">Avaus väylällä</ion-label>
-      <ion-toggle class="no-padding" [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
+      <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.fairway"></ion-toggle>
     </ion-item>
 
     <ion-row class="center-vertical padding-horizontal custom-input custom-border" *ngFor="let input of inputs; let i = index">
@@ -57,12 +57,12 @@
 
     <ion-item>
       <ion-label class="animate color" color="tertiary" [ngClass]="{'primary': holeService.getResult().singlePlayer.gir}">GiR-osuma</ion-label>
-      <ion-toggle class="no-padding" [(ngModel)]="holeService.getResult().singlePlayer.gir"></ion-toggle>
+      <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.gir"></ion-toggle>
     </ion-item>
 
     <ion-item>
       <ion-label class="animate color" color="tertiary" [ngClass]="{'primary': holeService.getResult().singlePlayer.sandSave}">Hiekkapelastus</ion-label>
-      <ion-toggle class="no-padding" [(ngModel)]="holeService.getResult().singlePlayer.sandSave"></ion-toggle>
+      <ion-toggle [(ngModel)]="holeService.getResult().singlePlayer.sandSave"></ion-toggle>
     </ion-item>
 
   </ng-container>
