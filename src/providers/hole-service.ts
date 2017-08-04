@@ -1,7 +1,5 @@
-import { MOCK_COURSES } from '../mock/mock';
 import  { Injectable, EventEmitter } from '@angular/core';
 
-import  { ApiService } from './api-service';
 import { Settings } from './settings';
 
 @Injectable()
@@ -15,7 +13,7 @@ export class HoleService {
   holes: Array<any> = [];
   playerMode: any = 'singleplayer';
 
-  constructor(private apiService: ApiService, private settings: Settings) {
+  constructor(private settings: Settings) {
 
   }
 
@@ -29,11 +27,7 @@ export class HoleService {
   initHoles(holes) {
     this.holes = holes;
 
-    let option = this.settings.playOption;
-
-    let i = option === 'front' ? 0 : 9; 
-
-  
+    let option = this.settings.playOption;  
 
     if (option !== 'full') {
       let i = option === 'front' ? 9 : 0; 

@@ -11,8 +11,9 @@ hole {
   }
 
   .score-background {
-    background: -webkit-linear-gradient(to left, #94BB69, #428250);
-    background: linear-gradient(to left, #94BB69, #428250);
+    // background: -webkit-linear-gradient(to left, #94BB69, #428250);
+    // background: linear-gradient(to left, #94BB69, #428250);
+    background: map-get($colors, dark);
   }
 
   .custom-input {

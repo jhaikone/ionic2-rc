@@ -2,8 +2,7 @@ import { StorageKeys } from './../../../environment/environment';
 import { ErrorService } from './../../../providers/error-service';
 import { Storage } from '@ionic/storage';
 import { UserDataInterface } from '../../../environment/user-data-interface';
-import { UserDataPage } from './../../../pages/user-data/user-data';
-import { ModalController, AlertController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { Component, Input, ApplicationRef } from '@angular/core';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -52,7 +51,6 @@ export class ImageSnapper {
     base64Image: String = '../assets/img/dashboard/portrait_test.jpg';
 
     constructor(
-      private modalController: ModalController, 
       private storage: Storage, 
       private errorService: ErrorService, 
       private alertController: AlertController,

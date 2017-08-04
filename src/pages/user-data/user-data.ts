@@ -1,7 +1,7 @@
 import { StorageKeys } from './../../environment/environment';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, MenuController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import _ from 'lodash';
 
@@ -21,8 +21,7 @@ export class UserDataPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     private viewCtrl: ViewController,
-    private storage: Storage,
-    private menuCtrl: MenuController
+    private storage: Storage
   ) {}
 
   ionViewDidLoad() {

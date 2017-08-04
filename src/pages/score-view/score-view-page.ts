@@ -86,7 +86,6 @@ export class ScoreViewPage {
   private setTimeStamp (key) {
     let model = this.holeService.getResult().singlePlayer;
     if (model[key]) return;
-
     model[key] = this.helper.timeNow();
   }
 

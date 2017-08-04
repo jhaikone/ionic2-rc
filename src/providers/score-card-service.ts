@@ -1,7 +1,4 @@
 import { StorageKeys } from '../environment/environment';
-import { ScoreCardPage } from './../pages/score-card/score-card-page';
-import { NavController } from 'ionic-angular';
-import { Settings } from './settings';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
@@ -31,7 +28,6 @@ export class ScoreCardService {
   constructor(
     private apiService: ApiService, 
     private helper: Helper, 
-    private settings: Settings,
     private storage: Storage,
   ) {
     console.log('Hello ScoreCardService Provider');
@@ -62,7 +58,6 @@ export class ScoreCardService {
   }
 
   private setMultiplayerCards (holes) {
-    let holeIndex = 0;
     for (let holeIndex = 0; holeIndex < holes.length; holeIndex++) {
       for (let i = 0; i < holes[holeIndex].multiplayers.length; i++) {
 

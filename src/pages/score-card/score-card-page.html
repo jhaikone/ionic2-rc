@@ -92,12 +92,12 @@
           <ion-col class="border-left center-horizontal"><span>{{scoreCardService.getScore('front', i+1)}}</span></ion-col>
         </ion-row>
 
-        <ion-row text-right ion-text class="table-info-container center-vertical">
-          <ion-col offset-6></ion-col>
-          <ion-col col-4>Etuysii:</ion-col>
-          <ion-col text-center col-2 ion-text color="primary">{{getScore('front', i+1)}}</ion-col>
-        </ion-row>
-
+        <ion-grid class="table-info-container">
+          <ion-row>
+            <ion-col offset-5></ion-col>
+            <ion-col text-right col-6><span>Etuysi: </span><span ion-text class="primary">{{getScore('front', i+1)}}</span></ion-col>
+          </ion-row>
+        </ion-grid>
 
       </ng-container>
 

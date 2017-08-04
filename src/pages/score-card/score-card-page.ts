@@ -1,13 +1,10 @@
-import { Settings } from './../../providers/settings';
 import { StorageKeys } from '../../environment/environment';
 import { Storage } from '@ionic/storage';
-import { player } from './../../providers/player-service';
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
 import { ScoreCardService } from '../../providers/score-card-service';
 import { Helper } from '../../providers/helper';
-import { ApiService } from '../../providers/api-service';
 
 @Component({
   selector: 'score-card-view',
@@ -28,10 +25,8 @@ export class ScoreCardPage  {
   constructor (
     public viewCtrl : ViewController,
     public scoreCardService: ScoreCardService,
-    apiService: ApiService,
     public helper: Helper,
     private storage: Storage,
-    private settings: Settings
   ) {
 
     this.holes = scoreCardService.getCard()[0];
@@ -41,7 +36,6 @@ export class ScoreCardPage  {
     this.frontNine = helper.fromToArray(0, 9, this.holes);
     this.backNine = helper.fromToArray(9, 17, this.holes);
     console.log('this', this)
-
     this.initUser();
   }
 

@@ -30,7 +30,7 @@
   <ion-toolbar>
     <ion-row>
       <ion-col col-33 class="text-left"><button ion-button icon-only clear *ngIf="holeService.getIndex() > 0" (click)="previous()"> <ion-icon name="arrow-back"> </ion-icon> </button> </ion-col>
-      <ion-col col-33 text-center><button ion-button (click)="endRound()" *ngIf="holeService.getIndex() === holeService.getHoles().length-1">Näytä tulos</button></ion-col>
+      <ion-col col-33 text-center><button ion-button (click)="endRound()" *ngIf="holeService.getIndex() === holeService.getHoles().length-1">Näytä kierros</button></ion-col>
       <ion-col col-33 class="text-right"><button ion-button icon-only clear *ngIf="holeService.getIndex() < holeService.getHoles().length-1" (click)="next()"><ion-icon name="arrow-forward"></ion-icon></button></ion-col>
 
     </ion-row>

@@ -1,19 +1,15 @@
 import { UserDataPage } from '../user-data/user-data';
 import { Settings } from './../../providers/settings';
 import { RoundInterface } from './../../environment/round-interface';
-import { LoginPage } from './../login/login';
-import { ToasterService } from './../../providers/toaster-service';
 import { UserDataInterface } from '../../environment/user-data-interface';
 import { StorageKeys } from './../../environment/environment';
 import { Storage } from '@ionic/storage';
 
 import { Component } from '@angular/core';
-import { AlertController, NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 
-import { PlayerService } from '../../providers/player-service';
 import { ApiService } from '../../providers/api-service';
 import { ScoreCardService } from '../../providers/score-card-service';
-import { Helper } from '../../providers/helper';
 
 import { CourseSelectPage } from '../course-select/course-select-page';
 import { ScoreCardPage } from '../score-card/score-card-page';
@@ -43,27 +39,22 @@ export class DashboardPage {
 
   constructor (
     private navController: NavController,
-    private alertController: AlertController,
-    private playerService: PlayerService,
     private apiService: ApiService,
     private scoreCardService: ScoreCardService,
-    private helper: Helper,
     private storage: Storage,
-    private toasterService: ToasterService,
     private settings: Settings,
     private modalController: ModalController
   ) {
   }
 
   private async getRounds() {
-    let dash = await this.storage.get(StorageKeys.rounds);
-
     this.rounds = this.settings.reloadRounds ? await this.apiService.getRounds() || [] : await this.storage.get(StorageKeys.rounds) || [];
     this.recordRound = this.findRecordRound();
     if (this.settings.reloadRounds) {
       this.settings.reloadRounds = false;
     }
     await this.storage.set(StorageKeys.rounds, this.rounds);
+    this.rounds.reverse();
   }
 
   ionViewDidEnter() {
@@ -90,23 +81,21 @@ export class DashboardPage {
         } else {
           this.avarageScore += round.score*2;
         }
-        this.avarageScore = Math.ceil(this.avarageScore / i);
         return true
       } else {
         return false;
       }
-     
     });
 
     if (validRounds.length) {
+      this.avarageScore = Math.ceil(this.avarageScore / validRounds.length);
       return validRounds.reduce((prev, current) => {
         return (prev.score < current.score) ? prev : current
       })
     } else {
+      this.avarageScore = 0;
       return this.recordRound;
     }
-    
-
   }
 
   async ionViewWillEnter() {

@@ -1,18 +1,12 @@
-import { Helper } from './helper';
 import { LoadingController } from 'ionic-angular';
 import { FromServerTime } from './../pipes/from-server-time';
-import { UserDataInterface } from '../environment/user-data-interface';
 import { ErrorService } from './error-service';
 import { Settings } from './settings';
 import { StorageKeys } from '../environment/environment';
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Storage } from '@ionic/storage';
-
 import { BackandService } from '@backand/angular2-sdk';
-
-import { MOCK_COURSES, MOCK_ROUNDS, MOCK_ROUND_CARDS } from '../mock/mock';
-
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
@@ -20,9 +14,7 @@ import 'rxjs/add/operator/timeout';
 import _ from 'lodash';
 
 // data urls
-const COURSES_URL = 'https://api.backand.com:443/1/objects/courses';
 const HOLES_URL = 'https://api.backand.com:443/1/objects/holes';
-const ROUNDS_URL = 'https://api.backand.com:443/1/objects/rounds';
 const ACCESS_URL = 'https://api.backand.com:443/token';
 const SESSION_URL = 'https://api.backand.com:443/1/objects/sessions';
 const USER_URL = 'https://api.backand.com:443/1/objects/users';
@@ -34,7 +26,6 @@ const SIGN_UP_URL = 'https://api.backand.com/1/user/signup'
 // custom query urls
 const SCORE_CARD_QUERY_URL = 'https://api.backand.com/1/query/data/score_card';
 const SESSION_QUERY_URL = 'https://api.backand.com/1/query/data/round_ids';
-const USER_EMAIL_QUERY_URL = 'https://api.backand.com/1/query/data/user_email';
 
 
 @Injectable()
@@ -51,7 +42,6 @@ export class ApiService {
     private errorService: ErrorService,
     private loadingCtrl: LoadingController,
     private fromServerTime: FromServerTime,
-    private helper: Helper,
     private backandService: BackandService
   ) {
     console.log('BACKANDSERVICE', this.backandService)
@@ -70,12 +60,6 @@ export class ApiService {
   }
 
   getCourses () {
-    /*
-   return this.http.get(COURSES_URL, this.options)
-      .timeout(10000)
-      .toPromise()
-      .then(res => res.json(), err => Promise.reject(err)
-    ); */
     return this.backandService.object.getList('courses', {pageSize: 200, sort: [ {"fieldName": "name", "order": "asc"} ]}).then((res) => {
       console.log('NEW backandservice', res)
       return res;
@@ -134,10 +118,6 @@ export class ApiService {
       });
   }
 
-  getCourseData (id) {
-    return new Promise((resolve, reject) => resolve(MOCK_COURSES[0]));
-  }
-
   async getRounds () {
     let userData = await this.storage.get(StorageKeys.userData);
     console.log('getting rounds with data', userData);
@@ -193,7 +173,7 @@ export class ApiService {
   async updateUser() {
     let userData = await this.storage.get(StorageKeys.userData);
     console.log('uiserCDate', userData);
-    return this.http.put(USER_URL + '/'+userData.userId, userData, this.options)
+    this.http.put(USER_URL + '/'+userData.userId, userData, this.options)
       .timeout(10000)
       .toPromise()
       .then(res => res, err => this.errorService.catch(err)
@@ -203,13 +183,7 @@ export class ApiService {
   setRounds (holes: Array<any>) {
       return this.storage.get(StorageKeys.userData).then((data) => {
         console.log('DATA', data)
-        let access_token:string = 'Bearer ' + data.access_token;
-        let auth_token: { header_name: string, header_value: string } = {
-            header_name: "Authorization", 
-            header_value: access_token
-        };
 
-        let opt = new RequestOptions({headers: this.authHeader(auth_token)})
         console.log('holes', holes);
         console.log('getCourse', this.settings.courseId);
         let bulks = this.createRoundsRequest(holes);

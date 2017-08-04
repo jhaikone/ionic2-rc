@@ -2,11 +2,10 @@ import { Helper } from './../../providers/helper';
 import { Settings } from './../../providers/settings';
 import { SignUpPage } from '../sign-up/sign-up';
 import { ToasterService } from '../../providers/toaster-service';
-import { InformationPage } from '../information/information-page';
 import { StorageKeys } from '../../environment/environment';
 
 import { ApiService } from '../../providers/api-service';
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -99,7 +98,7 @@ export class LoginPage {
     this.marginLeft = 0;
   }
 
-  private async signIn ($event) {
+  async signIn ($event) {
     if (!this.loginForm.valid) {
       this.pushInvalidToasts();
       return;
@@ -132,7 +131,6 @@ export class LoginPage {
   }
 
   private pushInvalidToasts() {
-    let messages = [];
     if (this.loginForm.controls.email.invalid) {
       this.toasterService.invalid('Email kenttä ei voi olla tyhjä');
     }

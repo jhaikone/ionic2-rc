@@ -1,6 +1,3 @@
-import { ApiService } from './../../../providers/api-service';
-import { StorageKeys } from '../../../environment/environment';
-import { Storage } from '@ionic/storage';
 import { RoundInterface } from '../../../environment/round-interface';
 import { ScoreCardPage } from './../../../pages/score-card/score-card-page';
 import { ScoreCardService } from '../../../providers/score-card-service';
@@ -74,9 +71,7 @@ export class GiantList implements OnInit, OnChanges {
     constructor(
         private renderer: Renderer, 
         private scoreCardService: ScoreCardService, 
-        private navCtrl: NavController,
-        private storage: Storage,
-        private apiService: ApiService
+        private navCtrl: NavController
     ) {}
 
     ngOnInit () {
@@ -99,6 +94,7 @@ export class GiantList implements OnInit, OnChanges {
     }
 
     async getRound (selected) {
+        console.log('selected', selected)
         await this.scoreCardService.initRound(selected);
         this.navCtrl.push(ScoreCardPage, {});
     }

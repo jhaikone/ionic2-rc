@@ -1,9 +1,8 @@
-import { ToasterService } from '../../providers/toaster-service';
 import { ErrorService } from '../../providers/error-service';
 import { StorageKeys } from './../../environment/environment';
 import { Settings } from '../../providers/settings';
 import { Storage } from '@ionic/storage';
-import { Component, ApplicationRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import { CoursePage } from '../course/course-page';
@@ -19,6 +18,8 @@ export class CourseSelectPage {
 
   courses: Array<any> = [];
   loadFailed: boolean = false;
+  courseFilter: String = 'all';
+  recentCourses: Array<any> = [];
 
   constructor(
     private apiService: ApiService, 
@@ -45,13 +46,33 @@ export class CourseSelectPage {
       this.fetchCourses();
     }
 
+    let playedCourses = await this.storage.get(StorageKeys.rounds);
+
+    let blackList = [];
+    this.recentCourses = playedCourses.filter((course) => {
+      if (blackList.indexOf(course.course_id) > -1) {
+        return false; 
+      }
+      blackList.push(course.course_id);
+      return true;
+    });
+    this.recentCourses.reverse();
+    console.log('courses', this.courses)
+    console.log('recentcourses', this.recentCourses)
   }
+
 
   courseSelected(course) {
     console.log('course', course)
     this.scoreCardService.setCourse(course);
     this.settings.courseId = course.id;
     this.navController.push(CoursePage, {});
+  }
+
+  findCourse (course) {
+    let found = this.courses.find((c => c.id === course.course_id));
+    console.log('found', found);
+    this.courseSelected(found);
   }
 
   async getItems(event) {

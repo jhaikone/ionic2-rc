@@ -1,4 +1,3 @@
-import { UserDataInterface } from './user-data-interface';
 export enum DirectionEnum {
   Next,
   Previous

@@ -1,9 +1,7 @@
 import { Settings } from '../../../providers/settings';
 import { ScoreCardService } from './../../../providers/score-card-service';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { HoleService } from '../../../providers/hole-service';
-
-import _ from 'lodash';
 
 @Component({
   selector: 'hole',

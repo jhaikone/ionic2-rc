@@ -14,9 +14,6 @@ import { ApiService } from '../../providers/api-service';
 
 import  { ScoreViewPage } from '../score-view/score-view-page';
 
-
-const NUMBER_PATTERN = new RegExp('^[+]?([1-9][0-9]*(?:[\.][0-9]*)?|0*\.0*[1-9][0-9]*)(?:[eE][+-][0-9]+)?$');
-
 const TEE_NAMES = {
   red: 'Punainen',
   blue: 'Sininen',
@@ -85,19 +82,19 @@ export class CoursePage {
   }
 
   initTeeList() {
-    if (this.course.red) {
+    if (Number(this.course.red)) {
       this.teeList.push({key: 'red', metre: this.course.red, name: TEE_NAMES.red})
     }
-    if (this.course.blue) {
+    if (Number(this.course.blue)) {
       this.teeList.push({key: 'blue', metre: this.course.blue, name: TEE_NAMES.blue})
     }
-    if (this.course.yellow) {
+    if (Number(this.course.yellow)) {
       this.teeList.push({key: 'yellow', metre: this.course.yellow, name: TEE_NAMES.yellow})
     }
-    if (this.course.white) {
+    if (Number(this.course.white)) {
       this.teeList.push({key: 'white', metre: this.course.white, name: TEE_NAMES.white})
     }
-    if (this.course.black >= this.course.white ) {
+    if (Number(this.course.black) && Number(this.course.black) >= Number(this.course.white) ) {
       this.teeList.push({key: 'black', metre: this.course.black, name: TEE_NAMES.black})
     }
 

@@ -5,20 +5,38 @@
 </ion-header>
 
 <ion-content padding>
-  
+
+  <ion-segment [(ngModel)]="courseFilter" color="primary">
+    <ion-segment-button value="all">
+      Kaikki kentät
+    </ion-segment-button>
+    <ion-segment-button value="recent">
+      Viimeksi pelatut
+    </ion-segment-button>
+  </ion-segment>
+
   <div *ngIf="loadFailed" text-center padding>
-      <div>Hups, jokin meni pieleen. Hae kentät uudelleen alla olevasta napista</div>
-      <button (click)="fetchCourses()" ion-button>Hae kentät uudelleen</button>
+    <div>Shank, jokin meni pieleen. Hae kentät uudelleen alla olevasta napista</div>
+    <button (click)="fetchCourses()" ion-button>Hae kentät uudelleen</button>
   </div>
 
-  <ion-list>
-    <button class="list-item" *ngFor="let course of courses" ion-item (click)="courseSelected(course)">{{course.name}}</button>
-  </ion-list>
+  <div *ngIf="courseFilter === 'all'">
+    <ion-searchbar placeholder="Etsi kenttä" (ionInput)="getItems($event)"></ion-searchbar>
+
+    <ion-list>
+      <button class="list-item" *ngFor="let course of courses" ion-item (click)="courseSelected(course)">{{course.name}}</button>
+    </ion-list>
+  </div>
+
+  <div *ngIf="courseFilter === 'recent'">
+    <ion-list>
+      <button class="list-item" *ngFor="let course of recentCourses" ion-item (click)="findCourse(course)">{{course.name}}</button>
+    </ion-list>
+  </div>
 
 </ion-content>
 
 <ion-footer>
   <ion-navbar color="dark">
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   </ion-navbar>
 </ion-footer>

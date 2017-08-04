@@ -2,12 +2,10 @@ import { DashboardPage } from '../dashboard/dashboard-page';
 import { StorageKeys } from './../../environment/environment';
 import { Storage } from '@ionic/storage';
 import { ApiService } from './../../providers/api-service';
-import { SignUpConfirmationPage } from './sign-up-confirmation/sign-up-confirmation';
-import { ModalService } from '../../providers/modal-service';
 import { ToasterService } from '../../providers/toaster-service';
 import { CustomValidator } from '../../environment/custom-validator';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
 
 @Component({

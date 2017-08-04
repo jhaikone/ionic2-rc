@@ -7,15 +7,9 @@ import { ErrorService } from '../providers/error-service';
 import { LoginPage } from './../pages/login/login';
 import { StorageKeys } from './../environment/environment';
 import { Storage } from '@ionic/storage';
-import { InformationPage } from '../pages/information/information-page';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, LoadingController, ModalController, AlertController, ViewController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-
-import { ScoreViewPage } from '../pages/score-view/score-view-page';
-import { CourseSelectPage } from '../pages/course-select/course-select-page';
-import { DashboardPage } from '../pages/dashboard/dashboard-page';
-
 import { Keyboard } from '@ionic-native/Keyboard';
 
 
@@ -27,13 +21,8 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav; 
   @ViewChild(ViewController) viewController: ViewController; 
-
-    //rootPage = InformationPage;
-  // rootPage = ScoreViewPage;
-  // rootPage = CourseSelectPage;
   rootPage = LoginPage;
   hoursLeft: any;
-  // rootPage = DashboardPage;
 
   constructor(
     private platform: Platform, 
@@ -52,12 +41,12 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
       console.log('PLATFORM', platform)
       this.errorService.setRootPage(LoginPage);
       if (platform.is('ios') || platform.is('android')) {
-        keyboard.disableScroll(true);
+        this.keyboard.disableScroll(true);
       }
       this.platform.registerBackButtonAction ( () => this.doHardwareBackButtonAction() );
       

@@ -143,6 +143,7 @@ import { FromServerTime } from '../pipes/from-server-time';
     StatusBar,
     GooglePlus,
     Camera,
+    Keyboard,
     ImagePicker,
     SplashScreen
     // HoleService,
